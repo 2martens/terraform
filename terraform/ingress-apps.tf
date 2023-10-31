@@ -1,5 +1,5 @@
 module "argocd_domain" {
-  source    = "./modules/domain"
+  source = "modules/domain"
   domain    = "2martens.de"
   subdomain = "argocd"
   ipv4      = "49.13.77.70"
@@ -7,7 +7,7 @@ module "argocd_domain" {
 }
 
 module "api_domain" {
-  source    = "./modules/domain"
+  source = "modules/domain"
   domain    = "2martens.de"
   subdomain = "api"
   ipv4      = "49.13.77.70"
