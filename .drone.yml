@@ -31,6 +31,7 @@ steps:
       api_token:
         from_secret: tfc_api_token
       cloud_organization: 2martens
+      path: terraform
       args: plan
 
 trigger:
