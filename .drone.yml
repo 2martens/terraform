@@ -34,5 +34,9 @@ steps:
       args: plan
 
 trigger:
+  event:
+    include:
+      - custom
+      - pull_request
   branch:
     - main
