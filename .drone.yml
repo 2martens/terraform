@@ -36,6 +36,7 @@ steps:
 trigger:
   event:
     include:
+      - push
       - custom
       - pull_request
   branch:
