@@ -1,0 +1,7 @@
+[kubernetes]
+%{ for ip in k8s_servers ~}
+${ip} ansible_python_interpreter=/usr/bin/python3
+%{ endfor ~}
+
+[ci]
+${devops} ansible_python_interpreter=/usr/bin/python3

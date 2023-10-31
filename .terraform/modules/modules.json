@@ -1,0 +1,59 @@
+{
+  "Modules": [
+    {
+      "Key": "",
+      "Source": "",
+      "Dir": "."
+    },
+    {
+      "Key": "api_domain",
+      "Source": "./modules/domain",
+      "Dir": "modules/domain"
+    },
+    {
+      "Key": "argocd_domain",
+      "Source": "./modules/domain",
+      "Dir": "modules/domain"
+    },
+    {
+      "Key": "drone_domain",
+      "Source": "./modules/domain",
+      "Dir": "modules/domain"
+    },
+    {
+      "Key": "gitea_domain",
+      "Source": "./modules/domain",
+      "Dir": "modules/domain"
+    },
+    {
+      "Key": "helm-repo_domain",
+      "Source": "./modules/domain",
+      "Dir": "modules/domain"
+    },
+    {
+      "Key": "keycloak_domain",
+      "Source": "./modules/domain",
+      "Dir": "modules/domain"
+    },
+    {
+      "Key": "nextcloud_domain",
+      "Source": "./modules/domain",
+      "Dir": "modules/domain"
+    },
+    {
+      "Key": "personal_website_domain",
+      "Source": "./modules/domain",
+      "Dir": "modules/domain"
+    },
+    {
+      "Key": "statping_domain",
+      "Source": "./modules/domain",
+      "Dir": "modules/domain"
+    },
+    {
+      "Key": "wahlrecht_domain",
+      "Source": "./modules/domain",
+      "Dir": "modules/domain"
+    }
+  ]
+}
