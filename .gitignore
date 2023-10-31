@@ -1,0 +1,16 @@
+/.*
+!/.gitignore
+!/.gitattributes
+!/.editorconfig
+!/.run/
+HELP.md
+**/*.log
+**/*.hprof
+**/generated/**
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
