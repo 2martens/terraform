@@ -30,9 +30,8 @@ steps:
     settings:
       api_token:
         from_secret: tfc_api_token
-      cloud_organization: 2martens
       path: terraform
-      args: upload -workspace cloud-configuration -directory .
+      args: plan
 
 trigger:
   event:
