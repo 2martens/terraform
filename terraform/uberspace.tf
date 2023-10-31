@@ -1,6 +1,6 @@
 // Identity management
 module "keycloak_domain" {
-  source = "modules/domain"
+  source      = "./modules/domain"
   domain      = "2martens.de"
   subdomain   = "id"
   ipv4        = "95.143.172.184"
@@ -13,7 +13,7 @@ module "keycloak_domain" {
 
 // Angular frontends
 module "wahlrecht_domain" {
-  source = "modules/domain"
+  source    = "./modules/domain"
   domain    = "2martens.de"
   subdomain = "wahlrecht"
   ipv4      = "185.26.156.43"
@@ -22,7 +22,7 @@ module "wahlrecht_domain" {
 
 // CI/CD
 module "gitea_domain" {
-  source = "modules/domain"
+  source    = "./modules/domain"
   domain    = "2martens.de"
   subdomain = "git"
   ipv4      = "185.26.156.91"
@@ -30,7 +30,7 @@ module "gitea_domain" {
 }
 
 module "helm-repo_domain" {
-  source = "modules/domain"
+  source    = "./modules/domain"
   domain    = "2martens.de"
   subdomain = "repo"
   ipv4      = "185.26.156.49"
@@ -39,7 +39,7 @@ module "helm-repo_domain" {
 
 // Monitoring
 module "statping_domain" {
-  source = "modules/domain"
+  source    = "./modules/domain"
   domain    = "2martens.de"
   subdomain = "status"
   ipv4      = "185.26.156.33"
@@ -48,7 +48,7 @@ module "statping_domain" {
 
 // Personal Website
 module "personal_website_domain" {
-  source = "modules/domain"
+  source      = "./modules/domain"
   domain      = "2martens.de"
   subdomain   = ""
   ipv4        = "185.26.156.65"
@@ -68,7 +68,7 @@ resource "inwx_nameserver_record" "twomartens_de_google-verification_txt" {
 
 // Nextcloud
 module "nextcloud_domain" {
-  source = "modules/domain"
+  source      = "./modules/domain"
   domain      = "2martens.de"
   subdomain   = "cloud"
   ipv4        = "185.26.156.194"

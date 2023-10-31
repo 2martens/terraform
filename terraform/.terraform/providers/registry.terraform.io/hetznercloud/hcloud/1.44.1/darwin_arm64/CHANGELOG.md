@@ -2,6 +2,7 @@
 
 ## [1.44.1](https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.44.0...v1.44.1) (2023-10-05)
 
+
 ### Bug Fixes
 
 * failed to load plugin
@@ -9,10 +10,12 @@
 
 ## [1.44.0](https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.43.0...v1.44.0) (2023-10-04)
 
+
 ### Features
 
 * setup initial plugin framework
   skaffolding ([#749](https://github.com/hetznercloud/terraform-provider-hcloud/issues/749)) ([5c284e2](https://github.com/hetznercloud/terraform-provider-hcloud/commit/5c284e293dd2e4a8ad83ae9b2784fd3b8261c323))
+
 
 ### Bug Fixes
 
@@ -20,6 +23,7 @@
   expected ([6ef7467](https://github.com/hetznercloud/terraform-provider-hcloud/commit/6ef7467b198ea1807715d7bc99e03fbad62688a2))
 
 ## [1.43.0](https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.42.1...v1.43.0) (2023-09-20)
+
 
 ### Features
 
@@ -29,6 +33,7 @@
   servers ([#755](https://github.com/hetznercloud/terraform-provider-hcloud/issues/755)) ([0c477a3](https://github.com/hetznercloud/terraform-provider-hcloud/commit/0c477a32b569c2cac455cf2d6131d8c62519803e))
 
 ## [1.42.1](https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.42.0...v1.42.1) (2023-08-14)
+
 
 ### Bug Fixes
 
@@ -43,10 +48,12 @@
 
 ## [1.42.0](https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.41.0...v1.42.0) (2023-07-13)
 
+
 ### Features
 
 * **image:** add filter include_deprecated to
   datasources ([#685](https://github.com/hetznercloud/terraform-provider-hcloud/issues/685)) ([#717](https://github.com/hetznercloud/terraform-provider-hcloud/issues/717)) ([9f039ba](https://github.com/hetznercloud/terraform-provider-hcloud/commit/9f039ba35b9b0e94f4f5581099031e11f001a6d8))
+
 
 ### Bug Fixes
 
@@ -58,6 +65,7 @@
 
 ## [1.41.0](https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.40.0...v1.41.0) (2023-06-22)
 
+
 ### Features
 
 * **network:** add support for exposing routes to vswitch
@@ -65,10 +73,12 @@
 
 ## [1.40.0](https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.39.0...v1.40.0) (2023-06-13)
 
+
 ### Features
 
 * deprecation info for server
   types ([#691](https://github.com/hetznercloud/terraform-provider-hcloud/issues/691)) ([9e6a22c](https://github.com/hetznercloud/terraform-provider-hcloud/commit/9e6a22cf2d5cc1e1859ec622c649978b83207938))
+
 
 ### Bug Fixes
 
@@ -84,15 +94,16 @@
 * feat(server_type): return included traffic by @apricote
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/680
 
+
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.38.2...v1.39.0
 
 ## v1.38.2
 
 ### What's Changed
-
 * ci: run e2etests in parallel by @apricote in https://github.com/hetznercloud/terraform-provider-hcloud/pull/660
 * fix(server): avoid recreate when using official image by ID by @apricote
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/661
+
 
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.38.1...v1.38.2
 
@@ -114,6 +125,7 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 * fix(deps): update module golang.org/x/crypto to v0.8.0 by @renovate
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/652
 
+
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.38.0...v1.38.1
 
 ## v1.38.0
@@ -132,12 +144,12 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/651
 * feat: add support for ARM APIs by @apricote in https://github.com/hetznercloud/terraform-provider-hcloud/pull/654
 
+
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.37.0...v1.38.0
 
 ## v1.37.0
 
 ### What's Changed
-
 * docs: Add missing location (hil) by @akirak in https://github.com/hetznercloud/terraform-provider-hcloud/pull/606
 * docs: replace outdated example OS image by @apricote
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/615
@@ -171,7 +183,6 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/644
 
 ### New Contributors
-
 * @akirak made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/606
 * @samcday made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/631
 
@@ -190,12 +201,12 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 * fix(lb): add missing fields to data source by @apricote
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/605
 
+
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.36.1...v1.36.2
 
 ## v1.36.1
 
 ### What's Changed
-
 * chore: update hcloud-go to v1.37.0 by @apricote in https://github.com/hetznercloud/terraform-provider-hcloud/pull/591
 * fix(server): make sure that each network block is unique by @apricote
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/594
@@ -205,6 +216,7 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/593
 * fix: multiple resources break when parent resource is recreated by @apricote
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/596
+
 
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.36.0...v1.36.1
 
@@ -230,7 +242,6 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/590
 
 ### New Contributors
-
 * @apricote made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/582
 
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.35.2...v1.36.0
@@ -254,7 +265,6 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/568
 
 ### New Contributors
-
 * @komandar made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/559
 * @ekeih made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/564
 
@@ -271,7 +281,6 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/553
 
 ### New Contributors
-
 * @acuteaura made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/553
 
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.35.0...v1.35.1
@@ -285,6 +294,7 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 * Add support of using deprecated images by @LKaemmerling
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/549
 
+
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.34.3...v1.35.0
 
 ## v1.34.3
@@ -293,6 +303,7 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 
 * Create server without primary ips: Fix edge case bug + add test by @4ND3R50N
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/546
+
 
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.34.2...v1.34.3
 
@@ -303,13 +314,14 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 * Server Create without primary IPs via public_net by @4ND3R50N
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/544
 
+
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.34.1...v1.34.2
 
 ## v1.34.1
 
 ### What's Changed
-
 * Add primary ip documentation by @4ND3R50N in https://github.com/hetznercloud/terraform-provider-hcloud/pull/540
+
 
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.34.0...v1.34.1
 
@@ -325,7 +337,6 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 * Add support for primary IPs by @4ND3R50N in https://github.com/hetznercloud/terraform-provider-hcloud/pull/538
 
 ### New Contributors
-
 * @guineveresaenger made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/525
 * @02bensch made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/536
 
@@ -342,7 +353,6 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 * Use Go 1.18 for building by @LKaemmerling in https://github.com/hetznercloud/terraform-provider-hcloud/pull/523
 
 ### New Contributors
-
 * @4ND3R50N made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/522
 * @CyberShadow made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/501
 
@@ -357,12 +367,12 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 * hcloud_servcer resource: Retry on enabling rescue (reset call) by @LKaemmerling
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/511
 
+
 **Full Changelog**: https://github.com/hetznercloud/terraform-provider-hcloud/compare/v1.33.0...v1.33.1
 
 ## v1.33.0
 
 ### What's Changed
-
 * Update image.html.md by @FloMaetschke in https://github.com/hetznercloud/terraform-provider-hcloud/pull/494
 * docs: Add missing location (ash) by @dhoppe in https://github.com/hetznercloud/terraform-provider-hcloud/pull/496
 * Add missing argument for resource hcloud_ssh_key by @dhoppe
@@ -373,7 +383,6 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
   in https://github.com/hetznercloud/terraform-provider-hcloud/pull/500
 
 ### New Contributors
-
 * @FloMaetschke made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/494
 * @dhoppe made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/496
 
@@ -382,7 +391,6 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 ## v1.32.2
 
 ### What's Changed
-
 * server: resource: fix spelling by @xdevs23 in https://github.com/hetznercloud/terraform-provider-hcloud/pull/480
 * Use our own E2E Test runner by @LKaemmerling in https://github.com/hetznercloud/terraform-provider-hcloud/pull/481
 * Mark the hcloud_token sensitive by @fhofherr in https://github.com/hetznercloud/terraform-provider-hcloud/pull/479
@@ -392,7 +400,6 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 * fix: typo by @RobertHeim in https://github.com/hetznercloud/terraform-provider-hcloud/pull/488
 
 ### New Contributors
-
 * @xdevs23 made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/480
 * @RobertHeim made their first contribution in https://github.com/hetznercloud/terraform-provider-hcloud/pull/486
 
@@ -509,7 +516,6 @@ Learn more: https://www.hetzner.com/news/arm64-cloud
 ## 1.27.0 (June 17, 2021)
 
 FEATURES:
-
 * `hcloud_firewall` resource & datasource: Support GRE & ESP protocol in firewall rules
 
 ## 1.26.2 (May 28, 2021)
@@ -521,7 +527,6 @@ BUG FIXES:
 ## 1.26.1 (May 28, 2021)
 
 BUG FIXES:
-
 * `hcloud_firewall` datasource: `destination_ips` missed in definition
 * `hcloud_certificate` resource: panic when parsing certificate chains
   (#359)
@@ -535,37 +540,31 @@ BUG FIXES:
 ## 1.25.2 (March 16, 2021)
 
 BUG FIXES:
-
 * `hcloud_firewall` resource: plugin normalized CIDRs silently.
 
 ## 1.25.1 (March 10, 2021)
 
 BUG FIXES:
-
 * `hcloud_firewall` documentation: fix name of `firewall_ids` property.
 
 ## 1.25.0 (March 10, 2021)
 
 FEATURES:
-
 * **New Resource**: `hcloud_snapshot`
 * **New Resource**: `hcloud_firewall`
 * **New Data Source**: `hcloud_firewall`
 
 BUG FIXES:
-
 * `hcloud_server` resource: image had a wrong type (int instead of string) when a server was created from a snapshot
 * `hcloud_load_balancer_target` resource: force recreation when changing a target attribute (server_id, ip or
   label_selector)
 
 NOTES:
-
 * The provider is now built with Go 1.16
 
 ## 1.24.1 (February 04, 2021)
 
 BUG FIXES:
-
 * `hcloud_volume` datasource: id is now marked as computed to allow more setups where the id is unknown
 * `hcloud_ssh_key` datasource: id is now marked as computed to allow more setups where the id is unknown
 * `hcloud_network` datasource: id is now marked as computed to allow more setups where the id is unknown
@@ -576,7 +575,6 @@ BUG FIXES:
 ## 1.24.0 (January 12, 2021)
 
 FEATURES:
-
 * **New Datasource**: `hcloud_server_type`
 * **New Datasource**: `hcloud_server_types`
 * New `network` property for `hcloud_server` resource.
@@ -598,11 +596,9 @@ Notes:
 ## 1.23.0 (November 03, 2020)
 
 FEATURES:
-
 * `hcloud_network_subnet` supports vSwitch Subnets
 
 Notes:
-
 * The provider was updated to use the Terraform Plugin SDK v2.
 
 ## 1.22.0 (October 05, 2020)
@@ -612,7 +608,6 @@ FEATURES:
 * All `hcloud_*` resources are now importable.
 
 BUG FIXES:
-
 * `hcloud_rdns` resource: It is now possible to import the resource as documented.
 
 ## 1.21.0 (September 09, 2020)
@@ -626,13 +621,11 @@ CHANGED:
   `github.com/hetznercloud/terraform-provider-hcloud`
 
 ## 1.20.1 (August 18, 2020)
-
 BUG FIXES:
 
 * `hcloud_certificate` resource: Updating the certificate needs to recreate the certificate.
 
 NOTES:
-
 * The provider is now build with Go 1.15
 * We overhauled parts of the underlying test suite
 
@@ -660,13 +653,11 @@ CHANGED:
   on the subnet using `depends_on` to work around this issue.
 
 BUG FIXES:
-
 * Enable and Disable `proxyprotocol` on a Load Balancer didn't work after creation
 * Deleted all Load Balancer services when you changed the `listen_port` of one service
 * `hcloud_load_balancer_target` was not idempotent when you add a target that was already defined
 
 NOTES:
-
 * Update to hcloud-go v1.19.0 to fix the bad request issue
 
 ## 1.19.1 (July 16, 2020)
@@ -722,14 +713,12 @@ BUG FIXES:
 ## 1.16.0 (March 24, 2020)
 
 BUG FIXES:
-
 * resource/hcloud_ssh_key: Fix panic when we update labels in SSH keys
 * resource/hcloud_server_network: Fix alias ips ignored on creation of server network
 * resource/hcloud_server: Use first assigned `ipv6_address` as value instead of the network address. **Attention: This
   can be a breaking change**
 
 NOTES:
-
 * This release uses Terraform Plugin SDK v1.8.0.
 
 ## 1.15.0 (November 11, 2019)
@@ -739,13 +728,11 @@ IMPROVEMENTS:
 * resources/hcloud_server: Add retry mechanism for enabling the rescue mode.
 
 NOTES:
-
 * This release uses Terraform Plugin SDK v1.3.0.
 
 ## 1.14.0 (October 01, 2019)
 
 NOTES:
-
 * This release uses the Terraform Plugin SDK v1.1.0.
 
 ## 1.13.0 (September 19, 2019)
@@ -794,7 +781,6 @@ FEATURES:
 ## 1.10.0 (May 14, 2019)
 
 NOTES:
-
 * This release is Terraform 0.12-RC1+ compatible.
 
 ## 1.9.0 (March 15, 2019)
@@ -818,24 +804,20 @@ NOTES:
 ## 1.8.1 (March 12, 2019)
 
 BUG FIXES:
-
 * Fix an error on server creation, when a image id was given instead of a image name.
 * Fix an missing error on `terraform plan`, when using an image name which does not exists.
 
 ## 1.8.0 (February 06, 2019)
 
 FEATURES:
-
 * **New Datasource**: `hcloud_server` Lookup a server.
 
 IMPROVEMENTS:
-
 * Add API token length validation
 
 ## 1.7.0 (December 18, 2018)
 
 FEATURES:
-
 * **New Datasource**: `hcloud_location` Lookup a location.
 * **New Datasource**: `hcloud_locations` Lookup all locations.
 * **New Datasource**: `hcloud_datacenter` Lookup a datacenter.
@@ -845,21 +827,17 @@ FEATURES:
 ## 1.6.0 (December 03, 2018)
 
 IMPROVEMENTS:
-
 * datasource/hcloud_image: Add `most_recent` attribute to get the latest image when multiple images has the same label.
 
 BUG FIXES:
-
 * Fix an error on volume_attachment creation, when server was locked.
 
 ## 1.5.0 (November 16, 2018)
 
 FEATURES:
-
 * **New Resource**: `hcloud_volume_attachment` Manage the attachment between volumes and servers.
 
 IMPROVEMENTS:
-
 * resources/hcloud_server: Add `backups` attribute to enable or disable backups.
 
 NOTES:
@@ -884,9 +862,7 @@ NOTES:
 FEATURES:
 
 - **New Resource**: `hcloud_rnds` Manage reverse DNS entries for servers and Floating IPs.
-
 * **New Resource**: `hcloud_floating_ip_assignment` Manage the association between Floating IPs and servers.
-
 - **New Datasource**: `hcloud_floating_ip` Lookup Floating ips.
 - **New Datasource**: `hcloud_image` Lookup images.
 - **New Datasource**: `hcloud_ssh_key` Lookup SSH Keys.
