@@ -25,14 +25,14 @@ steps:
       - ssh-keyscan -H git.2martens.de > $HOME/.ssh/known_hosts 2>/dev/null
       - git clone ssh://giteajim@git.2martens.de:22/2martens/terraform.git .
       - git checkout $DRONE_COMMIT
-  - name: terraform plan
+  - name: terraform upload configuration
     image: 2martens/terraform-drone-plugin
     settings:
       api_token:
         from_secret: tfc_api_token
       cloud_organization: 2martens
       path: terraform
-      args: plan
+      args: upload -workspace cloud-configuration -directory .
 
 trigger:
   event:
