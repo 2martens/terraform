@@ -1,6 +1,6 @@
 ---
 kind: pipeline
-name: run speculative plan
+name: run plan
 type: docker
 
 platform:
@@ -24,20 +24,20 @@ steps:
       - chmod 600 $HOME/.ssh/known_hosts
       - ssh-keyscan -H git.2martens.de > $HOME/.ssh/known_hosts 2>/dev/null
       - git clone ssh://giteajim@git.2martens.de:22/2martens/terraform.git .
-      - git checkout $DRONE_COMMIT
+      - git checkout main
   - name: terraform upload configuration
     image: 2martens/terraform-drone-plugin
     settings:
       api_token:
         from_secret: tfc_api_token
       path: terraform
-      args: plan
+      auto_approve: false
+      speculative: false
 
 trigger:
   event:
     include:
       - push
       - custom
-      - pull_request
   branch:
     - main
