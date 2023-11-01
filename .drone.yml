@@ -25,7 +25,7 @@ steps:
       - ssh-keyscan -H git.2martens.de > $HOME/.ssh/known_hosts 2>/dev/null
       - git clone ssh://giteajim@git.2martens.de:22/2martens/terraform.git .
       - git checkout main
-  - name: terraform upload configuration
+  - name: terraform apply plan
     image: 2martens/terraform-drone-plugin
     settings:
       api_token:
@@ -33,6 +33,10 @@ steps:
       path: terraform
       auto_approve: false
       speculative: false
+  - name: show output
+    image: alpine
+    commands:
+      - cat terraform_output
 
 trigger:
   event:
