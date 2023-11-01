@@ -154,7 +154,7 @@ resource "hcloud_server" "server_devops" {
   }
   firewall_ids             = [hcloud_firewall.basic-firewall.id]
   ssh_keys                 = [data.hcloud_ssh_key.macos.id]
-  user_data                = file("cloud-init.yaml")
+  user_data                = file("${path.module}/templates/cloud-init.tftpl")
   shutdown_before_deletion = true
 
   lifecycle {
@@ -196,9 +196,12 @@ resource "hcloud_server" "server_k8s_test" {
   labels = {
     "kubernetes" : "yes"
   }
-  firewall_ids             = [hcloud_firewall.basic-firewall.id, hcloud_firewall.k8s-firewall.id]
-  ssh_keys                 = [data.hcloud_ssh_key.macos.id]
-  user_data                = file("cloud-init.yaml")
+  firewall_ids = [hcloud_firewall.basic-firewall.id, hcloud_firewall.k8s-firewall.id]
+  ssh_keys     = [data.hcloud_ssh_key.macos.id]
+  user_data = templatefile("${path.module}/templates/cloud-init-k8s.tftpl", {
+    node_ip : "10.0.0.2",
+    cluster_token : "DkZaYY5JUAptUtq4HbXVb2x4HHD3HP7U"
+  })
   shutdown_before_deletion = true
 
   network {

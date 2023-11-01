@@ -31,5 +31,7 @@ runcmd:
   - apt install /tmp/hc-utils_0.0.4-1_all.deb
   - mkdir -p /var/snap/microk8s/common/
   - curl https://repo.2martens.de/files/microk8s-config.yaml -o /var/snap/microk8s/common/.microk8s.yaml
+  - sed -i -e '/\$NODE_IP/s//${node_ip}/' /var/snap/microk8s/common/.microk8s.yaml
+  - sed -i -e '/\$CLUSTER_TOKEN/s//${cluster_token}/' /var/snap/microk8s/common/.microk8s.yaml
   - snap install microk8s --channel 1.28-strict/stable
   - reboot
