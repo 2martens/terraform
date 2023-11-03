@@ -1,3 +1,23 @@
+resource "inwx_nameserver_record" "worker_aaaa" {
+  count = var.number_worker_nodes
+
+  domain  = var.domain
+  name    = format("%s-%d.%s", "node", count.index, local.kube_api_server_domain)
+  content = hcloud_primary_ip.ipv6_worker_address[count.index].ip_address
+  type    = "AAAA"
+  ttl     = 3600
+}
+
+resource "hcloud_primary_ip" "ipv6_worker_address" {
+  count = var.number_worker_nodes
+
+  name          = format("%s_%s_%s_%d", "k8s", var.cluster_role, "ipv6", count.index)
+  datacenter    = element(var.locations.*.datacenter_name, count.index)
+  type          = "ipv6"
+  assignee_type = "server"
+  auto_delete   = false
+}
+
 resource "hcloud_server_network" "worker_private" {
   count = var.number_worker_nodes
 
@@ -16,7 +36,8 @@ resource "hcloud_server" "worker" {
   location                = element(var.locations.*.name, count.index)
   public_net {
     ipv4_enabled = false
-    ipv6_enabled = false
+    ipv6_enabled = true
+    ipv6         = hcloud_primary_ip.ipv6_worker_address[count.index].id
   }
   ignore_remote_firewall_ids = false
   keep_disk                  = false

@@ -17,6 +17,21 @@ resource "null_resource" "install_setup" {
   depends_on = [null_resource.join_nodes, hcloud_server.manager]
 }
 
+resource "inwx_nameserver_record" "argocd_a" {
+  domain  = var.domain
+  name    = format("%s.%s", "argocd", local.kube_api_server_domain)
+  content = var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv4 : hcloud_primary_ip.ipv4_manager_address[0].ip_address
+  type    = "A"
+  ttl     = 3600
+}
+resource "inwx_nameserver_record" "argocd_aaaa" {
+  domain  = var.domain
+  name    = format("%s.%s", "argocd", local.kube_api_server_domain)
+  content = var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv6 : hcloud_primary_ip.ipv6_manager_address[0].ip_address
+  type    = "AAAA"
+  ttl     = 3600
+}
+
 resource "null_resource" "install_argocd_single" {
   count = var.number_nodes < 3 ? 1 : 0
 
