@@ -1,0 +1,20 @@
+---
+version: 0.1.0
+extraKubeAPIServerArgs:
+  --advertise-address=${node_ip}
+  --authorization-mode=RBAC,Node
+extraKubeletArgs:
+  --node-ip=${node_ip}
+  --cluster-dns=10.152.183.10
+  --cluster-domain=cluster.local
+extraSANs:
+  - ${api_server_domain}
+addons:
+  - name: dns
+  - name: cis-hardening
+  - name: community
+  - name: helm3
+  - name: ingress
+  - name: ha-cluster
+  - name: rbac
+  - name: cert-manager

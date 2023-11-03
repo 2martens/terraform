@@ -37,3 +37,14 @@ variable "hcloud_token" {
   type      = string
   sensitive = true
 }
+
+variable "terraform_private_ssh_key" {
+  description = "Private SSH key to be used by Terraform to connect with remote machines"
+  type        = string
+  sensitive   = true
+}
+
+variable "terraform_public_ssh_key" {
+  description = "Public SSH key for the private key used by Terraform to connect with remote machines"
+  type        = string
+}

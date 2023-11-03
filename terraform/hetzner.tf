@@ -1,25 +1,5 @@
 // data sources
 
-data "hcloud_location" "falkenstein" {
-  name = "fsn1"
-}
-
-data "hcloud_location" "nuremberg" {
-  name = "nbg1"
-}
-
-data "hcloud_datacenter" "falkenstein" {
-  name = "fsn1-dc14"
-}
-
-data "hcloud_datacenter" "nuremberg" {
-  name = "nbg1-dc3"
-}
-
-data "hcloud_ssh_key" "macos" {
-  name = "2martens@Jims-Air.fritz.box"
-}
-
 data "hcloud_placement_group" "default" {
   name = "default"
 }
@@ -198,9 +178,16 @@ resource "hcloud_server" "server_k8s_test" {
   }
   firewall_ids = [hcloud_firewall.basic-firewall.id, hcloud_firewall.k8s-firewall.id]
   ssh_keys     = [data.hcloud_ssh_key.macos.id]
-  user_data = templatefile("${path.module}/templates/cloud-init-k8s.tftpl", {
+  user_data = templatefile("${path.module}/modules/k8s-cluster/templates/cloud-init-k8s.tftpl", {
     node_ip : "10.0.0.2",
-    cluster_token : "DkZaYY5JUAptUtq4HbXVb2x4HHD3HP7U"
+    admin_public_ssh_key : format("%s %s", data.hcloud_ssh_key.macos.public_key, data.hcloud_ssh_key.macos.name),
+    terraform_public_ssh_key : var.terraform_public_ssh_key,
+    microk8s_channel : "1.28-strict/stable",
+    admin_user : "2martensAdmin",
+    "microk8s_config" : templatefile("${path.module}/modules/k8s-cluster/templates/microk8s-config.tftpl", {
+      node_ip : "10.0.0.2",
+      api_server_domain : ""
+    })
   })
   shutdown_before_deletion = true
 
@@ -219,13 +206,13 @@ resource "hcloud_server" "server_k8s_test" {
 
 module "drone_domain" {
   source    = "./modules/domain"
-  domain    = "2martens.de"
+  domain    = local.domain
   subdomain = "ci"
   ipv4      = "49.12.69.146"
   ipv6      = "2a01:4f8:c012:1fef::1"
 }
 resource "inwx_nameserver_record" "twomartens_de_ci-ownercheck_txt" {
-  domain  = "2martens.de"
+  domain  = local.domain
   name    = "ownercheck.ci.2martens.de"
   content = "e1eb600b"
   type    = "TXT"

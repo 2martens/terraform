@@ -1,16 +1,24 @@
 #cloud-config
 users:
-  - name: 2martensAdmin
+  - name: ${admin_user}
     groups: users, admin
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
     ssh_authorized_keys:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBjYkz73HbsFtRAOfS5QB9xDbOajU9C4gpDp+OjQkLir 2martens@Jims-Air.fritz.box"
+      - ${admin_public_ssh_key}
+  - name: terraform
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ${terraform_public_ssh_key}
 packages:
   - fail2ban
   - ufw
 package_update: true
 package_upgrade: true
+snap:
+  commands:
+  - snap install kubectl --classic
 runcmd:
   - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
   - systemctl enable fail2ban
@@ -30,12 +38,14 @@ runcmd:
   - sed -i -e '/^\(#\|\)AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^\(#\|\)AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
-  - sed -i '$a AllowUsers 2martensAdmin' /etc/ssh/sshd_config
+  - sed -i '$a AllowUsers ${admin_user} terraform' /etc/ssh/sshd_config
   - curl https://packages.hetzner.com/hcloud/deb/hc-utils_0.0.4-1_all.deb -o /tmp/hc-utils_0.0.4-1_all.deb -s
   - apt install /tmp/hc-utils_0.0.4-1_all.deb
   - mkdir -p /var/snap/microk8s/common/
-  - curl https://repo.2martens.de/files/microk8s-config.yaml -o /var/snap/microk8s/common/.microk8s.yaml
-  - sed -i -e '/\$NODE_IP/s//${node_ip}/' /var/snap/microk8s/common/.microk8s.yaml
-  - sed -i -e '/\$CLUSTER_TOKEN/s//${cluster_token}/' /var/snap/microk8s/common/.microk8s.yaml
-  - snap install microk8s --channel 1.28-strict/stable
-  - reboot
+  - echo ${microk8s_config} > /var/snap/microk8s/common/.microk8s.yaml
+  - snap install microk8s --channel ${microk8s_channel}
+  - mkdir -p /home/terraform/.kube
+  - microk8s kubectl config view --raw > /home/terraform/.kube/config
+  - chown -R terraform:terraform /home/terraform/.kube
+  - chmod go-r /home/terraform/.kube/config
+  - microk8s.status --wait-ready
