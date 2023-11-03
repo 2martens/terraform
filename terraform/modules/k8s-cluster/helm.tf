@@ -10,6 +10,7 @@ resource "null_resource" "install_argocd" {
   provisioner "remote-exec" {
     inline = [
       "helm repo add 2martens https://repo.2martens.de/charts/",
+      "helm install 2martens/cluster_setup",
       "helm install 2martens/argocd",
     ]
   }
