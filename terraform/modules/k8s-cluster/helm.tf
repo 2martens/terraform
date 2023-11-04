@@ -8,8 +8,9 @@ resource "null_resource" "install_setup" {
   }
 
   provisioner "remote-exec" {
-    interpreter = ["bash", "-c"]
-    command     = "while (test -z `command -v helm`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
+    inline = [
+      "while (test -z `command -v helm`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
+    ]
   }
 
   provisioner "file" {
@@ -57,8 +58,9 @@ resource "null_resource" "install_argocd_single" {
   }
 
   provisioner "remote-exec" {
-    interpreter = ["bash", "-c"]
-    command     = "while (test -z `command -v helm`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
+    inline = [
+      "while (test -z `command -v helm`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
+    ]
   }
 
   provisioner "remote-exec" {
@@ -84,8 +86,9 @@ resource "null_resource" "install_argocd_ha" {
   }
 
   provisioner "remote-exec" {
-    interpreter = ["bash", "-c"]
-    command     = "while (test -z `command -v helm`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
+    inline = [
+      "while (test -z `command -v helm`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
+    ]
   }
 
   provisioner "file" {

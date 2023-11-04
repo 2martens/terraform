@@ -102,8 +102,9 @@ resource "null_resource" "join_workers" {
   }
 
   provisioner "remote-exec" {
-    interpreter = ["bash", "-c"]
-    command     = "while (test -z `command -v microk8s`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
+    inline = [
+      "while (test -z `command -v microk8s`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
+    ]
   }
 
   provisioner "file" {
