@@ -3,7 +3,7 @@ resource "inwx_nameserver_record" "manager_aaaa" {
 
   domain  = var.domain
   name    = format("%s-%d.%s", "node", count.index, local.kube_api_server_domain)
-  content = hcloud_primary_ip.ipv6_manager_address[count.index].ip_address
+  content = format("%s%d", hcloud_primary_ip.ipv6_manager_address[count.index].ip_address, 1)
   type    = "AAAA"
   ttl     = 3600
 }

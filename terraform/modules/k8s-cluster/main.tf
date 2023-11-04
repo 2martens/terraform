@@ -45,7 +45,7 @@ resource "inwx_nameserver_record" "kube_api_server_a" {
 resource "inwx_nameserver_record" "kube_api_server_aaaa" {
   domain  = var.domain
   name    = local.kube_api_server_domain
-  content = var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv6 : hcloud_primary_ip.ipv6_manager_address[0].ip_address
+  content = format("%s%d", var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv6 : hcloud_primary_ip.ipv6_manager_address[0].ip_address, 1)
   type    = "AAAA"
   ttl     = 3600
 }
