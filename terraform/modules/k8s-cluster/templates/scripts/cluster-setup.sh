@@ -5,7 +5,7 @@ until /snap/bin/microk8s.status --wait-ready;
 done
 
 mkdir -p /home/${admin_user}/.kube
-/snap/bin/microk8s.kubectl config view > /home/${admin_user}/.kube/config
+cp /var/snap/current/credentials/client.config /home/${admin_user}/.kube/config
 chmod 600 /home/${admin_user}/.kube/config
 chown -R ${admin_user}:${admin_user} /home/2martensAdmin/.kube
 /snap/bin/microk8s.helm3 repo add 2martens https://repo.2martens.de/charts/
