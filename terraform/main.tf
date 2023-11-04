@@ -43,9 +43,13 @@ module "test_cluster" {
     datacenter_name = data.hcloud_datacenter.nuremberg.name,
     network_zone    = data.hcloud_location.nuremberg.network_zone
   }]
-  domain              = local.domain
-  network_id          = hcloud_network.kubernetes-network.id
-  private_node_ips    = ["10.0.0.4", "10.0.0.5", "10.0.0.6"]
+  domain     = local.domain
+  network_id = hcloud_network.kubernetes-network.id
+  private_node_ips = [
+    cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 4),
+    cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 5),
+    cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 6)
+  ]
   server_subnet_id    = hcloud_network_subnet.k8s-network-subnet.id
   cluster_name        = "test"
   argocd_environment  = "test"
