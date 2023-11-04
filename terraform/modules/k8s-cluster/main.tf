@@ -3,14 +3,14 @@ data "hcloud_placement_group" "default" {
 }
 
 locals {
-  kube_api_server_domain = format("%s.%s.%s", "k8s", var.cluster_role, var.domain)
+  kube_api_server_domain = format("%s.%s.%s", "k8s", var.cluster_name, var.domain)
 }
 
 resource "hcloud_load_balancer" "kubernetes" {
   count = var.create_loadbalancer ? 1 : 0
 
   load_balancer_type = var.loadbalancer_type
-  name               = format("%s_%s", "k8s", var.cluster_role)
+  name               = format("%s_%s", "k8s", var.cluster_name)
   location           = var.locations[count.index].name
   network_zone       = var.locations[count.index].network_zone
   algorithm {

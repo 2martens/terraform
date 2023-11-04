@@ -46,7 +46,7 @@ module "test_cluster" {
   network_id          = hcloud_network.kubernetes-network.id
   private_node_ips    = ["10.0.0.4", "10.0.0.5", "10.0.0.6"]
   server_subnet_id    = hcloud_network_subnet.k8s-network-subnet.id
-  cluster_role        = "test"
+  cluster_name        = "test"
   number_nodes        = 1
   server_type         = "cax21"
   image_name          = "ubuntu-22.04"

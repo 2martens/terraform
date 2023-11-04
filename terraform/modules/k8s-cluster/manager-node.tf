@@ -11,7 +11,7 @@ resource "inwx_nameserver_record" "manager_aaaa" {
 resource "hcloud_primary_ip" "ipv4_manager_address" {
   count = var.create_loadbalancer ? 0 : var.number_nodes
 
-  name          = format("%s_%s_%s_%d", "k8s", var.cluster_role, "ipv4", count.index)
+  name          = format("%s_%s_%s_%d", "k8s", var.cluster_name, "ipv4", count.index)
   datacenter    = element(var.locations.*.datacenter_name, count.index)
   type          = "ipv4"
   assignee_type = "server"
@@ -21,7 +21,7 @@ resource "hcloud_primary_ip" "ipv4_manager_address" {
 resource "hcloud_primary_ip" "ipv6_manager_address" {
   count = var.number_nodes
 
-  name          = format("%s_%s_%s_%d", "k8s", var.cluster_role, "ipv6", count.index)
+  name          = format("%s_%s_%s_%d", "k8s", var.cluster_name, "ipv6", count.index)
   datacenter    = element(var.locations.*.datacenter_name, count.index)
   type          = "ipv6"
   assignee_type = "server"
@@ -39,7 +39,7 @@ resource "hcloud_server_network" "manager_private" {
 resource "hcloud_server" "manager" {
   count = var.number_nodes
 
-  name                    = format("%s_%s_%s_%d", "k8s", var.cluster_role, "node", count.index)
+  name                    = format("%s_%s_%s_%d", "k8s", var.cluster_name, "node", count.index)
   image                   = var.image_name
   allow_deprecated_images = false
   server_type             = var.server_type

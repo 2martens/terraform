@@ -69,8 +69,14 @@ variable "k8s_firewall_id" {
   type        = number
 }
 
-variable "cluster_role" {
-  description = "The role the cluster serves. For example test, qs, prod. Will be used for names and subdomains and must be unique within the Hetzner project."
+variable "cluster_name" {
+  description = "The name of the cluster. For example test, qs, prod. Will be used for names and subdomains and must be unique within the Hetzner project (identified by API token)."
+  type        = string
+  default     = "test"
+}
+
+variable "argocd_environment" {
+  description = "The Argo CD environment to use. Argo CD will install the applications of that environment to the cluster."
   type        = string
   default     = "test"
 }

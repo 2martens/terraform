@@ -11,7 +11,7 @@ resource "inwx_nameserver_record" "worker_aaaa" {
 resource "hcloud_primary_ip" "ipv6_worker_address" {
   count = var.number_worker_nodes
 
-  name          = format("%s_%s_%s_%d", "k8s", var.cluster_role, "ipv6", count.index)
+  name          = format("%s_%s_%s_%d", "k8s", var.cluster_name, "ipv6", count.index)
   datacenter    = element(var.locations.*.datacenter_name, count.index)
   type          = "ipv6"
   assignee_type = "server"
@@ -29,7 +29,7 @@ resource "hcloud_server_network" "worker_private" {
 resource "hcloud_server" "worker" {
   count = var.number_worker_nodes
 
-  name                    = format("%s_%s_%s_%d", "k8s", var.cluster_role, "node", count.index)
+  name                    = format("%s_%s_%s_%d", "k8s", var.cluster_name, "node", count.index)
   image                   = var.image_name
   allow_deprecated_images = false
   server_type             = var.server_type

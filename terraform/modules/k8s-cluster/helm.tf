@@ -47,7 +47,7 @@ resource "null_resource" "install_argocd_single" {
     inline = [
       "helm repo add 2martens https://repo.2martens.de/charts/",
       "helm install setup 2martens/cluster_setup",
-      "helm install argocd 2martens/argocd",
+      "helm install argocd 2martens/argocd --set environment=${var.argocd_environment}",
     ]
   }
 
@@ -74,7 +74,7 @@ resource "null_resource" "install_argocd_ha" {
     inline = [
       "helm repo add 2martens https://repo.2martens.de/charts/",
       "helm install setup 2martens/cluster_setup",
-      "helm install argocd 2martens/argocd --values /home/terraform/argocd-values-ha.yaml",
+      "helm install argocd 2martens/argocd --set environment=${var.argocd_environment} --values /home/terraform/argocd-values-ha.yaml",
     ]
   }
 
