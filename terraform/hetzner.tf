@@ -191,7 +191,7 @@ resource "hcloud_server" "server_k8s_test" {
       main_node_ip : "10.0.0.2"
       cluster_token : ""
     }))
-    packages_setup : base64encode(templatefile("${path.module}/templates/install-packages.sh", {
+    packages_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/install-packages.sh", {
       refresh_day : "fri"
       refresh_hour : format("%02d", 0)
     }))
