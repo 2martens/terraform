@@ -1,10 +1,10 @@
 #!/bin/sh
 
-mkdir -p /run/snap/launcher/configuration
-cp /run/tmpfiles.d/microk8s.yaml /run/snap/launcher/configuration/content.yaml
-cp /run/tmpfiles.d/snapcraft.yaml /run/snap/snapcraft.yaml
-cd /run/snap && /snap/bin/snapcraft
-snap install /run/snap/microk8s-cluster-config_*.snap --dangerous
+mkdir -p /run/tmpfiles.d/snap/launcher/configuration
+mv /run/tmpfiles.d/microk8s.yaml /run/tmpfiles.d/snap/launcher/configuration/content.yaml
+mv /run/tmpfiles.d/snapcraft.yaml /run/tmpfiles.d/snap/snapcraft.yaml
+cd /run/tmpfiles.d/snap && /snap/bin/snapcraft
+snap install /run/tmpfiles.d/snap/microk8s-cluster-config_*.snap --dangerous
 
 %{ if !main_node ~}
 sleep 120
