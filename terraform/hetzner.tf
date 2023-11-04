@@ -205,6 +205,7 @@ resource "hcloud_server" "server_k8s_test" {
     microk8s_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/scripts/microk8s-setup.sh", {
       microk8s_channel : "1.28-strict/stable"
       main_node : true
+      manager_node : true
     }))
     cluster_setup_values : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/helm/cluster-setup-values.yaml", {
       client_id : var.vault_client_id

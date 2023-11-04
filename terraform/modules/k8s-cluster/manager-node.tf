@@ -107,6 +107,7 @@ resource "hcloud_server" "manager" {
     microk8s_setup : base64encode(templatefile("${path.module}/templates/scripts/microk8s-setup.sh", {
       microk8s_channel : var.microk8s_channel
       main_node = count.index == 0
+      manager_node : true
     }))
     cluster_setup_values : base64encode(templatefile("${path.module}/templates/helm/cluster-setup-values.yaml", {
       client_id : var.vault_service_principal.client_id

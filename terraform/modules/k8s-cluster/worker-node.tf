@@ -86,6 +86,7 @@ resource "hcloud_server" "worker" {
     microk8s_setup : base64encode(templatefile("${path.module}/templates/scripts/microk8s-setup.sh", {
       microk8s_channel : var.microk8s_channel
       main_node : false
+      manager_node : false
     }))
     cluster_setup_values : base64encode(templatefile("${path.module}/templates/helm/cluster-setup-values.yaml", {
       client_id : var.vault_service_principal.client_id
