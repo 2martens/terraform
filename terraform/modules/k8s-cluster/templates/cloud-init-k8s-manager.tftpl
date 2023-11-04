@@ -17,7 +17,7 @@ package_reboot_if_required: true
 write_files:
   - owner: root:root
     content: "${microk8s_config}"
-    path: /run/tmpfiles.d/.microk8s.yaml
+    path: /run/tmpfiles.d/microk8s.yaml
     encoding: base64
     defer: true
   - owner: root:root
