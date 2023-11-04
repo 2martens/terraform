@@ -122,7 +122,7 @@ resource "hcloud_server" "manager" {
   }
 
   lifecycle {
-    ignore_changes = [ssh_keys, user_data]
+    ignore_changes = [ssh_keys]
   }
 }
 
