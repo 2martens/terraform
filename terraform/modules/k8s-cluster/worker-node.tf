@@ -18,7 +18,7 @@ resource "hcloud_primary_ip" "ipv6_worker_address" {
   auto_delete   = false
 }
 
-resource "hcloud_rdns" "ipv6_manager" {
+resource "hcloud_rdns" "ipv6_worker" {
   count = var.number_worker_nodes
 
   primary_ip_id = hcloud_primary_ip.ipv6_worker_address[count.index].id
