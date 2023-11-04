@@ -1,5 +1,9 @@
 #!/bin/sh
 
+while test -z "\${command -v microk8s}";
+  sleep 5; do echo \"Waiting for cloud init to finish...\";
+done
+
 until microk8s.status --wait-ready;
   do sleep 3; echo "waiting for worker status..";
 done

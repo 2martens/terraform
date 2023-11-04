@@ -1,0 +1,66 @@
+#cloud-config
+users:
+  - name: ${admin_user}
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${admin_public_ssh_key}
+  - name: terraform
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ${terraform_public_ssh_key}
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+write_files:
+  - owner: 2martensAdmin:2martensAdmin
+    content: "${microk8s_config}"
+    path: /home/2martensAdmin/.microk8s.yaml
+    encoding: base64
+  - owner: root:root
+    content: "${packages_setup}"
+    path: /usr/local/bin/install-packages.sh
+    encoding: base64
+    permissions: "0755"
+  - owner: root:root
+    content: "${firewall_setup}"
+    path: /usr/local/bin/firewall-setup.sh
+    encoding: base64
+    permissions: "0755"
+  - owner: root:root
+    content: "${ssh_setup}"
+    path: /usr/local/bin/ssh-setup.sh
+    encoding: base64
+    permissions: "0755"
+  - owner: root:root
+    content: "${microk8s_setup}"
+    path: /usr/local/bin/microk8s-setup.sh
+    encoding: base64
+    permissions: "0755"
+%{ if main_node ~}
+  - owner: root:root
+    content: "${cluster_setup}"
+    path: /usr/local/bin/cluster-setup.sh
+    encoding: base64
+    permissions: "0755"
+  - owner: root:root
+    content: "${cluster_setup_values}"
+    path: /home/terraform/cluster-setup-values.yaml
+    encoding: base64
+    permissions: "0755"
+  - owner: root:root
+    content: "${argocd_ha_values}"
+    path: /home/terraform/argocd-values-ha.yaml
+    encoding: base64
+    permissions: "0755"
+%{ endif ~}
+runcmd:
+  - /usr/local/bin/install-packages.sh
+  - /usr/local/bin/firewall-setup.sh
+  - /usr/local/bin/ssh-setup.sh
+  - /usr/local/bin/microk8s-setup.sh
+%{ if main_node ~}
+  - /usr/local/bin/cluster-setup.sh
+%{ endif ~}

@@ -1,7 +1,14 @@
 ---
 version: 0.2.0
+%{ if main_node ~}
+persistentClusterToken: ${cluster_token}
+%{ else ~}
+join:
+  url: "${main_node_ip}:25000/${cluster_token}"
+  worker: false
+%{ endif ~}
 extraKubeAPIServerArgs:
-  --advertise-address=${node_ip}
+  --advertise-address=${api_server_ip}
   --authorization-mode=RBAC,Node
 extraKubeletArgs:
   --node-ip=${node_ip}

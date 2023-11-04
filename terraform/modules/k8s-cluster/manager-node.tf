@@ -80,15 +80,38 @@ resource "hcloud_server" "manager" {
     "manager" : "yes"
   }
 
-  user_data = templatefile("${path.module}/templates/cloud-init-k8s.tftpl", {
-    node_ip : var.private_node_ips[count.index],
-    admin_public_ssh_key : format("%s %s", var.admin_ssh_key.public_key, var.admin_ssh_key.name),
-    terraform_public_ssh_key : var.terraform_public_ssh_key,
-    microk8s_channel : var.microk8s_channel,
-    admin_user : var.admin_user,
-    microk8s_config : base64encode(templatefile("${path.module}/templates/microk8s-config.tftpl", {
-      node_ip : var.private_node_ips[count.index],
+  user_data = templatefile("${path.module}/templates/cloud-init-k8s-manager.tftpl", {
+    admin_public_ssh_key : format("%s %s", var.admin_ssh_key.public_key, var.admin_ssh_key.name)
+    admin_user : var.admin_user
+    terraform_public_ssh_key : var.terraform_public_ssh_key
+    main_node : count.index == 0
+    microk8s_config : base64encode(templatefile("${path.module}/templates/microk8s-config-manager.tftpl", {
+      node_ip : var.private_node_ips[count.index]
       api_server_domain : local.kube_api_server_domain
+      main_node : count.index == 0
+      main_node_ip : var.private_node_ips[0]
+      api_server_ip : var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv4 : hcloud_primary_ip.ipv4_manager_address[0].ip_address
+      cluster_token : random_id.cluster_token.hex
+    }))
+    packages_setup : base64encode(file("${path.module}/templates/install-packages.sh"))
+    firewall_setup : base64encode(templatefile("${path.module}/templates/firewall-setup.sh", {
+      node_ip : var.private_node_ips[count.index]
+    }))
+    ssh_setup : base64encode(templatefile("${path.module}/templates/ssh-setup.sh", {
+      admin_user : var.admin_user
+    }))
+    microk8s_setup : base64encode(templatefile("${path.module}/templates/microk8s-setup.sh", {
+      microk8s_channel : var.microk8s_channel
+      main_node = count.index == 0
+    }))
+    cluster_setup_values : base64encode(templatefile("${path.module}/templates/cluster-setup-values.yaml", {
+      client_id : var.vault_service_principal.client_id
+      client_secret : var.vault_service_principal.client_secret
+    }))
+    cluster_setup_values : base64encode(file("${path.module}/templates/argocd-values-ha.yaml"))
+    cluster_setup : base64encode(templatefile("${path.module}/templates/cluster-setup.sh", {
+      argocd_environment : var.argocd_environment
+      high_availability : var.number_nodes > 2
     }))
   })
 
@@ -107,96 +130,84 @@ resource "random_id" "cluster_token" {
   byte_length = 16
 }
 
-resource "null_resource" "setup_tokens" {
-  count = var.number_nodes > 1 ? 1 : 0
-
-  triggers = {
-    rerun = random_id.cluster_token.hex
-  }
-
-  connection {
-    host        = hcloud_server.manager[0].ipv6_address
-    user        = "terraform"
-    type        = "ssh"
-    private_key = var.terraform_private_ssh_key
-    timeout     = "10m"
-  }
-
-  provisioner "local-exec" {
-    interpreter = ["bash", "-c"]
-    command     = <<EOT
-        echo "1" > /tmp/current_joining_node.txt
-        echo "0" > /tmp/current_joining_worker_node.txt
-        EOT
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "while (test -z `command -v microk8s`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
-    ]
-  }
-
-  provisioner "file" {
-    content = templatefile("${path.module}/templates/add-node.sh",
-      {
-        cluster_token             = random_id.cluster_token.hex
-        cluster_token_ttl_seconds = var.cluster_token_ttl_seconds
-    })
-    destination = "/usr/local/bin/add-node.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sh /usr/local/bin/add-node.sh",
-    ]
-  }
-}
-
-
-resource "null_resource" "join_nodes" {
-  count = var.number_nodes - 1 < 1 ? 0 : var.number_nodes - 1
-
-  triggers = {
-    rerun = random_id.cluster_token.hex
-  }
-  connection {
-    host        = element(hcloud_server.manager.*.ipv6_address, count.index + 1)
-    user        = "terraform"
-    type        = "ssh"
-    private_key = var.terraform_private_ssh_key
-    timeout     = "20m"
-  }
-
-  provisioner "local-exec" {
-    interpreter = ["bash", "-c"]
-    command     = "while [[ $(cat /tmp/current_joining_node.txt) != \"${count.index + 1}\" ]]; do echo \"${count.index + 1} is waiting...\";sleep 5;done"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "while (test -z `command -v microk8s`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
-    ]
-  }
-
-  provisioner "file" {
-    content = templatefile("${path.module}/templates/join.sh",
-      {
-        cluster_token = random_id.cluster_token.hex
-        main_node_ip  = hcloud_server_network.manager_private[0].ip
-    })
-    destination = "/usr/local/bin/join.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sh /usr/local/bin/join.sh"
-    ]
-  }
-
-  provisioner "local-exec" {
-    interpreter = ["bash", "-c"]
-    command     = "echo \"${count.index + 2}\" > /tmp/current_joining_node.txt"
-  }
-
-  depends_on = [null_resource.setup_tokens]
-}
+#resource "null_resource" "setup_tokens" {
+#  count = var.number_nodes > 1 ? 1 : 0
+#
+#  triggers = {
+#    rerun = random_id.cluster_token.hex
+#  }
+#
+#  connection {
+#    host        = hcloud_server.manager[0].ipv6_address
+#    user        = "terraform"
+#    type        = "ssh"
+#    private_key = var.terraform_private_ssh_key
+#    timeout     = "10m"
+#  }
+#
+#  provisioner "local-exec" {
+#    interpreter = ["bash", "-c"]
+#    command     = <<EOT
+#        echo "1" > /tmp/current_joining_node.txt
+#        echo "0" > /tmp/current_joining_worker_node.txt
+#        EOT
+#  }
+#
+#  provisioner "file" {
+#    content = templatefile("${path.module}/templates/add-node.sh",
+#      {
+#        cluster_token             = random_id.cluster_token.hex
+#        cluster_token_ttl_seconds = var.cluster_token_ttl_seconds
+#    })
+#    destination = "/usr/local/bin/add-node.sh"
+#  }
+#
+#  provisioner "remote-exec" {
+#    inline = [
+#      "sh /usr/local/bin/add-node.sh",
+#    ]
+#  }
+#}
+#
+#
+#resource "null_resource" "join_nodes" {
+#  count = var.number_nodes - 1 < 1 ? 0 : var.number_nodes - 1
+#
+#  triggers = {
+#    rerun = random_id.cluster_token.hex
+#  }
+#  connection {
+#    host        = element(hcloud_server.manager.*.ipv6_address, count.index + 1)
+#    user        = "terraform"
+#    type        = "ssh"
+#    private_key = var.terraform_private_ssh_key
+#    timeout     = "20m"
+#  }
+#
+#  provisioner "local-exec" {
+#    interpreter = ["bash", "-c"]
+#    command     = "while [[ $(cat /tmp/current_joining_node.txt) != \"${count.index + 1}\" ]]; do echo \"${count.index + 1} is waiting...\";sleep 5;done"
+#  }
+#
+#  provisioner "file" {
+#    content = templatefile("${path.module}/templates/join.sh",
+#      {
+#        cluster_token = random_id.cluster_token.hex
+#        main_node_ip  = hcloud_server_network.manager_private[0].ip
+#    })
+#    destination = "/usr/local/bin/join.sh"
+#  }
+#
+#  provisioner "remote-exec" {
+#    inline = [
+#      "sh /usr/local/bin/join.sh"
+#    ]
+#  }
+#
+#  provisioner "local-exec" {
+#    interpreter = ["bash", "-c"]
+#    command     = "echo \"${count.index + 2}\" > /tmp/current_joining_node.txt"
+#  }
+#
+#  depends_on = [null_resource.setup_tokens]
+#}

@@ -179,15 +179,33 @@ resource "hcloud_server" "server_k8s_test" {
   firewall_ids = [hcloud_firewall.basic-firewall.id, hcloud_firewall.k8s-firewall.id]
   ssh_keys     = [data.hcloud_ssh_key.macos.id]
   user_data = templatefile("${path.module}/modules/k8s-cluster/templates/cloud-init-k8s.tftpl", {
-    node_ip : "10.0.0.2",
-    admin_public_ssh_key : format("%s %s", data.hcloud_ssh_key.macos.public_key, data.hcloud_ssh_key.macos.name),
-    terraform_public_ssh_key : var.terraform_public_ssh_key,
-    microk8s_channel : "1.28-strict/stable",
-    admin_user : "2martensAdmin",
-    "microk8s_config" : templatefile("${path.module}/modules/k8s-cluster/templates/microk8s-config.tftpl", {
-      node_ip : "10.0.0.2",
+    admin_public_ssh_key : format("%s %s", data.hcloud_ssh_key.macos.public_key, data.hcloud_ssh_key.macos.name)
+    admin_user : "2martensAdmin"
+    terraform_public_ssh_key : var.terraform_public_ssh_key
+    main_node : true
+    microk8s_config : base64encode(templatefile("${path.module}/templates/microk8s-config.tftpl", {
+      node_ip : "10.0.0.2"
       api_server_domain : ""
-    })
+    }))
+    packages_setup : base64encode(file("${path.module}/templates/install-packages.sh"))
+    firewall_setup : base64encode(templatefile("${path.module}/templates/firewall-setup.sh", {
+      node_ip : "10.0.0.2"
+    }))
+    ssh_setup : base64encode(templatefile("${path.module}/templates/ssh-setup.sh", {
+      admin_user : "2martensAdmin"
+    }))
+    microk8s_setup : base64encode(templatefile("${path.module}/templates/microk8s-setup.sh", {
+      microk8s_channel : "1.28-strict/stable"
+    }))
+    cluster_setup_values : base64encode(templatefile("${path.module}/templates/cluster-setup-values.yaml", {
+      client_id : var.vault_client_id
+      client_secret : var.vault_client_secret
+    }))
+    cluster_setup_values : base64encode(file("${path.module}/templates/argocd-values-ha.yaml"))
+    cluster_setup : base64encode(templatefile("${path.module}/templates/cluster-setup.sh", {
+      argocd_environment : "test"
+      high_availability : false
+    }))
   })
   shutdown_before_deletion = true
 
