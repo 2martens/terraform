@@ -44,7 +44,7 @@ runcmd:
   - sed -i '$a AllowUsers ${admin_user} terraform' /etc/ssh/sshd_config
   - curl https://packages.hetzner.com/hcloud/deb/hc-utils_0.0.4-1_all.deb -o /tmp/hc-utils_0.0.4-1_all.deb -s
   - apt install /tmp/hc-utils_0.0.4-1_all.deb
-  - apt install snapd
+  - apt-get -y install snapd
   - snap install kubectl --classic
   - snap install microk8s --channel ${microk8s_channel}
   - mkdir -p /home/terraform/.kube
