@@ -15,31 +15,28 @@ package_update: true
 package_upgrade: true
 package_reboot_if_required: true
 write_files:
-  - owner: 2martensAdmin:2martensAdmin
+  - owner: root:root
     content: "${microk8s_config}"
-    path: /home/2martensAdmin/.microk8s.yaml
+    path: /run/terraform/.microk8s.yaml
     encoding: base64
   - owner: root:root
     content: "${packages_setup}"
-    path: /usr/local/bin/install-packages.sh
+    path: /run/terraform/install-packages.sh
     encoding: base64
-    permissions: "0755"
   - owner: root:root
     content: "${firewall_setup}"
-    path: /usr/local/bin/firewall-setup.sh
+    path: /run/terraform/firewall-setup.sh
     encoding: base64
-    permissions: "0755"
   - owner: root:root
     content: "${ssh_setup}"
-    path: /usr/local/bin/ssh-setup.sh
+    path: /run/terraform/ssh-setup.sh
     encoding: base64
-    permissions: "0755"
   - owner: root:root
     content: "${microk8s_setup}"
-    path: /usr/local/bin/microk8s-setup.sh
+    path: /run/terraform/microk8s-setup.sh
     encoding: base64
-    permissions: "0755"
 runcmd:
+  - install /run/terraform/*.sh /usr/local/bin
   - /usr/local/bin/install-packages.sh
   - /usr/local/bin/firewall-setup.sh
   - /usr/local/bin/ssh-setup.sh
