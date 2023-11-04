@@ -87,7 +87,7 @@ resource "hcloud_server" "worker" {
       client_id : var.vault_service_principal.client_id
       client_secret : var.vault_service_principal.client_secret
     }))
-    cluster_setup_values : base64encode(file("${path.module}/templates/argocd-values-ha.yaml"))
+    argocd_ha_values : base64encode(file("${path.module}/templates/argocd-values-ha.yaml"))
     cluster_setup : base64encode(templatefile("${path.module}/templates/cluster-setup.sh", {
       argocd_environment : var.argocd_environment
       high_availability : var.number_nodes > 2
