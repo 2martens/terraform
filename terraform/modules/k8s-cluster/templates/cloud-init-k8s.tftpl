@@ -46,8 +46,8 @@ runcmd:
   - apt install /tmp/hc-utils_0.0.4-1_all.deb
   - apt-get -y install snapd
   - snap install kubectl --classic
-  - mkdir -p /var/snap/microk8s/common
-  - cp /tmp/.microk8s.yaml /var/snap/microk8s/common/.microk8s.yaml
+  - mkdir -p /var/snap/microk8s/common/etc/launcher
+  - cp /tmp/.microk8s.yaml /var/snap/microk8s/common/etc/launcher/.microk8s.yaml
   - snap install microk8s --channel "${microk8s_channel}"
   - mkdir -p /home/terraform/.kube
   - microk8s kubectl config view --raw > /home/terraform/.kube/config
