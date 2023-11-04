@@ -17,41 +17,41 @@ package_reboot_if_required: true
 write_files:
   - owner: root:root
     content: "${microk8s_config}"
-    path: /run/terraform/.microk8s.yaml
+    path: /run/tmpfiles.d/.microk8s.yaml
     encoding: base64
   - owner: root:root
     content: "${packages_setup}"
-    path: /run/terraform/install-packages.sh
+    path: /run/tmpfiles.d/install-packages.sh
     encoding: base64
   - owner: root:root
     content: "${firewall_setup}"
-    path: /run/terraform/firewall-setup.sh
+    path: /run/tmpfiles.d/firewall-setup.sh
     encoding: base64
   - owner: root:root
     content: "${ssh_setup}"
-    path: /run/terraform/ssh-setup.sh
+    path: /run/tmpfiles.d/ssh-setup.sh
     encoding: base64
   - owner: root:root
     content: "${microk8s_setup}"
-    path: /run/terraform/microk8s-setup.sh
+    path: /run/tmpfiles.d/microk8s-setup.sh
     encoding: base64
 %{ if main_node ~}
   - owner: root:root
     content: "${cluster_setup}"
-    path: /run/terraform/cluster-setup.sh
+    path: /run/tmpfiles.d/cluster-setup.sh
     encoding: base64
     permissions: "0755"
   - owner: root:root
     content: "${cluster_setup_values}"
-    path: /run/terraform/cluster-setup-values.yaml
+    path: /run/tmpfiles.d/cluster-setup-values.yaml
     encoding: base64
   - owner: root:root
     content: "${argocd_ha_values}"
-    path: /run/terraform/argocd-values-ha.yaml
+    path: /run/tmpfiles.d/argocd-values-ha.yaml
     encoding: base64
 %{ endif ~}
 runcmd:
-  - install /run/terraform/*.sh /usr/local/bin
+  - install /run/tmpfiles.d/*.sh /usr/local/bin
   - /usr/local/bin/install-packages.sh
   - /usr/local/bin/firewall-setup.sh
   - /usr/local/bin/ssh-setup.sh
