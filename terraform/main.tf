@@ -27,6 +27,7 @@ module "test_cluster" {
 
   admin_ssh_key             = data.hcloud_ssh_key.macos
   admin_user                = "2martensAdmin"
+  admin_email               = "admin@2martens.de"
   terraform_public_ssh_key  = var.terraform_public_ssh_key
   terraform_private_ssh_key = var.terraform_private_ssh_key
   basic_firewall_id         = hcloud_firewall.basic-firewall.id
@@ -53,4 +54,8 @@ module "test_cluster" {
   image_name          = "ubuntu-22.04"
   create_loadbalancer = false
   loadbalancer_ip     = "10.0.0.3"
+  vault_service_principal = {
+    client_id : var.vault_client_id
+    client_secret : var.vault_client_secret
+  }
 }

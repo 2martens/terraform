@@ -48,3 +48,14 @@ variable "terraform_public_ssh_key" {
   description = "Public SSH key for the private key used by Terraform to connect with remote machines"
   type        = string
 }
+
+variable "vault_client_id" {
+  description = "Client ID of the service principal used to access Hashicorp Cloud"
+  type        = string
+  sensitive   = true
+}
+variable "vault_client_secret" {
+  description = "Client Secret of the service principal used to access Hashicorp Cloud"
+  type        = string
+  sensitive   = true
+}

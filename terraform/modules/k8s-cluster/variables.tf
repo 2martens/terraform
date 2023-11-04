@@ -12,6 +12,11 @@ variable "admin_user" {
   type        = string
 }
 
+variable "admin_email" {
+  description = "Email of the admin. Will be passed to cluster setup helm chart and subsequently be used for registering with Lets Encrypt"
+  type        = string
+}
+
 variable "terraform_private_ssh_key" {
   description = "Private SSH key to be used by Terraform to connect with remote machines"
   type        = string
@@ -133,4 +138,13 @@ variable "microk8s_channel" {
   description = "The snap channel used for the microk8s installation"
   type        = string
   default     = "1.28-strict/stable"
+}
+
+variable "vault_service_principal" {
+  description = "Service Principal to access to Hashicorp Vault Secrets"
+  type = object({
+    client_id : string
+    client_secret : string
+  })
+  sensitive = true
 }

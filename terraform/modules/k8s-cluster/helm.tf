@@ -7,10 +7,18 @@ resource "null_resource" "install_setup" {
     timeout     = "2m"
   }
 
+  provisioner "file" {
+    content = templatefile("${path.module}/templates/cluster-setup-values.yaml", {
+      client_id : var.vault_service_principal.client_id,
+      client_secret : var.vault_service_principal.client_secret
+    })
+    destination = "/home/terraform/cluster-setup-values.yaml"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "helm repo add 2martens https://repo.2martens.de/charts/",
-      "helm install setup 2martens/cluster_setup",
+      "helm install setup 2martens/cluster_setup --values /home/terraform/cluster-setup-values.yaml",
     ]
   }
 
