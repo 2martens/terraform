@@ -72,7 +72,10 @@ resource "hcloud_server" "worker" {
       api_server_ip : var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv4 : hcloud_server.manager[0].ipv4_address
       cluster_token : random_id.cluster_token.hex
     }))
-    packages_setup : base64encode(file("${path.module}/templates/install-packages.sh"))
+    packages_setup : base64encode(templatefile("${path.module}/templates/install-packages.sh", {
+      refresh_day : "sat"
+      refresh_hour : format("%02d", count.index)
+    }))
     firewall_setup : base64encode(templatefile("${path.module}/templates/firewall-setup.sh", {
       node_ip : var.private_node_ips[count.index]
     }))
