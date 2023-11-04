@@ -12,13 +12,15 @@ users:
     ssh_authorized_keys:
       - ${terraform_public_ssh_key}
 packages:
-  - fail2ban
-  - ufw
+  - apt:
+    - snapd
+    - fail2ban
+    - ufw
+  - snap:
+    - [kubectl, --classic]
 package_update: true
 package_upgrade: true
-snap:
-  commands:
-  - snap install kubectl --classic
+package_reboot_if_required: true
 write_files:
   - owner: root:root
     content: "${microk8s_config}"
