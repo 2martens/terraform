@@ -39,7 +39,7 @@ resource "hcloud_server_network" "manager_private" {
 resource "hcloud_server" "manager" {
   count = var.number_nodes
 
-  name                    = format("%s_%s_%s_%d", "k8s", var.cluster_name, "node", count.index)
+  name                    = format("%s-%s-%s-%d", "k8s", var.cluster_name, "node", count.index)
   image                   = var.image_name
   allow_deprecated_images = false
   server_type             = var.server_type
