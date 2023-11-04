@@ -50,12 +50,15 @@ resource "hcloud_server" "worker" {
   ignore_remote_firewall_ids = false
   keep_disk                  = false
   placement_group_id         = data.hcloud_placement_group.default.id
+  firewall_ids               = [var.basic_firewall_id, var.k8s_firewall_id]
+  ssh_keys                   = [var.admin_ssh_key.id]
+  shutdown_before_deletion   = true
+
   labels = {
     "kubernetes" : "yes",
     "worker" : "yes"
   }
-  firewall_ids = [var.basic_firewall_id, var.k8s_firewall_id]
-  ssh_keys     = [var.admin_ssh_key.id]
+
   user_data = templatefile("${path.module}/templates/cloud-init-k8s.tftpl", {
     node_ip : var.private_worker_node_ips[count.index],
     admin_public_ssh_key : format("%s %s", var.admin_ssh_key.public_key, var.admin_ssh_key.name),
@@ -67,7 +70,6 @@ resource "hcloud_server" "worker" {
       api_server_domain : local.kube_api_server_domain
     }))
   })
-  shutdown_before_deletion = true
 
   network {
     network_id = var.network_id
