@@ -3,7 +3,7 @@ resource "inwx_nameserver_record" "manager_aaaa" {
 
   domain  = var.domain
   name    = format("%s-%d.%s", "node", count.index, local.kube_api_server_domain)
-  content = format("%s%d", hcloud_primary_ip.ipv6_manager_address[count.index].ip_address, 1)
+  content = hcloud_server.manager[count.index].ipv6_address
   type    = "AAAA"
   ttl     = 3600
 }
@@ -40,7 +40,7 @@ resource "hcloud_rdns" "ipv6_manager" {
   count = var.number_nodes
 
   primary_ip_id = hcloud_primary_ip.ipv6_manager_address[count.index].id
-  ip_address    = hcloud_primary_ip.ipv6_manager_address[count.index].ip_address
+  ip_address    = hcloud_server.manager[count.index].ipv6_address
   dns_ptr       = inwx_nameserver_record.manager_aaaa[count.index].name
 }
 
@@ -115,7 +115,7 @@ resource "null_resource" "setup_tokens" {
   }
 
   connection {
-    host        = format("%s%d", hcloud_server.manager[0].ipv6_address, 1)
+    host        = hcloud_server.manager[0].ipv6_address
     user        = "root"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
@@ -154,7 +154,7 @@ resource "null_resource" "join_nodes" {
     rerun = random_id.cluster_token.hex
   }
   connection {
-    host        = format("%s%d", element(hcloud_server.manager.*.ipv6_address, count.index + 1), 1)
+    host        = element(hcloud_server.manager.*.ipv6_address, count.index + 1)
     user        = "root"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key

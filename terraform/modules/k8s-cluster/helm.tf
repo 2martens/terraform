@@ -1,6 +1,6 @@
 resource "null_resource" "install_setup" {
   connection {
-    host        = format("%s%d", hcloud_server.manager[0].ipv6_address, 1)
+    host        = hcloud_server.manager[0].ipv6_address
     user        = "root"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
@@ -44,7 +44,7 @@ resource "null_resource" "install_argocd_single" {
   count = var.number_nodes < 3 ? 1 : 0
 
   connection {
-    host        = format("%s%d", hcloud_server.manager[0].ipv6_address, 1)
+    host        = hcloud_server.manager[0].ipv6_address
     user        = "root"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
@@ -66,7 +66,7 @@ resource "null_resource" "install_argocd_ha" {
   count = var.number_nodes >= 3 ? 1 : 0
 
   connection {
-    host        = format("%s%d", hcloud_server.manager[0].ipv6_address, 1)
+    host        = hcloud_server.manager[0].ipv6_address
     user        = "root"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
