@@ -137,7 +137,7 @@ variable "cluster_token_ttl_seconds" {
 variable "microk8s_channel" {
   description = "The snap channel used for the microk8s installation"
   type        = string
-  default     = "1.28-strict/stable"
+  default     = "1.28/stable"
 }
 
 variable "vault_service_principal" {
