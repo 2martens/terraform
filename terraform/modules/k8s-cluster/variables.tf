@@ -86,6 +86,12 @@ variable "argocd_environment" {
   default     = "test"
 }
 
+variable "argocd_chart_version" {
+  description = "The Argo CD chart version to use."
+  type        = string
+  default     = "5.34.3"
+}
+
 variable "number_nodes" {
   description = "Number of manager nodes in the cluster."
   type        = number
