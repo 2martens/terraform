@@ -79,7 +79,7 @@ resource "null_resource" "join_workers" {
     rerun = random_id.cluster_token.hex
   }
   connection {
-    host        = element(hcloud_server_network.worker_private.*.ip, count.index)
+    host        = element(hcloud_server.worker.*.ipv6_address, count.index)
     user        = "root"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key

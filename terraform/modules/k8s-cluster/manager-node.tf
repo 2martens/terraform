@@ -95,7 +95,7 @@ resource "null_resource" "setup_tokens" {
   }
 
   connection {
-    host        = hcloud_server_network.manager_private[0].ip
+    host        = hcloud_server.manager[0].ipv6_address
     user        = "root"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
@@ -134,7 +134,7 @@ resource "null_resource" "join_nodes" {
     rerun = random_id.cluster_token.hex
   }
   connection {
-    host        = element(hcloud_server_network.manager_private.*.ip, count.index + 1)
+    host        = element(hcloud_server.manager.*.ipv6_address, count.index + 1)
     user        = "root"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
