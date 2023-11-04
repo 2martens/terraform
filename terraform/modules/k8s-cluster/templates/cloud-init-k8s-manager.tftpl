@@ -69,5 +69,5 @@ runcmd:
   - /usr/local/bin/ssh-setup.sh
   - /usr/local/bin/microk8s-setup.sh
 %{ if main_node ~}
-  - /usr/local/bin/cluster-setup.sh
+  - sudo /usr/local/bin/cluster-setup.sh
 %{ endif ~}
