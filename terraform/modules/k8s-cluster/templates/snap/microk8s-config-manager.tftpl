@@ -19,7 +19,6 @@ extraSANs:
 addons:
   - name: dns
   - name: cis-hardening
-  - name: community
   - name: helm
   - name: helm3
   - name: ingress
@@ -30,5 +29,4 @@ addonRepositories:
   - name: core
     url: https://github.com/canonical/microk8s-core-addons
   - name: community
-    url: /snap/microk8s/current/addons/community
-    reference: 1.26
+    url: https://github.com/canonical/microk8s-community-addons
