@@ -19,6 +19,11 @@ package_upgrade: true
 snap:
   commands:
   - snap install kubectl --classic
+write_files:
+  - owner: root:root
+    content: "${microk8s_config}"
+    path: /var/snap/microk8s/common/.microk8s.yaml
+    encoding: base64
 runcmd:
   - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
   - systemctl enable fail2ban
@@ -41,8 +46,6 @@ runcmd:
   - sed -i '$a AllowUsers ${admin_user} terraform' /etc/ssh/sshd_config
   - curl https://packages.hetzner.com/hcloud/deb/hc-utils_0.0.4-1_all.deb -o /tmp/hc-utils_0.0.4-1_all.deb -s
   - apt install /tmp/hc-utils_0.0.4-1_all.deb
-  - mkdir -p /var/snap/microk8s/common/
-  - echo "${microk8s_config}" > /var/snap/microk8s/common/.microk8s.yaml
   - snap install microk8s --channel ${microk8s_channel}
   - mkdir -p /home/terraform/.kube
   - microk8s kubectl config view --raw > /home/terraform/.kube/config

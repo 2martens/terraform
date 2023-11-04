@@ -54,10 +54,10 @@ resource "hcloud_server" "worker" {
     terraform_public_ssh_key : var.terraform_public_ssh_key,
     microk8s_channel : var.microk8s_channel,
     admin_user : var.admin_user,
-    microk8s_config : templatefile("${path.module}/templates/microk8s-config.tftpl", {
+    microk8s_config : base64encode(templatefile("${path.module}/templates/microk8s-config.tftpl", {
       node_ip : var.private_worker_node_ips[count.index],
       api_server_domain : local.kube_api_server_domain
-    })
+    }))
   })
   shutdown_before_deletion = true
 
