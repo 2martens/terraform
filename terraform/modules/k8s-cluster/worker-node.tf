@@ -18,6 +18,14 @@ resource "hcloud_primary_ip" "ipv6_worker_address" {
   auto_delete   = false
 }
 
+resource "hcloud_rdns" "ipv6_manager" {
+  count = var.number_worker_nodes
+
+  primary_ip_id = hcloud_primary_ip.ipv6_worker_address[count.index].id
+  ip_address    = hcloud_primary_ip.ipv6_worker_address[count.index].ip_address
+  dns_ptr       = inwx_nameserver_record.worker_aaaa.name
+}
+
 resource "hcloud_server_network" "worker_private" {
   count = var.number_worker_nodes
 

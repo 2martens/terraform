@@ -18,6 +18,14 @@ resource "hcloud_primary_ip" "ipv4_manager_address" {
   auto_delete   = false
 }
 
+resource "hcloud_rdns" "ipv4_manager" {
+  count = var.create_loadbalancer ? 0 : var.number_nodes
+
+  primary_ip_id = hcloud_primary_ip.ipv4_manager_address[count.index].id
+  ip_address    = hcloud_primary_ip.ipv4_manager_address[count.index].ip_address
+  dns_ptr       = inwx_nameserver_record.manager_aaaa.name
+}
+
 resource "hcloud_primary_ip" "ipv6_manager_address" {
   count = var.number_nodes
 
@@ -26,6 +34,14 @@ resource "hcloud_primary_ip" "ipv6_manager_address" {
   type          = "ipv6"
   assignee_type = "server"
   auto_delete   = false
+}
+
+resource "hcloud_rdns" "ipv6_manager" {
+  count = var.number_nodes
+
+  primary_ip_id = hcloud_primary_ip.ipv6_manager_address[count.index].id
+  ip_address    = hcloud_primary_ip.ipv6_manager_address[count.index].ip_address
+  dns_ptr       = inwx_nameserver_record.manager_aaaa.name
 }
 
 resource "hcloud_server_network" "manager_private" {

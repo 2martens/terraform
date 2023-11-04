@@ -49,3 +49,19 @@ resource "inwx_nameserver_record" "kube_api_server_aaaa" {
   type    = "AAAA"
   ttl     = 3600
 }
+
+resource "hcloud_rdns" "ipv4_loadbalancer" {
+  count = var.create_loadbalancer ? 1 : 0
+
+  load_balancer_id = hcloud_load_balancer.kubernetes[0].id
+  ip_address       = hcloud_load_balancer.kubernetes[0].ipv4
+  dns_ptr          = local.kube_api_server_domain
+}
+
+resource "hcloud_rdns" "ipv6_loadbalancer" {
+  count = var.create_loadbalancer ? 1 : 0
+
+  load_balancer_id = hcloud_load_balancer.kubernetes[0].id
+  ip_address       = hcloud_load_balancer.kubernetes[0].ipv6
+  dns_ptr          = local.kube_api_server_domain
+}
