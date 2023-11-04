@@ -4,6 +4,6 @@ join:
   url: "${main_node_ip}:25000/${cluster_token}"
   worker: true
 extraKubeletArgs:
-  --node-ip=${node_ip}
-  --cluster-dns=10.152.183.10
-  --cluster-domain=cluster.local
+  --node-ip: ${node_ip}
+  --cluster-dns: 10.152.183.10
+  --cluster-domain: cluster.local
