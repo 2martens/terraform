@@ -119,7 +119,7 @@ resource "null_resource" "setup_tokens" {
     user        = "terraform"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
-    timeout     = "2m"
+    timeout     = "10m"
   }
 
   provisioner "local-exec" {
@@ -128,6 +128,11 @@ resource "null_resource" "setup_tokens" {
         echo "1" > /tmp/current_joining_node.txt
         echo "0" > /tmp/current_joining_worker_node.txt
         EOT
+  }
+
+  provisioner "remote-exec" {
+    interpreter = ["bash", "-c"]
+    command     = "while (test -z `command -v microk8s`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
   }
 
   provisioner "file" {
@@ -164,6 +169,11 @@ resource "null_resource" "join_nodes" {
   provisioner "local-exec" {
     interpreter = ["bash", "-c"]
     command     = "while [[ $(cat /tmp/current_joining_node.txt) != \"${count.index + 1}\" ]]; do echo \"${count.index + 1} is waiting...\";sleep 5;done"
+  }
+
+  provisioner "remote-exec" {
+    interpreter = ["bash", "-c"]
+    command     = "while (test -z `command -v microk8s`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
   }
 
   provisioner "file" {

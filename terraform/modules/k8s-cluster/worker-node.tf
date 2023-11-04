@@ -101,6 +101,11 @@ resource "null_resource" "join_workers" {
     command     = "while [[ $(cat /tmp/current_joining_worker_node.txt) != \"${count.index}\" ]]; do echo \"${count.index} is waiting...\";sleep 5;done"
   }
 
+  provisioner "remote-exec" {
+    interpreter = ["bash", "-c"]
+    command     = "while (test -z `command -v microk8s`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
+  }
+
   provisioner "file" {
     content = templatefile("${path.module}/templates/join-worker.sh",
       {

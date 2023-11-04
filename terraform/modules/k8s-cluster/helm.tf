@@ -4,7 +4,12 @@ resource "null_resource" "install_setup" {
     user        = "terraform"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
-    timeout     = "2m"
+    timeout     = "10m"
+  }
+
+  provisioner "remote-exec" {
+    interpreter = ["bash", "-c"]
+    command     = "while (test -z `command -v helm`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
   }
 
   provisioner "file" {
@@ -48,7 +53,12 @@ resource "null_resource" "install_argocd_single" {
     user        = "terraform"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
-    timeout     = "2m"
+    timeout     = "10m"
+  }
+
+  provisioner "remote-exec" {
+    interpreter = ["bash", "-c"]
+    command     = "while (test -z `command -v helm`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
   }
 
   provisioner "remote-exec" {
@@ -70,7 +80,12 @@ resource "null_resource" "install_argocd_ha" {
     user        = "terraform"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
-    timeout     = "2m"
+    timeout     = "10m"
+  }
+
+  provisioner "remote-exec" {
+    interpreter = ["bash", "-c"]
+    command     = "while (test -z `command -v helm`); do echo \"Waiting for cloud init to finish...\";sleep 5;done"
   }
 
   provisioner "file" {
