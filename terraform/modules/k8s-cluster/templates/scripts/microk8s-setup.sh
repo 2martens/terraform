@@ -10,4 +10,4 @@ snap install /run/snap/microk8s-cluster-config_*.snap --dangerous
 sleep 120
 %{ endif ~}
 snap install microk8s --channel "${microk8s_channel}"
-snap connect microk8s-cluster-config:configuration microk8s
+snap connect microk8s:configuration microk8s-cluster-config
