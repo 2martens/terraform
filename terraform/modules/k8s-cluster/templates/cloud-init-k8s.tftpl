@@ -42,7 +42,7 @@ runcmd:
   - curl https://packages.hetzner.com/hcloud/deb/hc-utils_0.0.4-1_all.deb -o /tmp/hc-utils_0.0.4-1_all.deb -s
   - apt install /tmp/hc-utils_0.0.4-1_all.deb
   - mkdir -p /var/snap/microk8s/common/
-  - echo ${microk8s_config} > /var/snap/microk8s/common/.microk8s.yaml
+  - echo "${microk8s_config}" > /var/snap/microk8s/common/.microk8s.yaml
   - snap install microk8s --channel ${microk8s_channel}
   - mkdir -p /home/terraform/.kube
   - microk8s kubectl config view --raw > /home/terraform/.kube/config
