@@ -117,6 +117,7 @@ resource "hcloud_server" "manager" {
       argocd_environment : var.argocd_environment
       argocd_version : var.argocd_chart_version
       high_availability : var.number_nodes > 2
+      admin_user : var.admin_user
     }))
   })
 

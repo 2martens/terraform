@@ -215,6 +215,7 @@ resource "hcloud_server" "server_k8s_test" {
       argocd_environment : "test"
       argocd_version : "5.34.3"
       high_availability : false
+      admin_user : "2martensAdmin"
     }))
   })
   shutdown_before_deletion = true
