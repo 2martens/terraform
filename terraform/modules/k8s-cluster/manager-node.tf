@@ -23,7 +23,7 @@ resource "hcloud_rdns" "ipv4_manager" {
 
   primary_ip_id = hcloud_primary_ip.ipv4_manager_address[count.index].id
   ip_address    = hcloud_primary_ip.ipv4_manager_address[count.index].ip_address
-  dns_ptr       = inwx_nameserver_record.manager_aaaa.name
+  dns_ptr       = inwx_nameserver_record.manager_aaaa[count.index].name
 }
 
 resource "hcloud_primary_ip" "ipv6_manager_address" {
@@ -41,7 +41,7 @@ resource "hcloud_rdns" "ipv6_manager" {
 
   primary_ip_id = hcloud_primary_ip.ipv6_manager_address[count.index].id
   ip_address    = hcloud_primary_ip.ipv6_manager_address[count.index].ip_address
-  dns_ptr       = inwx_nameserver_record.manager_aaaa.name
+  dns_ptr       = inwx_nameserver_record.manager_aaaa[count.index].name
 }
 
 resource "hcloud_server_network" "manager_private" {

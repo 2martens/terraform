@@ -23,7 +23,7 @@ resource "hcloud_rdns" "ipv6_worker" {
 
   primary_ip_id = hcloud_primary_ip.ipv6_worker_address[count.index].id
   ip_address    = hcloud_primary_ip.ipv6_worker_address[count.index].ip_address
-  dns_ptr       = inwx_nameserver_record.worker_aaaa.name
+  dns_ptr       = inwx_nameserver_record.worker_aaaa[count.index].name
 }
 
 resource "hcloud_server_network" "worker_private" {
