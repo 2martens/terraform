@@ -1,7 +1,7 @@
 resource "null_resource" "install_setup" {
   connection {
     host        = hcloud_server.manager[0].ipv6_address
-    user        = "root"
+    user        = "terraform"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
     timeout     = "2m"
@@ -45,7 +45,7 @@ resource "null_resource" "install_argocd_single" {
 
   connection {
     host        = hcloud_server.manager[0].ipv6_address
-    user        = "root"
+    user        = "terraform"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
     timeout     = "2m"
@@ -67,7 +67,7 @@ resource "null_resource" "install_argocd_ha" {
 
   connection {
     host        = hcloud_server.manager[0].ipv6_address
-    user        = "root"
+    user        = "terraform"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
     timeout     = "2m"

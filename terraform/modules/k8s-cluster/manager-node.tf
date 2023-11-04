@@ -116,7 +116,7 @@ resource "null_resource" "setup_tokens" {
 
   connection {
     host        = hcloud_server.manager[0].ipv6_address
-    user        = "root"
+    user        = "terraform"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
     timeout     = "2m"
@@ -155,7 +155,7 @@ resource "null_resource" "join_nodes" {
   }
   connection {
     host        = element(hcloud_server.manager.*.ipv6_address, count.index + 1)
-    user        = "root"
+    user        = "terraform"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
     timeout     = "20m"

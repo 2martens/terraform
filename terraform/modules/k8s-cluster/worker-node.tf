@@ -90,7 +90,7 @@ resource "null_resource" "join_workers" {
   }
   connection {
     host        = element(hcloud_server.worker.*.ipv6_address, count.index)
-    user        = "root"
+    user        = "terraform"
     type        = "ssh"
     private_key = var.terraform_private_ssh_key
     timeout     = "20m"
