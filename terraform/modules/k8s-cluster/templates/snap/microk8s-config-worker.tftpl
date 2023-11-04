@@ -7,3 +7,10 @@ extraKubeletArgs:
   --node-ip: ${node_ip}
   --cluster-dns: 10.152.183.10
   --cluster-domain: cluster.local
+addons:
+  - name: dns
+  - name: helm
+  - name: helm3
+  - name: cis-hardening
+  - name: ha-cluster
+  - name: rbac
