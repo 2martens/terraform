@@ -38,7 +38,7 @@ resource "hcloud_load_balancer_target" "nodes" {
 resource "inwx_nameserver_record" "kube_api_server_a" {
   domain  = var.domain
   name    = local.kube_api_server_domain
-  content = var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv4 : hcloud_primary_ip.ipv4_manager_address[0].ip_address
+  content = var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv4 : hcloud_server.manager[0].ipv4_address
   type    = "A"
   ttl     = 3600
 }
