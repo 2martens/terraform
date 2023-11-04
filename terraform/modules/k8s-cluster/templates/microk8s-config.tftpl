@@ -1,5 +1,5 @@
 ---
-version: 0.1.0
+version: 0.2.0
 extraKubeAPIServerArgs:
   --advertise-address=${node_ip}
   --authorization-mode=RBAC,Node
@@ -13,8 +13,15 @@ addons:
   - name: dns
   - name: cis-hardening
   - name: community
+  - name: helm
   - name: helm3
   - name: ingress
   - name: ha-cluster
   - name: rbac
   - name: cert-manager
+addonRepositories:
+  - name: core
+    url: https://github.com/canonical/microk8s-core-addons
+  - name: community
+    url: /snap/microk8s/current/addons/community
+    reference: 1.26
