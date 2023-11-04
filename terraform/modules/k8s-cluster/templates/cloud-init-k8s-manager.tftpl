@@ -19,36 +19,43 @@ write_files:
     content: "${microk8s_config}"
     path: /run/tmpfiles.d/.microk8s.yaml
     encoding: base64
+    defer: true
   - owner: root:root
     content: "${packages_setup}"
     path: /run/tmpfiles.d/install-packages.sh
     encoding: base64
+    defer: true
   - owner: root:root
     content: "${firewall_setup}"
     path: /run/tmpfiles.d/firewall-setup.sh
     encoding: base64
+    defer: true
   - owner: root:root
     content: "${ssh_setup}"
     path: /run/tmpfiles.d/ssh-setup.sh
     encoding: base64
+    defer: true
   - owner: root:root
     content: "${microk8s_setup}"
     path: /run/tmpfiles.d/microk8s-setup.sh
     encoding: base64
+    defer: true
 %{ if main_node ~}
   - owner: root:root
     content: "${cluster_setup}"
     path: /run/tmpfiles.d/cluster-setup.sh
     encoding: base64
-    permissions: "0755"
+    defer: true
   - owner: root:root
     content: "${cluster_setup_values}"
     path: /run/tmpfiles.d/cluster-setup-values.yaml
     encoding: base64
+    defer: true
   - owner: root:root
     content: "${argocd_ha_values}"
     path: /run/tmpfiles.d/argocd-values-ha.yaml
     encoding: base64
+    defer: true
 %{ endif ~}
 runcmd:
   - install /run/tmpfiles.d/*.sh /usr/local/bin
