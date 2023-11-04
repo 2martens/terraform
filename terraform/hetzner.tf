@@ -183,7 +183,7 @@ resource "hcloud_server" "server_k8s_test" {
     admin_user : "2martensAdmin"
     terraform_public_ssh_key : var.terraform_public_ssh_key
     main_node : true
-    microk8s_config : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/microk8s-config-manager.tftpl", {
+    microk8s_config : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/snap/microk8s-config-manager.tftpl", {
       node_ip : "10.0.0.2"
       api_server_domain : ""
       api_server_ip : hcloud_primary_ip.primary_ipv4_k8s_test.ip_address
@@ -191,26 +191,27 @@ resource "hcloud_server" "server_k8s_test" {
       main_node_ip : "10.0.0.2"
       cluster_token : ""
     }))
-    packages_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/install-packages.sh", {
+    snapcraft : base64encode(file("${path.module}/modules/k8s-cluster/templates/snap/snapcraft.yaml"))
+    packages_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/scripts/install-packages.sh", {
       refresh_day : "fri"
       refresh_hour : format("%02d", 0)
     }))
-    firewall_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/firewall-setup.sh", {
+    firewall_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/scripts/firewall-setup.sh", {
       node_ip : "10.0.0.2"
     }))
-    ssh_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/ssh-setup.sh", {
+    ssh_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/scripts/ssh-setup.sh", {
       admin_user : "2martensAdmin"
     }))
-    microk8s_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/microk8s-setup.sh", {
+    microk8s_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/scripts/microk8s-setup.sh", {
       microk8s_channel : "1.28-strict/stable"
       main_node : true
     }))
-    cluster_setup_values : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/cluster-setup-values.yaml", {
+    cluster_setup_values : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/helm/cluster-setup-values.yaml", {
       client_id : var.vault_client_id
       client_secret : var.vault_client_secret
     }))
-    argocd_ha_values : base64encode(file("${path.module}/modules/k8s-cluster/templates/argocd-values-ha.yaml"))
-    cluster_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/cluster-setup.sh", {
+    argocd_ha_values : base64encode(file("${path.module}/modules/k8s-cluster/templates/helm/argocd-values-ha.yaml"))
+    cluster_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/scripts/cluster-setup.sh", {
       argocd_environment : "test"
       high_availability : false
     }))

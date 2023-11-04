@@ -1,0 +1,23 @@
+name: microk8s-cluster-config
+version: 'latest'
+summary: Adds a launch configuration to MicroK8s
+description: Configuration yaml file that MicroK8s can apply.
+base: core20
+
+grade: stable
+confinement: strict
+
+slots:
+  configuration:
+    interface: content
+    content: configuration
+    source:
+      read:
+        - $SNAP/launcher
+
+parts:
+  configuration:
+    plugin: dump
+    source: .
+    stage:
+      - launcher/*

@@ -21,6 +21,11 @@ write_files:
     encoding: base64
     defer: true
   - owner: root:root
+    content: "${snapcraft}"
+    path: /run/tmpfiles.d/snapcraft.yaml
+    encoding: base64
+    defer: true
+  - owner: root:root
     content: "${packages_setup}"
     path: /run/tmpfiles.d/install-packages.sh
     encoding: base64

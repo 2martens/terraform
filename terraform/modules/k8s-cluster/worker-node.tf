@@ -64,7 +64,7 @@ resource "hcloud_server" "worker" {
     admin_user : var.admin_user
     terraform_public_ssh_key : var.terraform_public_ssh_key
     main_node : count.index == 0
-    microk8s_config : base64encode(templatefile("${path.module}/templates/microk8s-config-worker.tftpl", {
+    microk8s_config : base64encode(templatefile("${path.module}/templates/snap/microk8s-config-worker.tftpl", {
       node_ip : var.private_node_ips[count.index]
       api_server_domain : local.kube_api_server_domain
       main_node : count.index == 0
@@ -72,26 +72,27 @@ resource "hcloud_server" "worker" {
       api_server_ip : var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv4 : hcloud_server.manager[0].ipv4_address
       cluster_token : random_id.cluster_token.hex
     }))
-    packages_setup : base64encode(templatefile("${path.module}/templates/install-packages.sh", {
+    snapcraft : base64encode(file("${path.module}/templates/snap/snapcraft.yaml"))
+    packages_setup : base64encode(templatefile("${path.module}/templates/scripts/install-packages.sh", {
       refresh_day : "sat"
       refresh_hour : format("%02d", count.index)
     }))
-    firewall_setup : base64encode(templatefile("${path.module}/templates/firewall-setup.sh", {
+    firewall_setup : base64encode(templatefile("${path.module}/templates/scripts/firewall-setup.sh", {
       node_ip : var.private_node_ips[count.index]
     }))
-    ssh_setup : base64encode(templatefile("${path.module}/templates/ssh-setup.sh", {
+    ssh_setup : base64encode(templatefile("${path.module}/templates/scripts/ssh-setup.sh", {
       admin_user : var.admin_user
     }))
-    microk8s_setup : base64encode(templatefile("${path.module}/templates/microk8s-setup.sh", {
+    microk8s_setup : base64encode(templatefile("${path.module}/templates/scripts/microk8s-setup.sh", {
       microk8s_channel : var.microk8s_channel
       main_node : false
     }))
-    cluster_setup_values : base64encode(templatefile("${path.module}/templates/cluster-setup-values.yaml", {
+    cluster_setup_values : base64encode(templatefile("${path.module}/templates/helm/cluster-setup-values.yaml", {
       client_id : var.vault_service_principal.client_id
       client_secret : var.vault_service_principal.client_secret
     }))
-    argocd_ha_values : base64encode(file("${path.module}/templates/argocd-values-ha.yaml"))
-    cluster_setup : base64encode(templatefile("${path.module}/templates/cluster-setup.sh", {
+    argocd_ha_values : base64encode(file("${path.module}/templates/helm/argocd-values-ha.yaml"))
+    cluster_setup : base64encode(templatefile("${path.module}/templates/scripts/cluster-setup.sh", {
       argocd_environment : var.argocd_environment
       high_availability : var.number_nodes > 2
     }))
