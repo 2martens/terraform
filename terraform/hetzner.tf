@@ -18,13 +18,6 @@ resource "hcloud_network_subnet" "k8s-network-subnet" {
   ip_range     = "10.0.0.0/16"
 }
 
-resource "hcloud_network_route" "k8s-route" {
-  network_id  = hcloud_network.kubernetes-network.id
-  destination = "10.1.0.0/16"
-  gateway     = "10.0.0.2"
-  depends_on  = [hcloud_network_subnet.k8s-network-subnet]
-}
-
 resource "hcloud_firewall" "basic-firewall" {
   name = "basic-firewall"
   rule {
