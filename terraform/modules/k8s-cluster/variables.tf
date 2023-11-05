@@ -89,7 +89,7 @@ variable "argocd_environment" {
 variable "argocd_chart_version" {
   description = "The Argo CD chart version to use."
   type        = string
-  default     = "0.1.1"
+  default     = "0.1.2"
 }
 
 variable "number_nodes" {

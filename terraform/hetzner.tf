@@ -214,7 +214,7 @@ resource "hcloud_server" "server_k8s_test" {
     argocd_ha_values : base64encode(file("${path.module}/modules/k8s-cluster/templates/helm/argocd-values-ha.yaml"))
     cluster_setup : base64encode(templatefile("${path.module}/modules/k8s-cluster/templates/scripts/cluster-setup.sh", {
       argocd_environment : "test"
-      argocd_version : "0.1.1"
+      argocd_version : "0.1.2"
       high_availability : false
       admin_user : "2martensAdmin"
     }))
