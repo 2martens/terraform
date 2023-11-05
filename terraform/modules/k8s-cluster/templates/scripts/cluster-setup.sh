@@ -12,7 +12,7 @@ chown -R ${admin_user}:${admin_user} /home/${admin_user}/.kube
 /snap/bin/microk8s.helm3 repo add argo https://argoproj.github.io/argo-helm
 /snap/bin/microk8s.helm3 repo add hashicorp https://helm.releases.hashicorp.com
 /snap/bin/microk8s.helm3 install setup 2martens/cluster_setup --values /run/tmpfiles.d/cluster-setup-values.yaml
-/snap/bin/microk8s.helm3 install vault-secrets-operator hashicorp/vault-secrets-operator --create-namespace -n vault-secrets-operator-system
+/snap/bin/microk8s.helm3 install vault-secrets-operator hashicorp/vault-secrets-operator -n vault-secrets-operator-system
 %{ if high_availability ~}
 /snap/bin/microk8s.helm3 install argo-cd argo/argo-cd --create-namespace -n argocd --values /run/tmpfiles.d/argocd-values-ha.yaml
 %{ else ~}
