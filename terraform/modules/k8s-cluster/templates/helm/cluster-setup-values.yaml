@@ -2,3 +2,4 @@ vault:
   enabled: true
   clientId: ${client_id}
   clientSecret: ${client_secret}
+  applicationNamespaces: []
