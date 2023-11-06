@@ -154,3 +154,22 @@ variable "vault_allowed_namespaces" {
   type        = list(string)
   default     = []
 }
+
+variable "hcloud_token_enabled" {
+  description = "If true, the hcloud token will be injected into the cluster as a secret"
+  type        = bool
+  default     = true
+}
+
+variable "hcloud_token" {
+  description = "Contains the hcloud token. If enabled, it must be filled"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "hcloud_namespace" {
+  description = "Namespace in which the hcloud token will be created"
+  type        = string
+  default     = "hcloud"
+}

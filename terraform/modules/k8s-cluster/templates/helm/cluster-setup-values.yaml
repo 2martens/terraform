@@ -6,3 +6,7 @@ vault:
 %{ for namespace in allowed_namespaces ~}
     - ${namespace}
 %{ endfor ~}
+hcloud:
+  enabled: ${hcloud_token_enabled}
+  token: ${hcloud_token}
+  namespace: {$hcloud_namespace}

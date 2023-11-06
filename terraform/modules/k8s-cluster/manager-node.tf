@@ -113,6 +113,9 @@ resource "hcloud_server" "manager" {
       client_id : var.vault_service_principal.client_id
       client_secret : var.vault_service_principal.client_secret
       allowed_namespaces : var.vault_allowed_namespaces
+      hcloud_token_enabled : var.hcloud_token_enabled
+      hcloud_token : var.hcloud_token
+      hcloud_namespace : var.hcloud_namespace
     }))
     argocd_ha_values : base64encode(file("${path.module}/templates/helm/argocd-values-ha.yaml"))
     argocd_values : base64encode(file("${path.module}/templates/helm/argocd-values.yaml"))

@@ -63,4 +63,6 @@ module "test_cluster" {
     client_secret : var.vault_client_secret
   }
   vault_allowed_namespaces = ["wahlrecht"]
+  hcloud_token_enabled     = true
+  hcloud_token             = var.hcloud_token
 }
