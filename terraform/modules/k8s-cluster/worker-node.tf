@@ -88,17 +88,6 @@ resource "hcloud_server" "worker" {
       main_node : false
       manager_node : false
     }))
-    cluster_setup_values : base64encode(templatefile("${path.module}/templates/helm/cluster-setup-values.yaml", {
-      client_id : var.vault_service_principal.client_id
-      client_secret : var.vault_service_principal.client_secret
-    }))
-    argocd_ha_values : base64encode(file("${path.module}/templates/helm/argocd-values-ha.yaml"))
-    cluster_setup : base64encode(templatefile("${path.module}/templates/scripts/cluster-setup.sh", {
-      argocd_environment : var.argocd_environment
-      argocd_version : var.argocd_chart_version
-      high_availability : var.number_nodes > 2
-      admin_user : var.admin_user
-    }))
   })
 
   network {

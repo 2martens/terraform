@@ -118,7 +118,6 @@ resource "hcloud_server" "manager" {
     argocd_values : base64encode(file("${path.module}/templates/helm/argocd-values.yaml"))
     cluster_setup : base64encode(templatefile("${path.module}/templates/scripts/cluster-setup.sh", {
       argocd_environment : var.argocd_environment
-      argocd_version : var.argocd_chart_version
       high_availability : var.number_nodes > 2
       admin_user : var.admin_user
     }))
