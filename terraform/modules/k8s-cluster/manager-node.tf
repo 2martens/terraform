@@ -112,6 +112,7 @@ resource "hcloud_server" "manager" {
     cluster_setup_values : base64encode(templatefile("${path.module}/templates/helm/cluster-setup-values.yaml", {
       client_id : var.vault_service_principal.client_id
       client_secret : var.vault_service_principal.client_secret
+      allowed_namespaces : var.vault_allowed_namespaces
     }))
     argocd_ha_values : base64encode(file("${path.module}/templates/helm/argocd-values-ha.yaml"))
     cluster_setup : base64encode(templatefile("${path.module}/templates/scripts/cluster-setup.sh", {

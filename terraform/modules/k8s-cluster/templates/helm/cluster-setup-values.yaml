@@ -2,4 +2,7 @@ vault:
   enabled: true
   clientId: ${client_id}
   clientSecret: ${client_secret}
-  applicationNamespaces: []
+  applicationNamespaces:
+%{ for namespace in allowed_namespaces ~}
+    - ${namespace}
+%{ endfor ~}

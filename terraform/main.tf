@@ -62,4 +62,5 @@ module "test_cluster" {
     client_id : var.vault_client_id
     client_secret : var.vault_client_secret
   }
+  vault_allowed_namespaces = ["wahlrecht"]
 }

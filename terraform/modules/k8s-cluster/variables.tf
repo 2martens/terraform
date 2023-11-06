@@ -154,3 +154,9 @@ variable "vault_service_principal" {
   })
   sensitive = true
 }
+
+variable "vault_allowed_namespaces" {
+  description = "Namespaces that are allowed to access secrets from the Vault"
+  type        = list(string)
+  default     = []
+}
