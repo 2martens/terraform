@@ -14,7 +14,7 @@ module "prometheus_k8s_test_domain" {
   ipv6      = module.test_cluster.api_server_ipv6_address
 }
 
-module "prometheus_k8s_test_domain" {
+module "thanos_prometheus_k8s_test_domain" {
   source    = "./modules/domain"
   domain    = local.domain
   subdomain = "thanos.prometheus.k8s.test"
