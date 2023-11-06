@@ -61,6 +61,11 @@ write_files:
     path: /run/tmpfiles.d/argocd-values-ha.yaml
     encoding: base64
     defer: true
+  - owner: root:root
+    content: "${argocd_values}"
+    path: /run/tmpfiles.d/argocd-values.yaml
+    encoding: base64
+    defer: true
 %{ endif ~}
 runcmd:
   - install /run/tmpfiles.d/*.sh /usr/local/bin

@@ -16,6 +16,6 @@ chown -R ${admin_user}:${admin_user} /home/${admin_user}/.kube
 %{ if high_availability ~}
 /snap/bin/microk8s.helm3 install argo-cd argo/argo-cd --create-namespace -n argocd --values /run/tmpfiles.d/argocd-values-ha.yaml
 %{ else ~}
-/snap/bin/microk8s.helm3 install argo-cd argo/argo-cd --create-namespace -n argocd
+/snap/bin/microk8s.helm3 install argo-cd argo/argo-cd --create-namespace -n argocd --values /run/tmpfiles.d/argocd-values.yaml
 %{ endif ~}
 /snap/bin/microk8s.helm3 install argocd-config 2martens/argocd-configuration -n argocd --version ${argocd_version} --set environment=${argocd_environment}

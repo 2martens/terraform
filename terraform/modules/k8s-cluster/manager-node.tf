@@ -115,6 +115,7 @@ resource "hcloud_server" "manager" {
       allowed_namespaces : var.vault_allowed_namespaces
     }))
     argocd_ha_values : base64encode(file("${path.module}/templates/helm/argocd-values-ha.yaml"))
+    argocd_values : base64encode(file("${path.module}/templates/helm/argocd-values.yaml"))
     cluster_setup : base64encode(templatefile("${path.module}/templates/scripts/cluster-setup.sh", {
       argocd_environment : var.argocd_environment
       argocd_version : var.argocd_chart_version
