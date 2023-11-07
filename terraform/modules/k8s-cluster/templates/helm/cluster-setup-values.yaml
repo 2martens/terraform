@@ -4,7 +4,7 @@ vault:
   clientSecret: ${client_secret}
   applicationNamespaces:
 %{ for namespace in allowed_namespaces ~}
-    - ${namespace}
+    - name: ${namespace}
 %{ endfor ~}
 hcloud:
   enabled: ${hcloud_token_enabled}
