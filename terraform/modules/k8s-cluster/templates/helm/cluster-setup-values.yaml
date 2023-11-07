@@ -10,3 +10,10 @@ hcloud:
   enabled: ${hcloud_token_enabled}
   token: ${hcloud_token}
   namespace: {$hcloud_namespace}
+thanos:
+  enabled: ${thanos_enabled}
+  namespace: ${thanos_namespace}
+  bucketName: ${s3_bucket_name}
+  awsRegion: ${aws_region_name}
+  accessKey: ${aws_access_key}
+  secretKey: ${aws_secret_key}

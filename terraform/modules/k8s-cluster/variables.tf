@@ -173,3 +173,36 @@ variable "hcloud_namespace" {
   type        = string
   default     = "hcloud"
 }
+
+variable "thanos_enabled" {
+  description = "If true, a namespace configured by thanos_namespace will be created and thanos object store config with provided access key and secret key will be created"
+  type        = bool
+  default     = false
+}
+variable "thanos_namespace" {
+  description = "Namespace for thanos sidecar in Prometheus"
+  type        = string
+  default     = "observability"
+}
+variable "thanos_s3_bucket_name" {
+  description = "Name of the S3 bucket to store data from thanos in. If thanos is enabled, it must be overriden and filled."
+  type        = string
+  default     = ""
+}
+variable "aws_region_name" {
+  description = "AWS region in which the bucket resides."
+  type        = string
+  default     = "eu-central-1"
+}
+variable "aws_access_key" {
+  description = "AWS access key to retrieve/store data in the bucket. Must be filled if thanos is enabled."
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+variable "aws_secret_key" {
+  description = "AWS secret key to retrieve/store data in the bucket. Must be filled if thanos is enabled"
+  type        = string
+  default     = ""
+  sensitive   = true
+}

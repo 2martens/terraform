@@ -116,6 +116,12 @@ resource "hcloud_server" "manager" {
       hcloud_token_enabled : var.hcloud_token_enabled
       hcloud_token : var.hcloud_token
       hcloud_namespace : var.hcloud_namespace
+      thanos_enabled : var.thanos_enabled
+      thanos_namespace : var.thanos_namespace
+      s3_bucket_name : var.thanos_s3_bucket_name
+      aws_region_name : var.aws_region_name
+      aws_access_key : var.aws_access_key
+      aws_secret_key : var.aws_secret_key
     }))
     argocd_ha_values : base64encode(file("${path.module}/templates/helm/argocd-values-ha.yaml"))
     argocd_values : base64encode(file("${path.module}/templates/helm/argocd-values.yaml"))
