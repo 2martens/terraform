@@ -41,6 +41,11 @@ write_files:
     encoding: base64
     defer: true
   - owner: root:root
+    content: "${sysctl_setup}"
+    path: /run/tmpfiles.d/sysctl-setup.sh
+    encoding: base64
+    defer: true
+  - owner: root:root
     content: "${microk8s_setup}"
     path: /run/tmpfiles.d/microk8s-setup.sh
     encoding: base64
@@ -50,5 +55,6 @@ runcmd:
   - /usr/local/bin/install-packages.sh
   - /usr/local/bin/firewall-setup.sh
   - /usr/local/bin/ssh-setup.sh
+  - /usr/local/bin/sysctl-setup.sh
   - /usr/local/bin/microk8s-setup.sh
 

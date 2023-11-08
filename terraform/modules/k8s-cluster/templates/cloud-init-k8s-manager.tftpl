@@ -72,6 +72,7 @@ runcmd:
   - /usr/local/bin/install-packages.sh
   - /usr/local/bin/firewall-setup.sh
   - /usr/local/bin/ssh-setup.sh
+  - /usr/local/bin/sysctl-setup.sh
   - /usr/local/bin/microk8s-setup.sh
 %{ if main_node ~}
   - sudo /usr/local/bin/cluster-setup.sh

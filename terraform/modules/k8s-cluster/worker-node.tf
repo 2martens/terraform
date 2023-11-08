@@ -83,6 +83,7 @@ resource "hcloud_server" "worker" {
     ssh_setup : base64encode(templatefile("${path.module}/templates/scripts/ssh-setup.sh", {
       admin_user : var.admin_user
     }))
+    sysctl_setup : base64encode(file("${path.module}/templates/scripts/sysctl-setup.sh"))
     microk8s_setup : base64encode(templatefile("${path.module}/templates/scripts/microk8s-setup.sh", {
       microk8s_channel : var.microk8s_channel
       main_node : false
