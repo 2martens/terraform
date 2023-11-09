@@ -12,4 +12,5 @@ ufw allow to ${node_ip} port 10250 comment "cadvisor port"
 ufw allow to ${node_ip} port 10259 comment "kube-scheduler port"
 ufw allow to ${node_ip} port 10257 comment "kube-controller-manager port"
 ufw allow to ${node_ip} port 25000 comment "port for joining nodes"
+ufw allow to ${node_ip} port 10901 comment "port for thanos sidecar"
 ufw enable
