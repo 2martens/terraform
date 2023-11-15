@@ -131,6 +131,9 @@ resource "hcloud_server" "manager" {
       high_availability : var.number_nodes > 2
       admin_user : var.admin_user
     }))
+    cilium_values : base64encode(templatefile("${path.module}/templates/helm/cilium-values.yaml", {
+      high_availability : var.number_nodes > 1
+    }))
   })
 
   network {

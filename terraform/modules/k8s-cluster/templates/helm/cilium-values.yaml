@@ -1,0 +1,69 @@
+rolloutCiliumPods: true
+annotateK8sNode: true
+bpf:
+  hostLegacyRouting: false
+cni:
+  install: true
+  uninstall: false
+  customConf: false
+  confPath: "/var/snap/microk8s/current/args/cni-network"
+  binPath: "/var/snap/microk8s/current/opt/cni/bin"
+  logFile: "/var/snap/microk8s/current/var/run/cilium/cilium-cni.log"
+daemon:
+  runPath: /var/snap/microk8s/current/var/run/cilium
+gatewayAPI:
+  enabled: false
+endpointStatus:
+  enabled: true
+  status: health
+hubble:
+  enabled: true
+  metrics:
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+      - port-distribution
+      - icmp
+      - httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction
+    serviceMonitor:
+      enabled: true
+  tls:
+    auto:
+      method: helm
+#      certManagerIssuerRef:
+#        group: cert-manager.io
+#        kind: ClusterIssuer
+#        name: lets-encrypt
+  backend:
+    livenessProbe:
+      enabled: true
+    readinessProbe:
+      enabled: true
+ipam:
+  operator:
+    clusterPoolIPv4PodCIDRList:
+      - "10.1.0.0/16"
+kubeProxyReplacement: true
+nodePort:
+  enabled: true
+  enableHealthCheckLoadBalancerIP: true
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+routingMode: ""
+wellKnownIdentities:
+  enabled: true
+operator:
+%{ if high_availability ~}
+  replicas: 2
+%{ else ~}
+  replicas: 1
+%{ endif ~}
+  rollOutPods: true
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
