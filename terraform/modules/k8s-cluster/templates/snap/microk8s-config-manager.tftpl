@@ -17,11 +17,11 @@ extraKubeletArgs:
 extraKubeProxyArgs:
   --metrics-bind-address: 0.0.0.0:10249
 extraKubeSchedulerArgs:
-  --authentication-kubeconfig: ${SNAP_DATA}/credentials/scheduler.config
-  --authorization-kubeconfig: ${SNAP_DATA}/credentials/scheduler.config
+  --authentication-kubeconfig: \${SNAP_DATA}/credentials/scheduler.config
+  --authorization-kubeconfig: \${SNAP_DATA}/credentials/scheduler.config
 extraKubeControllerManagerArgs:
-  --authentication-kubeconfig=${SNAP_DATA}/credentials/controller.config
-  --authorization-kubeconfig=${SNAP_DATA}/credentials/controller.config
+  --authentication-kubeconfig=\${SNAP_DATA}/credentials/controller.config
+  --authorization-kubeconfig=\${SNAP_DATA}/credentials/controller.config
 extraSANs:
   - ${api_server_domain}
 addons:
