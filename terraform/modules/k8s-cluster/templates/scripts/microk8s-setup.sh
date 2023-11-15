@@ -14,4 +14,6 @@ snap install microk8s --classic --channel "${microk8s_channel}"
 %{ if manager_node ~}
 /snap/bin/microk8s enable ingress
 /snap/bin/microk8s enable cert-manager
+/snap/bin/microk8s enable cilium
+/snap/bin/microk8s cilium hubble enable
 %{ endif ~}
