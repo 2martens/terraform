@@ -7,8 +7,9 @@ data "hcloud_placement_group" "default" {
 // common resources
 
 resource "hcloud_network" "kubernetes-network" {
-  name     = "kubernetes"
-  ip_range = "10.0.0.0/8"
+  name              = "kubernetes"
+  ip_range          = "10.0.0.0/8"
+  delete_protection = true
 }
 
 resource "hcloud_network_subnet" "k8s-network-subnet" {
