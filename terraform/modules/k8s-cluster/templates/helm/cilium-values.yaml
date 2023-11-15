@@ -53,7 +53,8 @@ prometheus:
   enabled: true
   serviceMonitor:
     enabled: true
-routingMode: ""
+routingMode: native
+ipv4NativeRoutingCIDR: 10.0.0.0/8
 wellKnownIdentities:
   enabled: true
 operator:
