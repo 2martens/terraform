@@ -1,6 +1,7 @@
 rolloutCiliumPods: true
 annotateK8sNode: true
 bpf:
+  masquerade: true
   hostLegacyRouting: false
 cni:
   install: true
