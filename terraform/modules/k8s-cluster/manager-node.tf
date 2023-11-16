@@ -77,7 +77,8 @@ resource "hcloud_server" "manager" {
 
   labels = {
     "kubernetes" : "yes",
-    "manager" : "yes"
+    "manager" : "yes",
+    "kubernetes.io/cluster/${var.cluster_name}" : "owned"
   }
 
   user_data = templatefile("${path.module}/templates/cloud-init-k8s-manager.tftpl", {

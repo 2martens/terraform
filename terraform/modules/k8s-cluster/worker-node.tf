@@ -56,7 +56,8 @@ resource "hcloud_server" "worker" {
 
   labels = {
     "kubernetes" : "yes",
-    "worker" : "yes"
+    "worker" : "yes",
+    "kubernetes.io/cluster/${var.cluster_name}" : "owned"
   }
 
   user_data = templatefile("${path.module}/templates/cloud-init-k8s-worker.tftpl", {
