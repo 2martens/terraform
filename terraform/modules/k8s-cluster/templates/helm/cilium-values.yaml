@@ -17,8 +17,14 @@ gatewayAPI:
 endpointStatus:
   enabled: true
   status: health
+hostFirewall:
+  enabled: true
 hubble:
   enabled: true
+  relay:
+    enabled: true
+  ui:
+    enabled: true
   metrics:
     enabled:
       - dns
