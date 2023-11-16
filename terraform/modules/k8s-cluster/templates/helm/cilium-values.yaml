@@ -54,7 +54,7 @@ prometheus:
   enabled: true
   serviceMonitor:
     enabled: true
-routingMode: native
+routingMode: ""
 ipv4NativeRoutingCIDR: ""
 wellKnownIdentities:
   enabled: true
