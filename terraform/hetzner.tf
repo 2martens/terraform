@@ -10,6 +10,9 @@ resource "hcloud_network" "kubernetes-network" {
   name              = "kubernetes"
   ip_range          = "10.0.0.0/8"
   delete_protection = true
+  labels = {
+    "kubernetes.io/cluster/${local.test_cluster}" : "shared"
+  }
 }
 
 resource "hcloud_network_subnet" "k8s-network-subnet" {
@@ -17,6 +20,9 @@ resource "hcloud_network_subnet" "k8s-network-subnet" {
   network_id   = hcloud_network.kubernetes-network.id
   network_zone = "eu-central"
   ip_range     = "10.0.0.0/16"
+  labels = {
+    "kubernetes.io/cluster/${local.test_cluster}" : "shared"
+  }
 }
 
 resource "hcloud_firewall" "basic-firewall" {

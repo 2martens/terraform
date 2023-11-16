@@ -19,7 +19,8 @@ data "hcloud_ssh_key" "macos" {
 }
 
 locals {
-  domain = "2martens.de"
+  domain       = "2martens.de"
+  test_cluster = "test"
 }
 
 module "test_cluster" {
@@ -51,7 +52,7 @@ module "test_cluster" {
     cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 6)
   ]
   server_subnet_id    = hcloud_network_subnet.k8s-network-subnet.id
-  cluster_name        = "test"
+  cluster_name        = local.test_cluster
   argocd_environment  = "test"
   number_nodes        = 1
   server_type         = "cax21"
