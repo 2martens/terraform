@@ -1,8 +1,8 @@
 rolloutCiliumPods: true
 annotateK8sNode: true
 bpf:
-  masquerade: true
-  hostLegacyRouting: false
+  masquerade: false
+  hostLegacyRouting: true
 cni:
   install: true
   uninstall: false
@@ -18,7 +18,7 @@ endpointStatus:
   enabled: true
   status: health
 hostFirewall:
-  enabled: true
+  enabled: false
 hubble:
   enabled: true
   relay:
