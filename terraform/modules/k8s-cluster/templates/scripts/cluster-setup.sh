@@ -16,4 +16,4 @@ chown -R ${admin_user}:${admin_user} /home/${admin_user}/.kube
 %{ else ~}
 /snap/bin/microk8s.helm3 install argo-cd argo/argo-cd --create-namespace -n argocd --values /run/tmpfiles.d/argocd-values.yaml
 %{ endif ~}
-/snap/bin/microk8s.helm3 install argocd-config 2martens/argocd-configuration -n argocd --set environment=${argocd_environment} --set gateway.enabled=true
+/snap/bin/microk8s.helm3 install argocd-config 2martens/argocd-configuration -n argocd --set environment=${argocd_environment} --set ingress.enabled=true --set ingress.className=public --set cilium.enabled=true
