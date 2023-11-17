@@ -64,7 +64,7 @@ module "test_cluster" {
     client_secret : var.vault_client_secret
   }
   vault_allowed_namespaces = ["wahlrecht"]
-  hcloud_token_enabled     = true
+  hcloud_token_enabled     = false
   hcloud_token             = var.hcloud_token
   thanos_enabled           = true
   thanos_s3_bucket_name    = "2martens-thanos-store"
