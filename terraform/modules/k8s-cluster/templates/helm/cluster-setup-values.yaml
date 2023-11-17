@@ -9,7 +9,7 @@ vault:
 hcloud:
   enabled: ${hcloud_token_enabled}
   token: ${hcloud_token}
-  namespace: {$hcloud_namespace}
+  namespace: ${hcloud_namespace}
 thanos:
   enabled: ${thanos_enabled}
   namespace: ${thanos_namespace}
