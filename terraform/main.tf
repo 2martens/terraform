@@ -66,4 +66,8 @@ module "test_cluster" {
   vault_allowed_namespaces = ["wahlrecht"]
   hcloud_token_enabled     = true
   hcloud_token             = var.hcloud_token
+  thanos_enabled           = true
+  thanos_s3_bucket_name    = "2martens-thanos-store"
+  aws_access_key           = var.aws_access_key
+  aws_secret_key           = var.aws_secret_key
 }

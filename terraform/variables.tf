@@ -59,3 +59,14 @@ variable "vault_client_secret" {
   type        = string
   sensitive   = true
 }
+
+variable "aws_access_key" {
+  description = "Access key for AWS"
+  type        = string
+  sensitive   = true
+}
+variable "aws_secret_key" {
+  description = "Secret key for AWS"
+  type        = string
+  sensitive   = true
+}
