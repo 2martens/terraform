@@ -11,6 +11,8 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     ssh_authorized_keys:
       - ${terraform_public_ssh_key}
+packages:
+  - linux-generic-hwe-22.04
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
