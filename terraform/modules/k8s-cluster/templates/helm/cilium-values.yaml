@@ -7,6 +7,7 @@ cni:
   install: true
   uninstall: false
   customConf: false
+  chainingMode: portmap
   confPath: "/var/snap/microk8s/current/args/cni-network"
   binPath: "/var/snap/microk8s/current/opt/cni/bin"
   logFile: "/var/snap/microk8s/current/var/run/cilium/cilium-cni.log"
