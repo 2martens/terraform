@@ -63,7 +63,7 @@ prometheus:
 routingMode: ""
 ipv4NativeRoutingCIDR: ""
 wellKnownIdentities:
-  enabled: true
+  enabled: false
 operator:
 %{ if high_availability ~}
   replicas: 2
