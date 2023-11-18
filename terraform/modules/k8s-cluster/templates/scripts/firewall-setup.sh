@@ -8,6 +8,7 @@ ufw allow 16443 comment "Kubernetes API endpoint"
 ufw allow 80 comment HTTP
 ufw allow 443 comment HTTPS
 ufw allow to ${node_ip} port 4244 comment "Hubble peer endpoint"
+ufw allow to ${node_ip} port 8472 comment "VXLAN connectivity"
 ufw allow to ${node_ip} port 9100 comment "Metrics endpoint"
 ufw allow to ${node_ip} port 9962 comment "Cilium agent metrics"
 ufw allow to ${node_ip} port 9963 comment "Cilium operator metrics"
