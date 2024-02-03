@@ -2,7 +2,7 @@ terraform {
   required_providers {
     inwx = {
       source  = "inwx/inwx"
-      version = "1.3.2"
+      version = "1.4.0"
     }
     hcloud = {
       source  = "hetznercloud/hcloud"
