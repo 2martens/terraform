@@ -13,7 +13,6 @@ resource "inwx_domain_contact" "admin" {
   country_code     = var.admin_country_code
   phone_number     = var.admin_phone_number
   email            = var.admin_email
-  whois_protection = true
 }
 
 resource "inwx_nameserver" "twomartens_de_nameserver" {
@@ -42,6 +41,9 @@ resource "inwx_domain" "twomartens_de" {
     admin      = inwx_domain_contact.admin.id
     tech       = 1
     billing    = 1
+  }
+  extra_data = {
+    "WHOIS_PROTECTION": "1",
   }
 }
 
