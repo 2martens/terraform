@@ -5,14 +5,14 @@ locals {
 
 resource "inwx_domain_contact" "admin" {
   // contact configuration
-  type             = "PERSON"
-  name             = var.admin_name
-  street_address   = var.admin_street
-  city             = var.admin_city
-  postal_code      = var.admin_postal_code
-  country_code     = var.admin_country_code
-  phone_number     = var.admin_phone_number
-  email            = var.admin_email
+  type           = "PERSON"
+  name           = var.admin_name
+  street_address = var.admin_street
+  city           = var.admin_city
+  postal_code    = var.admin_postal_code
+  country_code   = var.admin_country_code
+  phone_number   = var.admin_phone_number
+  email          = var.admin_email
 }
 
 resource "inwx_nameserver" "twomartens_de_nameserver" {
@@ -43,7 +43,7 @@ resource "inwx_domain" "twomartens_de" {
     billing    = 1
   }
   extra_data = {
-    "WHOIS_PROTECTION": "1",
+    "WHOIS-PROTECTION" : "1",
   }
 }
 
