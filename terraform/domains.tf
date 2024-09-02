@@ -42,9 +42,6 @@ resource "inwx_domain" "twomartens_de" {
     tech       = 1
     billing    = 1
   }
-  extra_data = {
-    "WHOIS-PROTECTION" : "1",
-  }
 }
 
 resource "inwx_domain" "twomartens_eu" {
