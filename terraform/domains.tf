@@ -67,29 +67,29 @@ resource "inwx_domain" "twomartens_eu" {
 }
 
 // NS records
-resource "inwx_nameserver_record" "twomartens_de_ns1" {
-  domain  = local.domain
-  name    = local.domain
-  content = "ns.inwx.de"
-  type    = "NS"
-  ttl     = 86400
-}
-
-resource "inwx_nameserver_record" "twomartens_de_ns2" {
-  domain  = local.domain
-  name    = local.domain
-  content = "ns2.inwx.de"
-  type    = "NS"
-  ttl     = 86400
-}
-
-resource "inwx_nameserver_record" "twomartens_de_ns3" {
-  domain  = local.domain
-  name    = local.domain
-  content = "ns3.inwx.eu"
-  type    = "NS"
-  ttl     = 86400
-}
+# resource "inwx_nameserver_record" "twomartens_de_ns1" {
+#   domain  = local.domain
+#   name    = local.domain
+#   content = "ns.inwx.de"
+#   type    = "NS"
+#   ttl     = 86400
+# }
+#
+# resource "inwx_nameserver_record" "twomartens_de_ns2" {
+#   domain  = local.domain
+#   name    = local.domain
+#   content = "ns2.inwx.de"
+#   type    = "NS"
+#   ttl     = 86400
+# }
+#
+# resource "inwx_nameserver_record" "twomartens_de_ns3" {
+#   domain  = local.domain
+#   name    = local.domain
+#   content = "ns3.inwx.eu"
+#   type    = "NS"
+#   ttl     = 86400
+# }
 
 resource "inwx_nameserver_record" "twomartens_eu_ns1" {
   domain  = "2martens.eu"
@@ -117,17 +117,17 @@ resource "inwx_nameserver_record" "twomartens_eu_ns3" {
 
 // SOAs
 
-resource "inwx_nameserver_record" "twomartens_de_soa" {
-  domain  = local.domain
-  name    = local.domain
-  content = "ns.inwx.de hostmaster.inwx.de 2023103008 10800 3600 604800 3600"
-  type    = "SOA"
-  ttl     = 86400
-
-  lifecycle {
-    ignore_changes = [content]
-  }
-}
+# resource "inwx_nameserver_record" "twomartens_de_soa" {
+#   domain  = local.domain
+#   name    = local.domain
+#   content = "ns.inwx.de hostmaster.inwx.de 2023103008 10800 3600 604800 3600"
+#   type    = "SOA"
+#   ttl     = 86400
+#
+#   lifecycle {
+#     ignore_changes = [content]
+#   }
+# }
 
 resource "inwx_nameserver_record" "twomartens_eu_soa" {
   domain  = "2martens.eu"
