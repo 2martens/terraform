@@ -66,7 +66,7 @@ module "test_cluster" {
     client_id : var.vault_client_id
     client_secret : var.vault_client_secret
   }
-  vault_allowed_namespaces = ["wahlrecht", "timetable", "hcloud"]
+  vault_allowed_namespaces = ["wahlrecht", "timetable", "hcloud", "routing"]
   hcloud_token_enabled     = false
   hcloud_token             = var.hcloud_token
   thanos_enabled           = true
