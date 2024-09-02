@@ -15,15 +15,15 @@ resource "inwx_domain_contact" "admin" {
   email          = var.admin_email
 }
 
-resource "inwx_nameserver" "twomartens_de_nameserver" {
-  domain = local.domain
-  type   = "MASTER"
-  nameservers = [
-    "ns.inwx.de",
-    "ns2.inwx.de",
-    "ns3.inwx.eu"
-  ]
-}
+# resource "inwx_nameserver" "twomartens_de_nameserver" {
+#   domain = local.domain
+#   type   = "MASTER"
+#   nameservers = [
+#     "ns.inwx.de",
+#     "ns2.inwx.de",
+#     "ns3.inwx.eu"
+#   ]
+# }
 
 resource "inwx_domain" "twomartens_de" {
   name = local.domain
