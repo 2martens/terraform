@@ -1,3 +1,3 @@
 locals {
-  domain = "2martens.de"
+  domain = "2martens.example"
 }
