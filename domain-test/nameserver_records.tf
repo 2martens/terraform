@@ -1,5 +1,5 @@
 // A records
-resource "inwx_nameserver_record" "twomartens_de_allris_a" {
+resource "inwx_nameserver_record" "twomartens_example_allris_a" {
   domain  = local.domain
   name    = format("allris.%s", local.domain)
   content = "185.26.156.105"
@@ -7,7 +7,7 @@ resource "inwx_nameserver_record" "twomartens_de_allris_a" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_autoconfig_a" {
+resource "inwx_nameserver_record" "twomartens_example_autoconfig_a" {
   domain  = local.domain
   name    = format("autoconfig.%s", local.domain)
   content = "185.26.156.22"
@@ -15,7 +15,7 @@ resource "inwx_nameserver_record" "twomartens_de_autoconfig_a" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_autodiscover_a" {
+resource "inwx_nameserver_record" "twomartens_example_autodiscover_a" {
   domain  = local.domain
   name    = format("autodiscover.%s", local.domain)
   content = "185.26.156.22"
@@ -23,7 +23,7 @@ resource "inwx_nameserver_record" "twomartens_de_autodiscover_a" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_jim_a" {
+resource "inwx_nameserver_record" "twomartens_example_jim_a" {
   domain  = local.domain
   name    = format("jim.%s", local.domain)
   content = "185.26.156.65"
@@ -31,7 +31,7 @@ resource "inwx_nameserver_record" "twomartens_de_jim_a" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_pad_a" {
+resource "inwx_nameserver_record" "twomartens_example_pad_a" {
   domain  = local.domain
   name    = format("pad.%s", local.domain)
   content = "185.26.156.132"
@@ -39,7 +39,7 @@ resource "inwx_nameserver_record" "twomartens_de_pad_a" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_short_a" {
+resource "inwx_nameserver_record" "twomartens_example_short_a" {
   domain  = local.domain
   name    = format("short.%s", local.domain)
   content = "95.143.172.56"
@@ -49,7 +49,7 @@ resource "inwx_nameserver_record" "twomartens_de_short_a" {
 
 // AAAA records
 
-resource "inwx_nameserver_record" "twomartens_de_allris_aaaa" {
+resource "inwx_nameserver_record" "twomartens_example_allris_aaaa" {
   domain  = local.domain
   name    = format("allris.%s", local.domain)
   content = "2a00:d0c0:200:0:b9:1a:9c:61"
@@ -57,7 +57,7 @@ resource "inwx_nameserver_record" "twomartens_de_allris_aaaa" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_autoconfig_aaaa" {
+resource "inwx_nameserver_record" "twomartens_example_autoconfig_aaaa" {
   domain  = local.domain
   name    = format("autoconfig.%s", local.domain)
   content = "2a00:d0c0:200:0:b9:1a:9c16:5d"
@@ -65,7 +65,7 @@ resource "inwx_nameserver_record" "twomartens_de_autoconfig_aaaa" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_autodiscover_aaaa" {
+resource "inwx_nameserver_record" "twomartens_example_autodiscover_aaaa" {
   domain  = local.domain
   name    = format("autodiscover.%s", local.domain)
   content = "2a00:d0c0:200:0:b9:1a:9c16:5d"
@@ -73,7 +73,7 @@ resource "inwx_nameserver_record" "twomartens_de_autodiscover_aaaa" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_jim_aaaa" {
+resource "inwx_nameserver_record" "twomartens_example_jim_aaaa" {
   domain  = local.domain
   name    = format("jim.%s", local.domain)
   content = "2a00:d0c0:200:0:b9:1a:9c:40"
@@ -81,7 +81,7 @@ resource "inwx_nameserver_record" "twomartens_de_jim_aaaa" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_pad_aaaa" {
+resource "inwx_nameserver_record" "twomartens_example_pad_aaaa" {
   domain  = local.domain
   name    = format("pad.%s", local.domain)
   content = "2a00:d0c0:200:0:c0bf:e0ff:fec1:af72"
@@ -89,7 +89,7 @@ resource "inwx_nameserver_record" "twomartens_de_pad_aaaa" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_short_aaaa" {
+resource "inwx_nameserver_record" "twomartens_example_short_aaaa" {
   domain  = local.domain
   name    = format("short.%s", local.domain)
   content = "2001:1a50:11:0:3854:d4ff:fe62:e0d8"
@@ -99,7 +99,7 @@ resource "inwx_nameserver_record" "twomartens_de_short_aaaa" {
 
 // CNAME records
 
-resource "inwx_nameserver_record" "twomartens_de_cdn_cname" {
+resource "inwx_nameserver_record" "twomartens_example_cdn_cname" {
   domain  = local.domain
   name    = format("cdn.%s", local.domain)
   content = "d1fvxyvcoii67h.cloudfront.net"
@@ -107,7 +107,7 @@ resource "inwx_nameserver_record" "twomartens_de_cdn_cname" {
   ttl     = 3600
 }
 
-resource "inwx_nameserver_record" "twomartens_de_aws-validations-cdn_cname" {
+resource "inwx_nameserver_record" "twomartens_example_aws-validations-cdn_cname" {
   domain  = local.domain
   name    = format("_4741e2d9c8a605950eebfa048029e4ef.cdn.%s", local.domain)
   content = "_cf71e85bb40cc12717f2718e4590ad23.acm-validations.aws"

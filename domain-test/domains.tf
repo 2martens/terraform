@@ -15,7 +15,7 @@ resource "inwx_domain_contact" "admin" {
   email          = var.admin_email
 }
 
-resource "inwx_nameserver" "twomartens_de_nameserver" {
+resource "inwx_nameserver" "twomartens_example_nameserver" {
   domain = local.domain
   type   = "MASTER"
   nameservers = [
@@ -24,7 +24,7 @@ resource "inwx_nameserver" "twomartens_de_nameserver" {
   ]
 }
 
-resource "inwx_domain" "twomartens_de" {
+resource "inwx_domain" "twomartens_example" {
   name = local.domain
   nameservers = [
     "ns.ote.inwx.de",
@@ -43,7 +43,7 @@ resource "inwx_domain" "twomartens_de" {
 }
 
 // NS records
-resource "inwx_nameserver_record" "twomartens_de_ns1" {
+resource "inwx_nameserver_record" "twomartens_example_ns1" {
   domain  = local.domain
   name    = local.domain
   content = "ns.ote.inwx.de"
@@ -51,7 +51,7 @@ resource "inwx_nameserver_record" "twomartens_de_ns1" {
   ttl     = 86400
 }
 
-resource "inwx_nameserver_record" "twomartens_de_ns2" {
+resource "inwx_nameserver_record" "twomartens_example_ns2" {
   domain  = local.domain
   name    = local.domain
   content = "ns2.ote.inwx.de"
