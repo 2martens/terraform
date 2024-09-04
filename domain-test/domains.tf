@@ -44,7 +44,7 @@ resource "inwx_domain" "twomartens_de" {
   }
 }
 
-resource "inwx_nameserver" "twomartens_de_nameserver" {
+resource "inwx_nameserver" "twomartens_eu_nameserver" {
   domain = "2martens.eu"
   type   = "MASTER"
   nameservers = [
