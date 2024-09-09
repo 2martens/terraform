@@ -126,10 +126,12 @@ resource "hcloud_server" "manager" {
       aws_secret_key : var.aws_secret_key
     }))
     argocd_ha_values : base64encode(templatefile("${path.module}/templates/helm/argocd-values-ha.yaml", {
-      argocd_keycloak_client_secret : var.argocd_keycloak_client_secret
+      argocd_keycloak_client_secret : var.argocd_keycloak_client_secret,
+      argocd_url : var.argocd_url
     }))
     argocd_values : base64encode(templatefile("${path.module}/templates/helm/argocd-values.yaml", {
-      argocd_keycloak_client_secret : var.argocd_keycloak_client_secret
+      argocd_keycloak_client_secret : var.argocd_keycloak_client_secret,
+      argocd_url : var.argocd_url
     }))
     cluster_setup : base64encode(templatefile("${path.module}/templates/scripts/cluster-setup.sh", {
       argocd_environment : var.argocd_environment

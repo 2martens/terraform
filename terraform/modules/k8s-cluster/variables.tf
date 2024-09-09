@@ -55,13 +55,13 @@ variable "server_subnet_id" {
 
 variable "private_node_ips" {
   description = "One IP in the private network subnet for each manager node created."
-  type        = list(string)
+  type = list(string)
 }
 
 variable "private_worker_node_ips" {
   description = "One IP in the private network subnet for each worker node created."
-  type        = list(string)
-  default     = []
+  type = list(string)
+  default = []
 }
 
 variable "basic_firewall_id" {
@@ -151,8 +151,8 @@ variable "vault_service_principal" {
 
 variable "vault_allowed_namespaces" {
   description = "Namespaces that are allowed to access secrets from the Vault"
-  type        = list(string)
-  default     = []
+  type = list(string)
+  default = []
 }
 
 variable "hcloud_token_enabled" {
@@ -211,4 +211,10 @@ variable "argocd_keycloak_client_secret" {
   type        = string
   default     = ""
   sensitive   = true
+}
+variable "argocd_url" {
+  description = "Base URL of ArgoCD application"
+  type        = string
+  default     = ""
+  sensitive   = false
 }

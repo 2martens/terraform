@@ -4,6 +4,7 @@ global:
 
 configs:
   cm:
+    url: ${argocd_url}
     oidc.config: |
       name: Keycloak
       issuer: https://id.2martens.de/realms/2martens

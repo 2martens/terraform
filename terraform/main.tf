@@ -74,6 +74,7 @@ module "test_cluster" {
   aws_access_key                = var.aws_access_key
   aws_secret_key                = var.aws_secret_key
   argocd_keycloak_client_secret = var.argocd_test_keycloak_client_secret
+  argocd_url                    = "https://argocd.k8s.test.2martens.de"
 }
 
 module "monitoring_cluster" {
@@ -124,4 +125,5 @@ module "monitoring_cluster" {
   aws_access_key                = var.aws_access_key
   aws_secret_key                = var.aws_secret_key
   argocd_keycloak_client_secret = var.argocd_monitoring_keycloak_client_secret
+  argocd_url                    = "https://argocd.k8s.monitoring.2martens.de"
 }
