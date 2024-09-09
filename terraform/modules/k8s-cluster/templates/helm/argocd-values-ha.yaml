@@ -2,6 +2,21 @@ global:
   logging:
     format: text
 
+configs:
+  cm:
+    oidc.config: |
+      name: Keycloak
+      issuer: https://id.2martens.de/realms/2martens
+      clientID: argocd-test-oauth
+      clientSecret: $oidc.keycloak.clientSecret
+      requestedScopes: ["openid", "profile", "email", "groups"]
+  rbac:
+    policy.csv: |
+      g, ArgoCDAdmins, role:admin
+  secret:
+    extra:
+      oidc.keycloak.clientSecret: ${argocd_keycloak_client_secret}
+
 applicationSet:
   replicas: 2
   resources:

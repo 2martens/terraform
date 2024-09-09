@@ -40,7 +40,7 @@ module "test_cluster" {
       name            = data.hcloud_location.falkenstein.name,
       datacenter_name = data.hcloud_datacenter.falkenstein.name,
       network_zone    = data.hcloud_location.falkenstein.network_zone
-      }, {
+    }, {
       id              = data.hcloud_location.nuremberg.id,
       name            = data.hcloud_location.nuremberg.name,
       datacenter_name = data.hcloud_datacenter.nuremberg.name,
@@ -61,18 +61,19 @@ module "test_cluster" {
   server_type         = "cax21"
   image_name          = "ubuntu-22.04"
   create_loadbalancer = false
-  loadbalancer_ip     = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
+  loadbalancer_ip = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
   vault_service_principal = {
     client_id : var.vault_client_id
     client_secret : var.vault_client_secret
   }
   vault_allowed_namespaces = ["wahlrecht", "timetable", "hcloud", "routing"]
-  hcloud_token_enabled     = false
-  hcloud_token             = var.hcloud_token
-  thanos_enabled           = true
-  thanos_s3_bucket_name    = "2martens-thanos-store"
-  aws_access_key           = var.aws_access_key
-  aws_secret_key           = var.aws_secret_key
+  hcloud_token_enabled          = false
+  hcloud_token                  = var.hcloud_token
+  thanos_enabled                = true
+  thanos_s3_bucket_name         = "2martens-thanos-store"
+  aws_access_key                = var.aws_access_key
+  aws_secret_key                = var.aws_secret_key
+  argocd_keycloak_client_secret = var.argocd_test_keycloak_client_secret
 }
 
 module "monitoring_cluster" {
@@ -91,7 +92,7 @@ module "monitoring_cluster" {
       name            = data.hcloud_location.falkenstein.name,
       datacenter_name = data.hcloud_datacenter.falkenstein.name,
       network_zone    = data.hcloud_location.falkenstein.network_zone
-      }, {
+    }, {
       id              = data.hcloud_location.nuremberg.id,
       name            = data.hcloud_location.nuremberg.name,
       datacenter_name = data.hcloud_datacenter.nuremberg.name,
@@ -110,16 +111,17 @@ module "monitoring_cluster" {
   server_type         = "cax21"
   image_name          = "ubuntu-22.04"
   create_loadbalancer = false
-  loadbalancer_ip     = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
+  loadbalancer_ip = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
   vault_service_principal = {
     client_id : var.vault_client_id
     client_secret : var.vault_client_secret
   }
   vault_allowed_namespaces = ["hcloud"]
-  hcloud_token_enabled     = false
-  hcloud_token             = var.hcloud_token
-  thanos_enabled           = true
-  thanos_s3_bucket_name    = "2martens-thanos-store"
-  aws_access_key           = var.aws_access_key
-  aws_secret_key           = var.aws_secret_key
+  hcloud_token_enabled          = false
+  hcloud_token                  = var.hcloud_token
+  thanos_enabled                = true
+  thanos_s3_bucket_name         = "2martens-thanos-store"
+  aws_access_key                = var.aws_access_key
+  aws_secret_key                = var.aws_secret_key
+  argocd_keycloak_client_secret = var.argocd_monitoring_keycloak_client_secret
 }

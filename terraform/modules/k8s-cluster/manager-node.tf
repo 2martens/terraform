@@ -2,7 +2,7 @@ resource "inwx_nameserver_record" "manager_aaaa" {
   count = var.number_nodes
 
   domain  = var.domain
-  name    = format("%s-%d.%s", "node", count.index, local.kube_api_server_domain)
+  name = format("%s-%d.%s", "node", count.index, local.kube_api_server_domain)
   content = hcloud_server.manager[count.index].ipv6_address
   type    = "AAAA"
   ttl     = 3600
@@ -11,8 +11,8 @@ resource "inwx_nameserver_record" "manager_aaaa" {
 resource "hcloud_primary_ip" "ipv4_manager_address" {
   count = var.create_loadbalancer ? 0 : var.number_nodes
 
-  name          = format("%s_%s_%s_%d", "k8s", var.cluster_name, "ipv4", count.index)
-  datacenter    = element(var.locations.*.datacenter_name, count.index)
+  name = format("%s_%s_%s_%d", "k8s", var.cluster_name, "ipv4", count.index)
+  datacenter = element(var.locations.*.datacenter_name, count.index)
   type          = "ipv4"
   assignee_type = "server"
   auto_delete   = false
@@ -29,8 +29,8 @@ resource "hcloud_rdns" "ipv4_manager" {
 resource "hcloud_primary_ip" "ipv6_manager_address" {
   count = var.number_nodes
 
-  name          = format("%s_%s_%s_%d", "k8s", var.cluster_name, "ipv6", count.index)
-  datacenter    = element(var.locations.*.datacenter_name, count.index)
+  name = format("%s_%s_%s_%d", "k8s", var.cluster_name, "ipv6", count.index)
+  datacenter = element(var.locations.*.datacenter_name, count.index)
   type          = "ipv6"
   assignee_type = "server"
   auto_delete   = false
@@ -55,11 +55,11 @@ resource "hcloud_server_network" "manager_private" {
 resource "hcloud_server" "manager" {
   count = var.number_nodes
 
-  name                    = format("%s-%s-%s-%d", "k8s", var.cluster_name, "node", count.index)
+  name = format("%s-%s-%s-%d", "k8s", var.cluster_name, "node", count.index)
   image                   = var.image_name
   allow_deprecated_images = false
   server_type             = var.server_type
-  location                = element(var.locations.*.name, count.index)
+  location = element(var.locations.*.name, count.index)
 
   public_net {
     ipv4_enabled = var.create_loadbalancer ? false : true
@@ -71,8 +71,8 @@ resource "hcloud_server" "manager" {
   ignore_remote_firewall_ids = false
   keep_disk                  = false
   placement_group_id         = data.hcloud_placement_group.default.id
-  firewall_ids               = [var.basic_firewall_id, var.k8s_firewall_id]
-  ssh_keys                   = [var.admin_ssh_key.id]
+  firewall_ids = [var.basic_firewall_id, var.k8s_firewall_id]
+  ssh_keys = [var.admin_ssh_key.id]
   shutdown_before_deletion   = true
 
   labels = {
@@ -90,7 +90,8 @@ resource "hcloud_server" "manager" {
       api_server_domain : local.kube_api_server_domain
       main_node : count.index == 0
       main_node_ip : var.private_node_ips[0]
-      api_server_ip : var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv4 : hcloud_primary_ip.ipv4_manager_address[0].ip_address
+      api_server_ip : var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv4 :
+        hcloud_primary_ip.ipv4_manager_address[0].ip_address
       cluster_token : random_id.cluster_token.hex
     }))
     snapcraft : base64encode(file("${path.module}/templates/snap/snapcraft.yaml"))
@@ -124,8 +125,12 @@ resource "hcloud_server" "manager" {
       aws_access_key : var.aws_access_key
       aws_secret_key : var.aws_secret_key
     }))
-    argocd_ha_values : base64encode(file("${path.module}/templates/helm/argocd-values-ha.yaml"))
-    argocd_values : base64encode(file("${path.module}/templates/helm/argocd-values.yaml"))
+    argocd_ha_values : base64encode(templatefile("${path.module}/templates/helm/argocd-values-ha.yaml", {
+      argocd_keycloak_client_secret : var.argocd_keycloak_client_secret
+    }))
+    argocd_values : base64encode(templatefile("${path.module}/templates/helm/argocd-values.yaml", {
+      argocd_keycloak_client_secret : var.argocd_keycloak_client_secret
+    }))
     cluster_setup : base64encode(templatefile("${path.module}/templates/scripts/cluster-setup.sh", {
       argocd_environment : var.argocd_environment
       high_availability : var.number_nodes > 2
@@ -139,7 +144,7 @@ resource "hcloud_server" "manager" {
   network {
     network_id = var.network_id
     ip         = var.private_node_ips[count.index]
-    alias_ips  = []
+    alias_ips = []
   }
 
   lifecycle {

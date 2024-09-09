@@ -70,3 +70,13 @@ variable "aws_secret_key" {
   type        = string
   sensitive   = true
 }
+variable "argocd_test_keycloak_client_secret" {
+  description = "Client secret for ArgoCD test Keycloak client"
+  type        = string
+  sensitive   = true
+}
+variable "argocd_monitoring_keycloak_client_secret" {
+  description = "Client secret for ArgoCD monitoring Keycloak client"
+  type        = string
+  sensitive   = true
+}

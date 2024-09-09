@@ -206,3 +206,9 @@ variable "aws_secret_key" {
   default     = ""
   sensitive   = true
 }
+variable "argocd_keycloak_client_secret" {
+  description = "Client secret for Keycloak client of Argo CD"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
