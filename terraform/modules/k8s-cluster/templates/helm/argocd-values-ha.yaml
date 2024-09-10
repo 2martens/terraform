@@ -1,16 +1,18 @@
 global:
+  domain: ${argocd_domain}
   logging:
     format: text
 
 configs:
   cm:
-    url: ${argocd_url}
+    url: https://${argocd_domain}
     oidc.config: |
       name: Keycloak
       issuer: https://id.2martens.de/realms/2martens
       clientID: argocd-test-oauth
       clientSecret: $oidc.keycloak.clientSecret
       requestedScopes: ["openid", "profile", "email", "groups"]
+      requestedIDTokenClaims: {"groups": {"essential": true}}
   rbac:
     policy.csv: |
       g, ArgoCDAdmins, role:admin

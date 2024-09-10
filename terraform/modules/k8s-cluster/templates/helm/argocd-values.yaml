@@ -1,21 +1,25 @@
 global:
+  domain: ${argocd_domain}
   logging:
     format: text
+
 configs:
   cm:
-    url: ${argocd_url}
+    url: https://${argocd_domain}
     oidc.config: |
       name: Keycloak
       issuer: https://id.2martens.de/realms/2martens
       clientID: argocd-test-oauth
       clientSecret: $oidc.keycloak.clientSecret
       requestedScopes: ["openid", "profile", "email", "groups"]
+      requestedIDTokenClaims: {"groups": {"essential": true}}
   rbac:
     policy.csv: |
       g, ArgoCDAdmins, role:admin
   secret:
     extra:
       oidc.keycloak.clientSecret: ${argocd_keycloak_client_secret}
+
 applicationSet:
   resources:
    limits:
@@ -24,6 +28,7 @@ applicationSet:
    requests:
      cpu: 100m
      memory: 128Mi
+
 controller:
   resources:
     limits:
@@ -32,6 +37,7 @@ controller:
     requests:
       cpu: 250m
       memory: 256Mi
+
 dex:
   resources:
     limits:
@@ -40,6 +46,7 @@ dex:
     requests:
       cpu: 10m
       memory: 32Mi
+
 notifications:
   resources:
     limits:
@@ -48,6 +55,7 @@ notifications:
     requests:
       cpu: 100m
       memory: 128Mi
+
 redis:
   resources:
     limits:
@@ -56,6 +64,7 @@ redis:
     requests:
       cpu: 100m
       memory: 64Mi
+
 repoServer:
   resources:
     limits:
@@ -64,6 +73,7 @@ repoServer:
     requests:
       cpu: 100m
       memory: 256Mi
+
 server:
   resources:
     limits:

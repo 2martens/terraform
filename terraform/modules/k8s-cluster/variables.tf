@@ -212,8 +212,8 @@ variable "argocd_keycloak_client_secret" {
   default     = ""
   sensitive   = true
 }
-variable "argocd_url" {
-  description = "Base URL of ArgoCD application"
+variable "argocd_domain" {
+  description = "Domain of ArgoCD application"
   type        = string
   default     = ""
   sensitive   = false
