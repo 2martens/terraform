@@ -19,9 +19,5 @@ terraform {
       source = "keycloak/keycloak"
       version = "5.1.0"
     }
-    keycloak-legacy = {
-      source  = "mrparkers/keycloak"
-      version = "~> 4.0.0"
-    }
   }
 }
