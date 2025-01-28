@@ -86,6 +86,20 @@ variable "argocd_environment" {
   default     = "test"
 }
 
+variable "argocd_keycloak_client_secret" {
+  description = "The client secret of the Keycloak client of Argo CD"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "argocd_domain" {
+  description = "Domain of ArgoCD application"
+  type        = string
+  default     = ""
+  sensitive   = false
+}
+
 variable "number_nodes" {
   description = "Number of manager nodes in the cluster."
   type        = number
