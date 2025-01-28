@@ -97,3 +97,15 @@ variable "keycloak_url" {
   description = "URL of the Keycloak server"
   type        = string
 }
+
+variable "github_identity_provider_client_id" {
+  description = "Client ID of the GitHub identity provider"
+  type        = string
+  sensitive   = true
+}
+
+variable "github_identity_provider_client_secret" {
+  description = "Client Secret of the GitHub identity provider"
+  type        = string
+  sensitive   = true
+}
