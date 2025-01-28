@@ -9,7 +9,7 @@ api_client = ApiClient(api_url=ApiClient.API_LIVE_URL, debug_mode=True)
 login_result = api_client.login(username, password)
 
 if login_result['code'] == 1000:
-    record_result = api_client.call_api(api_method='nameserver.info', method_params={'domain': domain})
+    record_result = api_client.call_api(api_method='nameserver.list')
 
     if record_result['code'] == 1000:
         records = record_result['resData']['record']
