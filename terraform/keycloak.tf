@@ -1,5 +1,5 @@
-resource "keycloak_realm" "2martens_realm" {
-  realm   = "2martens"
+resource "keycloak_realm" "twomartens_realm" {
+  realm   = "twomartens"
   enabled = true
 
   display_name = "2martens Applications"
