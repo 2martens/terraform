@@ -80,3 +80,20 @@ variable "argocd_monitoring_keycloak_client_secret" {
   type        = string
   sensitive   = true
 }
+
+variable "keycloak_client_id" {
+  description = "Client ID for Keycloak admin access"
+  type        = string
+  sensitive   = true
+}
+
+variable "keycloak_client_secret" {
+  description = "Client Secret for Keycloak admin access"
+  type        = string
+  sensitive   = true
+}
+
+variable "keycloak_url" {
+  description = "URL of the Keycloak server"
+  type        = string
+}

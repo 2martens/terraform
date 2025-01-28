@@ -14,3 +14,9 @@ HELP.md
 *.iml
 *.ipr
 out/
+
+# Ignore Terraform provider and module directories
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*

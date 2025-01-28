@@ -15,5 +15,9 @@ terraform {
       source  = "hetznercloud/hcloud"
       version = "1.44.1"
     }
+    keycloak = {
+      source  = "mrparkers/keycloak"
+      version = "~> 4.0.0"
+    }
   }
 }
