@@ -55,3 +55,21 @@ resource "keycloak_oidc_identity_provider" "twomartens_github_identity_provider"
   # Logout and UI Settings
   ui_locales = true
 }
+
+resource "keycloak_openid_client" "twomartens_gitea" {
+  realm_id              = keycloak_realm.twomartens_realm.id
+  name                  = "Gitea"
+  enabled               = true
+  access_type           = "CONFIDENTIAL"
+  client_id             = "gitea"
+  client_secret         = var.gitea_client_secret
+  standard_flow_enabled = true
+  use_refresh_tokens    = false
+
+
+  consent_required = true
+  base_url         = "https://git.2martens.de"
+  valid_redirect_uris = [
+    "https://git.2martens.de/user/oauth2/keycloak/callback"
+  ]
+}

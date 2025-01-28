@@ -109,3 +109,9 @@ variable "github_identity_provider_client_secret" {
   type        = string
   sensitive   = true
 }
+
+variable "gitea_client_secret" {
+  description = "Client Secret of the Gitea OpenID client"
+  type        = string
+  sensitive   = true
+}
