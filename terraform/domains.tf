@@ -18,9 +18,9 @@ resource "inwx_domain_contact" "admin" {
 resource "inwx_domain" "twomartens_de" {
   name = local.domain
   nameservers = [
-    "ns.inwx.de",
-    "ns2.inwx.de",
-    "ns3.inwx.eu"
+    "helium.ns.hetzner.de",
+    "hydrogen.ns.hetzner.com",
+    "oxygen.ns.hetzner.com"
   ]
   period        = local.domain_period
   renewal_mode  = local.domain_renewal
