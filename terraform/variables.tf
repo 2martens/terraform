@@ -115,3 +115,9 @@ variable "gitea_client_secret" {
   type        = string
   sensitive   = true
 }
+
+variable "nextcloud_client_secret" {
+  description = "Client Secret of the Nextcloud OpenID client"
+  type        = string
+  sensitive   = true
+}

@@ -73,3 +73,21 @@ resource "keycloak_openid_client" "twomartens_gitea" {
     "https://git.2martens.de/user/oauth2/keycloak/callback"
   ]
 }
+
+resource "keycloak_openid_client" "twomartens_nextcloud" {
+  realm_id              = keycloak_realm.twomartens_realm.id
+  name                  = "cloud.2martens.de"
+  enabled               = true
+  access_type           = "CONFIDENTIAL"
+  client_id             = "nextcloud"
+  client_secret         = var.nextcloud_client_secret
+  standard_flow_enabled = true
+  use_refresh_tokens    = false
+
+
+  consent_required = true
+  base_url         = "https://cloud.2martens.de"
+  valid_redirect_uris = [
+    "https://cloud.2martens.de/index.php/apps/sociallogin/custom_oidc/keycloak"
+  ]
+}
