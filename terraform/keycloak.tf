@@ -93,4 +93,7 @@ resource "keycloak_openid_client" "twomartens_nextcloud" {
   valid_post_logout_redirect_uris = [
     "https://cloud.2martens.de"
   ]
+  web_origins = [
+    "https://cloud.2martens.de/*"
+  ]
 }
