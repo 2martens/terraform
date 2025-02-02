@@ -28,6 +28,20 @@ resource "keycloak_realm" "twomartens_realm" {
       max_login_failures = 5
     }
   }
+
+  default_signature_algorithm = "ES256"
+  revoke_refresh_token        = true
+  refresh_token_max_use_count = 0
+
+  web_authn_policy {
+    signature_algorithms              = ["ES256"]
+    avoid_same_authenticator_register = true
+  }
+
+  web_authn_policy_passwordless {
+    signature_algorithms              = ["ES256"]
+    avoid_same_authenticator_register = true
+  }
 }
 
 resource "keycloak_oidc_identity_provider" "twomartens_github_identity_provider" {
@@ -82,7 +96,7 @@ resource "keycloak_openid_client" "twomartens_nextcloud" {
   client_id             = "nextcloud"
   client_secret         = var.nextcloud_client_secret
   standard_flow_enabled = true
-  use_refresh_tokens    = false
+  use_refresh_tokens    = true
 
 
   consent_required = true
