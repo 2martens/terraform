@@ -90,8 +90,7 @@ resource "hcloud_server" "manager" {
       api_server_domain : local.kube_api_server_domain
       main_node : count.index == 0
       main_node_ip : var.private_node_ips[0]
-      api_server_ip : var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv4 :
-        hcloud_primary_ip.ipv4_manager_address[0].ip_address
+      api_server_ip : var.create_loadbalancer ? hcloud_load_balancer.kubernetes[0].ipv4 : hcloud_primary_ip.ipv4_manager_address[0].ip_address
       cluster_token : random_id.cluster_token.hex
     }))
     snapcraft : base64encode(file("${path.module}/templates/snap/snapcraft.yaml"))
