@@ -31,14 +31,14 @@ resource "keycloak_realm" "twomartens_realm" {
 
   default_signature_algorithm = "ES256"
   revoke_refresh_token        = true
-  refresh_token_max_use_count = 0
+  refresh_token_max_reuse     = 0
 
   web_authn_policy {
     signature_algorithms              = ["ES256"]
     avoid_same_authenticator_register = true
   }
 
-  web_authn_policy_passwordless {
+  web_authn_passwordless_policy {
     signature_algorithms              = ["ES256"]
     avoid_same_authenticator_register = true
   }
