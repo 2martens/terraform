@@ -27,6 +27,10 @@ resource "keycloak_realm" "twomartens_realm" {
     brute_force_detection {
       max_login_failures = 5
     }
+
+    headers {
+      content_security_policy = "frame-src 'self'; frame-ancestors 'self' http://localhost:4200; object-src 'none';"
+    }
   }
 
   default_signature_algorithm = "ES256"
@@ -110,4 +114,14 @@ resource "keycloak_openid_client" "twomartens_nextcloud" {
   web_origins = [
     "https://cloud.2martens.de/*"
   ]
+}
+
+resource "keycloak_openid_client" "twomartens_timetable_frontend" {
+  realm_id              = keycloak_realm.twomartens_realm.id
+  name                  = "Timetable Frontend"
+  enabled               = true
+  access_type           = "PUBLIC"
+  client_id             = "tsw-timetable-frontend"
+  standard_flow_enabled = true
+  use_refresh_tokens    = false
 }
