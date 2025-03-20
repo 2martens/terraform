@@ -129,6 +129,6 @@ resource "keycloak_openid_client" "twomartens_timetable_frontend" {
     "http://localhost:8100/*"
   ]
   web_origins = [
-    "http://localhost:8100/*"
+    "+"
   ]
 }
