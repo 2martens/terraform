@@ -29,7 +29,7 @@ resource "keycloak_realm" "twomartens_realm" {
     }
 
     headers {
-      content_security_policy = "frame-src 'self'; frame-ancestors 'self' http://localhost:4200; object-src 'none';"
+      content_security_policy = "frame-src 'self'; frame-ancestors 'self' http://localhost:8100; object-src 'none';"
     }
   }
 
@@ -124,4 +124,11 @@ resource "keycloak_openid_client" "twomartens_timetable_frontend" {
   client_id             = "tsw-timetable-frontend"
   standard_flow_enabled = true
   use_refresh_tokens    = false
+
+  valid_redirect_uris = [
+    "http://localhost:8100/*"
+  ]
+  web_origins = [
+    "http://localhost:8100/*"
+  ]
 }
