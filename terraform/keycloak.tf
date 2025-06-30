@@ -29,7 +29,7 @@ resource "keycloak_realm" "twomartens_realm" {
     }
 
     headers {
-      content_security_policy = "frame-src 'self'; frame-ancestors 'self' http://localhost:8100; object-src 'none';"
+      content_security_policy = "frame-src 'self'; frame-ancestors 'self' http://localhost:8100 https://wahlrecht.2martens.de; object-src 'none';"
     }
   }
 
@@ -127,6 +127,24 @@ resource "keycloak_openid_client" "twomartens_timetable_frontend" {
 
   valid_redirect_uris = [
     "http://localhost:8100/*"
+  ]
+  web_origins = [
+    "+"
+  ]
+}
+
+resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
+  realm_id              = keycloak_realm.twomartens_realm.id
+  name                  = "Wahlrecht Frontend"
+  enabled               = true
+  access_type           = "PUBLIC"
+  client_id             = "wahlrecht-frontend"
+  standard_flow_enabled = true
+  use_refresh_tokens    = false
+
+  valid_redirect_uris = [
+    "http://localhost:8100/*",
+    "https://wahlrecht.2martens.de/*"
   ]
   web_origins = [
     "+"
