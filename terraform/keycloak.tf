@@ -29,7 +29,7 @@ resource "keycloak_realm" "twomartens_realm" {
     }
 
     headers {
-      content_security_policy = "frame-src 'self'; frame-ancestors 'self' http://localhost:8100 https://wahlrecht.2martens.de; object-src 'none';"
+      content_security_policy = "frame-src 'self'; frame-ancestors 'self' http://localhost:8100 http://localhost:4200 https://wahlrecht.2martens.de; object-src 'none';"
     }
   }
 
