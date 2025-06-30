@@ -143,7 +143,7 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
   use_refresh_tokens    = false
 
   valid_redirect_uris = [
-    "http://localhost:8100/*",
+    "http://localhost:4200/*",
     "https://wahlrecht.2martens.de/*"
   ]
   web_origins = [
