@@ -180,6 +180,14 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_backend" {
   standard_flow_enabled = true
   use_refresh_tokens    = false
   full_scope_allowed    = false
+
+  valid_redirect_uris = [
+    "http://localhost:12000/*",
+    "https://api.2martens.de/wahlrecht/*"
+  ]
+  web_origins = [
+    "+"
+  ]
 }
 
 # from here ArgoCD
