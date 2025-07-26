@@ -191,7 +191,7 @@ resource "keycloak_openid_client" "twomartens_argocd_test" {
   ]
 }
 
-resource "keycloak_openid_client_optional_scopes" "argocd_optional_scopes" {
+resource "keycloak_openid_client_optional_scopes" "argocd_test_optional_scopes" {
   realm_id  = keycloak_realm.twomartens_realm.id
   client_id = keycloak_openid_client.twomartens_argocd_test.id
 
@@ -217,7 +217,7 @@ resource "keycloak_openid_client" "twomartens_argocd_monitoring" {
   ]
 }
 
-resource "keycloak_openid_client_optional_scopes" "argocd_optional_scopes" {
+resource "keycloak_openid_client_optional_scopes" "argocd_monitoring_optional_scopes" {
   realm_id  = keycloak_realm.twomartens_realm.id
   client_id = keycloak_openid_client.twomartens_argocd_monitoring.id
 
