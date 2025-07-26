@@ -99,6 +99,7 @@ resource "keycloak_openid_client" "twomartens_gitea" {
   client_secret         = var.gitea_client_secret
   standard_flow_enabled = true
   use_refresh_tokens    = false
+  full_scope_allowed    = false
 
 
   consent_required = true
@@ -117,6 +118,7 @@ resource "keycloak_openid_client" "twomartens_nextcloud" {
   client_secret         = var.nextcloud_client_secret
   standard_flow_enabled = true
   use_refresh_tokens    = true
+  full_scope_allowed    = false
 
 
   consent_required = true
@@ -140,6 +142,7 @@ resource "keycloak_openid_client" "twomartens_timetable_frontend" {
   client_id             = "tsw-timetable-frontend"
   standard_flow_enabled = true
   use_refresh_tokens    = false
+  full_scope_allowed    = false
 
   valid_redirect_uris = [
     "http://localhost:8100/*"
@@ -157,6 +160,7 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
   client_id             = "wahlrecht-frontend"
   standard_flow_enabled = true
   use_refresh_tokens    = false
+  full_scope_allowed    = false
 
   valid_redirect_uris = [
     "http://localhost:4200/*",
@@ -168,13 +172,14 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
 }
 
 resource "keycloak_openid_client" "twomartens_wahlrecht_backend" {
-  realm_id                 = keycloak_realm.twomartens_realm.id
-  name                     = "Wahlrecht Backend"
-  enabled                  = true
-  access_type              = "CONFIDENTIAL"
-  client_id                = "wahlrecht"
-  standard_flow_enabled    = true
-  use_refresh_tokens       = false
+  realm_id              = keycloak_realm.twomartens_realm.id
+  name                  = "Wahlrecht Backend"
+  enabled               = true
+  access_type           = "CONFIDENTIAL"
+  client_id             = "wahlrecht"
+  standard_flow_enabled = true
+  use_refresh_tokens    = false
+  full_scope_allowed    = false
 }
 
 # from here ArgoCD
@@ -192,6 +197,7 @@ resource "keycloak_openid_client" "twomartens_argocd_test" {
   client_id             = "argocd-test-oauth"
   standard_flow_enabled = true
   use_refresh_tokens    = false
+  full_scope_allowed    = false
 
   valid_redirect_uris = [
     "https://argocd.k8s.test.2martens.de/auth/callback"
@@ -218,6 +224,7 @@ resource "keycloak_openid_client" "twomartens_argocd_monitoring" {
   client_id             = "argocd-monitoring-oauth"
   standard_flow_enabled = true
   use_refresh_tokens    = false
+  full_scope_allowed    = false
 
   valid_redirect_uris = [
     "https://argocd.k8s.monitoring.2martens.de/auth/callback"
@@ -246,6 +253,7 @@ resource "keycloak_openid_client" "twomartens_grafana_monitoring" {
   client_id             = "grafana-oauth"
   standard_flow_enabled = true
   use_refresh_tokens    = false
+  full_scope_allowed    = false
 
   valid_redirect_uris = [
     "https://grafana.k8s.monitoring.2martens.de/login/generic_oauth"
