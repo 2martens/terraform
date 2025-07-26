@@ -85,6 +85,7 @@ resource "keycloak_openid_group_membership_protocol_mapper" "group_membership_ma
   name            = "group-membership-mapper"
 
   claim_name = "groups"
+  full_path  = false
 }
 
 # from here clients
@@ -170,7 +171,7 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
 
 resource "keycloak_group" "argocd_admins" {
   realm_id = keycloak_realm.twomartens_realm.id
-  name = "ArgoCDAdmins"
+  name     = "ArgoCDAdmins"
 }
 
 resource "keycloak_openid_client" "twomartens_argocd_test" {

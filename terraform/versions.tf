@@ -16,7 +16,7 @@ terraform {
       version = "1.44.1"
     }
     keycloak = {
-      source = "keycloak/keycloak"
+      source  = "keycloak/keycloak"
       version = "5.1.0"
     }
   }
