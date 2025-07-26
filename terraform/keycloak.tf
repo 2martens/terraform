@@ -225,3 +225,22 @@ resource "keycloak_openid_client_optional_scopes" "argocd_monitoring_optional_sc
     keycloak_openid_client_scope.groups_scope.name
   ]
 }
+
+# from here Grafana
+
+resource "keycloak_openid_client" "twomartens_grafana_monitoring" {
+  realm_id              = keycloak_realm.twomartens_realm.id
+  name                  = "Grafana Monitoring Cluster"
+  enabled               = true
+  access_type           = "CONFIDENTIAL"
+  client_id             = "grafana-oauth"
+  standard_flow_enabled = true
+  use_refresh_tokens    = false
+
+  valid_redirect_uris = [
+    "https://grafana.k8s.monitoring.2martens.de/login/generic_oauth"
+  ]
+  web_origins = [
+    "+"
+  ]
+}
