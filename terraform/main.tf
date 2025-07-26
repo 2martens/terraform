@@ -61,12 +61,12 @@ module "test_cluster" {
   server_type         = "cax21"
   image_name          = "ubuntu-22.04"
   create_loadbalancer = false
-  loadbalancer_ip = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
+  loadbalancer_ip     = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
   vault_service_principal = {
     client_id : var.vault_client_id
     client_secret : var.vault_client_secret
   }
-  vault_allowed_namespaces = ["wahlrecht", "timetable", "hcloud", "routing"]
+  vault_allowed_namespaces      = ["wahlrecht", "timetable", "hcloud", "routing"]
   hcloud_token_enabled          = false
   hcloud_token                  = var.hcloud_token
   thanos_enabled                = true
@@ -112,12 +112,12 @@ module "monitoring_cluster" {
   server_type         = "cax21"
   image_name          = "ubuntu-22.04"
   create_loadbalancer = false
-  loadbalancer_ip = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
+  loadbalancer_ip     = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
   vault_service_principal = {
     client_id : var.vault_client_id
     client_secret : var.vault_client_secret
   }
-  vault_allowed_namespaces = ["hcloud"]
+  vault_allowed_namespaces      = ["hcloud"]
   hcloud_token_enabled          = false
   hcloud_token                  = var.hcloud_token
   thanos_enabled                = true
