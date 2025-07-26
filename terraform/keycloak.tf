@@ -275,3 +275,15 @@ resource "keycloak_openid_client" "twomartens_grafana_monitoring" {
     "+"
   ]
 }
+
+resource "keycloak_role" "grafana_admin" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  client_id = keycloak_openid_client.twomartens_grafana_monitoring.id
+  name      = "admin"
+}
+
+resource "keycloak_role" "grafana_editor" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  client_id = keycloak_openid_client.twomartens_grafana_monitoring.id
+  name      = "editor"
+}
