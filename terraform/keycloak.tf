@@ -167,3 +167,8 @@ resource "keycloak_openid_client" "twomartens_argocd_test" {
     "+"
   ]
 }
+
+resource "keycloak_group" "argocd_admins" {
+  realm_id = keycloak_realm.twomartens_realm.id
+  name = "ArgoCDAdmins"
+}
