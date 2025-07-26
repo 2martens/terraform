@@ -199,3 +199,29 @@ resource "keycloak_openid_client_optional_scopes" "argocd_optional_scopes" {
     keycloak_openid_client_scope.groups_scope.name
   ]
 }
+
+resource "keycloak_openid_client" "twomartens_argocd_monitoring" {
+  realm_id              = keycloak_realm.twomartens_realm.id
+  name                  = "ArgoCD Monitoring Cluster"
+  enabled               = true
+  access_type           = "CONFIDENTIAL"
+  client_id             = "argocd-monitoring-oauth"
+  standard_flow_enabled = true
+  use_refresh_tokens    = false
+
+  valid_redirect_uris = [
+    "https://argocd.k8s.monitoring.2martens.de/auth/callback"
+  ]
+  web_origins = [
+    "+"
+  ]
+}
+
+resource "keycloak_openid_client_optional_scopes" "argocd_optional_scopes" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  client_id = keycloak_openid_client.twomartens_argocd_monitoring.id
+
+  optional_scopes = [
+    keycloak_openid_client_scope.groups_scope.name
+  ]
+}
