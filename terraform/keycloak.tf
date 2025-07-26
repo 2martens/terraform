@@ -17,7 +17,7 @@ resource "keycloak_realm" "twomartens_realm" {
   login_theme   = "keycloak.v2"
   account_theme = "keycloak.v3"
   admin_theme   = "keycloak.v2"
-  email_theme   = "keycloak"
+  email_theme = "keycloak"
 
   # Security settings
   password_policy = "upperCase(1) and length(12) and forceExpiredPasswordChange(365) and notUsername"
@@ -38,12 +38,12 @@ resource "keycloak_realm" "twomartens_realm" {
   refresh_token_max_reuse     = 0
 
   web_authn_policy {
-    signature_algorithms              = ["ES256"]
+    signature_algorithms = ["ES256"]
     avoid_same_authenticator_register = true
   }
 
   web_authn_passwordless_policy {
-    signature_algorithms              = ["ES256"]
+    signature_algorithms = ["ES256"]
     avoid_same_authenticator_register = true
   }
 }
@@ -52,15 +52,15 @@ resource "keycloak_oidc_identity_provider" "twomartens_github_identity_provider"
   realm        = keycloak_realm.twomartens_realm.id
   alias        = "github"
   display_name = "GitHub"
-  provider_id  = "github"
+  provider_id = "github"
 
   # OAuth App Configuration
-  client_id     = var.github_identity_provider_client_id
+  client_id = var.github_identity_provider_client_id
   client_secret = var.github_identity_provider_client_secret
 
   # OAuth Endpoints
   authorization_url = "https://github.com/login/oauth/authorize"
-  token_url         = "https://github.com/login/oauth/access_token"
+  token_url = "https://github.com/login/oauth/access_token"
 
   # Detailed User Mapping
   extra_config = {
@@ -165,6 +165,16 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
   web_origins = [
     "+"
   ]
+}
+
+resource "keycloak_openid_client" "twomartens_wahlrecht_backend" {
+  realm_id                 = keycloak_realm.twomartens_realm.id
+  name                     = "Wahlrecht Backend"
+  enabled                  = true
+  access_type              = "CONFIDENTIAL"
+  client_id                = "wahlrecht"
+  standard_flow_enabled    = true
+  use_refresh_tokens       = false
 }
 
 # from here ArgoCD
