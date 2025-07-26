@@ -74,6 +74,21 @@ resource "keycloak_oidc_identity_provider" "twomartens_github_identity_provider"
   ui_locales = true
 }
 
+resource "keycloak_openid_client_scope" "groups_scope" {
+  realm_id = keycloak_realm.twomartens_realm.id
+  name     = "groups"
+}
+
+resource "keycloak_openid_group_membership_protocol_mapper" "group_membership_mapper" {
+  realm_id        = keycloak_realm.twomartens_realm.id
+  client_scope_id = keycloak_openid_client_scope.groups_scope.id
+  name            = "group-membership-mapper"
+
+  claim_name = "groups"
+}
+
+# from here clients
+
 resource "keycloak_openid_client" "twomartens_gitea" {
   realm_id              = keycloak_realm.twomartens_realm.id
   name                  = "Gitea"
@@ -151,6 +166,13 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
   ]
 }
 
+# from here ArgoCD
+
+resource "keycloak_group" "argocd_admins" {
+  realm_id = keycloak_realm.twomartens_realm.id
+  name = "ArgoCDAdmins"
+}
+
 resource "keycloak_openid_client" "twomartens_argocd_test" {
   realm_id              = keycloak_realm.twomartens_realm.id
   name                  = "ArgoCD Test Cluster"
@@ -168,7 +190,11 @@ resource "keycloak_openid_client" "twomartens_argocd_test" {
   ]
 }
 
-resource "keycloak_group" "argocd_admins" {
-  realm_id = keycloak_realm.twomartens_realm.id
-  name = "ArgoCDAdmins"
+resource "keycloak_openid_client_optional_scopes" "argocd_optional_scopes" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  client_id = keycloak_openid_client.twomartens_argocd_test.id
+
+  optional_scopes = [
+    keycloak_openid_client_scope.groups_scope.name
+  ]
 }
