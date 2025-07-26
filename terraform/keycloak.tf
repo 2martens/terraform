@@ -172,14 +172,19 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
 }
 
 resource "keycloak_openid_client" "twomartens_wahlrecht_backend" {
-  realm_id              = keycloak_realm.twomartens_realm.id
-  name                  = "Wahlrecht Backend"
-  enabled               = true
-  access_type           = "CONFIDENTIAL"
-  client_id             = "wahlrecht"
-  standard_flow_enabled = true
-  use_refresh_tokens    = false
-  full_scope_allowed    = false
+  realm_id                 = keycloak_realm.twomartens_realm.id
+  name                     = "Wahlrecht Backend"
+  enabled                  = true
+  access_type              = "CONFIDENTIAL"
+  client_id                = "wahlrecht"
+  standard_flow_enabled    = true
+  service_accounts_enabled = true
+  use_refresh_tokens       = false
+  full_scope_allowed       = false
+
+  authorization {
+    policy_enforcement_mode = "ENFORCING"
+  }
 
   valid_redirect_uris = [
     "http://localhost:12000/*",
