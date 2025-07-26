@@ -8,7 +8,7 @@ configs:
     url: https://${argocd_domain}
     oidc.config: |
       name: Keycloak
-      issuer: https://id.2martens.de/realms/2martens
+      issuer: https://id.2martens.de/realms/twomartens
       clientID: argocd-test-oauth
       clientSecret: $oidc.keycloak.clientSecret
       requestedScopes: ["openid", "profile", "email", "groups"]
