@@ -150,3 +150,20 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
     "+"
   ]
 }
+
+resource "keycloak_openid_client" "twomartens_argocd_test" {
+  realm_id              = keycloak_realm.twomartens_realm.id
+  name                  = "ArgoCD Test Cluster"
+  enabled               = true
+  access_type           = "PUBLIC"
+  client_id             = "argocd-test-oauth"
+  standard_flow_enabled = true
+  use_refresh_tokens    = false
+
+  valid_redirect_uris = [
+    "https://argocd.k8s.test.2martens.de/*"
+  ]
+  web_origins = [
+    "+"
+  ]
+}
