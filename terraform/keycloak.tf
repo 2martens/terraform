@@ -264,8 +264,7 @@ resource "keycloak_openid_client" "twomartens_grafana_monitoring" {
   full_scope_allowed    = false
 
   valid_redirect_uris = [
-    "https://grafana.k8s.monitoring.2martens.de/login/generic_oauth",
-    "https://grafana.k8s.monitoring.2martens.de/login",
+    "https://grafana.k8s.monitoring.2martens.de/login/generic_oauth"
   ]
   web_origins = [
     "+"
