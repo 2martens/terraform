@@ -40,7 +40,7 @@ module "test_cluster" {
       name            = data.hcloud_location.falkenstein.name,
       datacenter_name = data.hcloud_datacenter.falkenstein.name,
       network_zone    = data.hcloud_location.falkenstein.network_zone
-    }, {
+      }, {
       id              = data.hcloud_location.nuremberg.id,
       name            = data.hcloud_location.nuremberg.name,
       datacenter_name = data.hcloud_datacenter.nuremberg.name,
@@ -93,7 +93,7 @@ module "monitoring_cluster" {
       name            = data.hcloud_location.falkenstein.name,
       datacenter_name = data.hcloud_datacenter.falkenstein.name,
       network_zone    = data.hcloud_location.falkenstein.network_zone
-    }, {
+      }, {
       id              = data.hcloud_location.nuremberg.id,
       name            = data.hcloud_location.nuremberg.name,
       datacenter_name = data.hcloud_datacenter.nuremberg.name,
