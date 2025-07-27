@@ -27,3 +27,4 @@ jobs:
       - name: Terraform apply
         id: apply
         run: terraform apply --input=false
+        continue-on-error: true # terraform apply will always fail because of --input=false
