@@ -1,0 +1,9 @@
+#!/bin/sh
+
+printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
+systemctl enable fail2ban
+
+ufw allow OpenSSH
+ufw allow 80 comment HTTP
+ufw allow 443 comment HTTPS
+ufw enable
