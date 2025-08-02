@@ -8,8 +8,8 @@ ufw allow 80 comment HTTP
 ufw allow 443 comment HTTPS
 
 %{if main_node ~}
-ufw allow to ${node_ip} port 2377 comment "Swarm join port and communication between manager nodes"
+ufw allow to ${node_ip} port 2377 proto tcp comment "Swarm join port and communication between manager nodes"
 %{endif ~}
 ufw allow to ${node_ip} port 7946 comment "overlay network node discovery"
-ufw allow to ${node_ip} port 4789 comment "overlay network traffic"
+ufw allow to ${node_ip} port 4789 proto udp comment "overlay network traffic"
 ufw enable
