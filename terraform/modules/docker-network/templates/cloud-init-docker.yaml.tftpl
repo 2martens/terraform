@@ -1,4 +1,6 @@
 #cloud-config
+groups:
+- docker
 users:
   - name: ${admin_user}
     groups: users, admin, docker
