@@ -6,3 +6,7 @@ output "ansible_inventory" {
     )
   })
 }
+
+output "swarm_nodes" {
+  value = module.test_swarm_cluster.node_details
+}
