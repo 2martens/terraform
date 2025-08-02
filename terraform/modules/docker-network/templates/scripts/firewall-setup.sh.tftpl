@@ -8,4 +8,6 @@ ufw allow 80 comment HTTP
 ufw allow 443 comment HTTPS
 
 ufw allow to ${node_ip} port 2377 comment "Swarm join port"
+ufw allow to ${node_ip} port 7946 comment "overlay network node discovery"
+ufw allow to ${node_ip} port 4789 comment "overlay network traffic"
 ufw enable
