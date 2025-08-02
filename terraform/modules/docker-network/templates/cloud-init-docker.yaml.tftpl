@@ -1,7 +1,7 @@
 #cloud-config
 users:
   - name: ${admin_user}
-    groups: users, admin, microk8s
+    groups: users, admin
     sudo: ALL=(ALL) NOPASSWD:ALL
     shell: /bin/bash
     ssh_authorized_keys:
