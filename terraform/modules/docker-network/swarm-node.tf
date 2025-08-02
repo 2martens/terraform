@@ -78,6 +78,7 @@ resource "hcloud_server" "node" {
     packages_setup : base64encode(file("${path.module}/templates/scripts/install-packages.sh"))
     firewall_setup : base64encode(templatefile("${path.module}/templates/scripts/firewall-setup.sh.tftpl", {
       node_ip : var.private_node_ips[count.index]
+      main_node : count.index == 0
     }))
     ssh_setup : base64encode(templatefile("${path.module}/templates/scripts/ssh-setup.sh.tftpl", {
       admin_user : var.admin_user
