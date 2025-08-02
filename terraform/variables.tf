@@ -49,6 +49,11 @@ variable "terraform_public_ssh_key" {
   type        = string
 }
 
+variable "github_public_ssh_key" {
+  description = "Public SSH key for the private key used by GitHub Actions to connect with remote machines"
+  type        = string
+}
+
 variable "vault_client_id" {
   description = "Client ID of the service principal used to access Hashicorp Cloud"
   type        = string

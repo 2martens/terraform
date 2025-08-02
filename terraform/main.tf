@@ -135,6 +135,7 @@ module "test_swarm_cluster" {
   admin_user                = "2martensAdmin"
   terraform_public_ssh_key  = var.terraform_public_ssh_key
   terraform_private_ssh_key = var.terraform_private_ssh_key
+  github_public_ssh_key     = var.github_public_ssh_key
   basic_firewall_id         = hcloud_firewall.basic-firewall.id
   domain                    = local.domain
   locations = [

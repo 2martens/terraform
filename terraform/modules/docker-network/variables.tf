@@ -23,6 +23,11 @@ variable "terraform_public_ssh_key" {
   type        = string
 }
 
+variable "github_public_ssh_key" {
+  description = "Public SSH key for the private key used by GitHub Actions to connect with remote machines"
+  type        = string
+}
+
 variable "locations" {
   description = "Locations in which the resources should be created. Singular resources will always be created in the first. Must be all in the same network zone."
   type = list(object({

@@ -11,6 +11,10 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     ssh_authorized_keys:
       - ${terraform_public_ssh_key}
+  - name: github
+    groups: users, docker
+    ssh_authorized_keys:
+      - ${github_public_ssh_key}
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
