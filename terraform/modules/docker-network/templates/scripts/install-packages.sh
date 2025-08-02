@@ -21,3 +21,5 @@ apt-get -y install ufw
 
 curl https://packages.hetzner.com/hcloud/deb/hc-utils_0.0.4-1_all.deb -o /run/tmpfiles.d/hc-utils_0.0.4-1_all.deb -s
 apt-get -y install /run/tmpfiles.d/hc-utils_0.0.4-1_all.deb
+
+apt-get -y install certbot
