@@ -1,7 +1,11 @@
-output "nginx_server_ipv4_address" {
-  value = hcloud_server.nginx.ipv4_address
-}
-
-output "nginx_server_ipv6_address" {
-  value = hcloud_server.nginx.ipv6_address
+output "node_details" {
+  value = {
+    for idx, instance in hcloud_server.node :
+    "node-${idx}" => {
+      id      = instance.id
+      name    = instance.name
+      ipv4    = instance.ipv4_address
+      ipv6    = instance.ipv6_address
+    }
+  }
 }

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+%{ if main_node ~}
+docker swarm init --advertise-addr ${main_node_private_ip}
+docker network create --driver overlay --attachable internal_net
+%{ endif ~}

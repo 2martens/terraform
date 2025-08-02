@@ -48,13 +48,8 @@ variable "server_subnet_id" {
   type        = string
 }
 
-variable "private_nginx_vm_ip" {
-  description = "IP in the private network subnet for the VM containing Nginx"
-  type        = string
-}
-
-variable "private_worker_vm_ips" {
-  description = "One IP in the private network subnet for each VM without Nginx created."
+variable "private_node_ips" {
+  description = "One IP in the private network subnet for each Docker Swarm node created."
   type = list(string)
 }
 
@@ -74,8 +69,8 @@ variable "stage_name" {
   default     = "test"
 }
 
-variable "number_worker_vms" {
-  description = "Number of worker VMs in the docker network."
+variable "number_nodes" {
+  description = "Number of nodes in the docker swarm."
   type        = number
   default     = 0
 }
