@@ -58,11 +58,6 @@ variable "basic_firewall_id" {
   type        = number
 }
 
-variable "docker_firewall_id" {
-  description = "ID of the docker specific firewall"
-  type        = number
-}
-
 variable "stage_name" {
   description = "The name of the stage. For example test, qs, prod. Will be used for names and subdomains and must be unique within the Hetzner project (identified by API token)."
   type        = string

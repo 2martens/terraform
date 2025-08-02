@@ -40,7 +40,7 @@ module "test_cluster" {
       name            = data.hcloud_location.falkenstein.name,
       datacenter_name = data.hcloud_datacenter.falkenstein.name,
       network_zone    = data.hcloud_location.falkenstein.network_zone
-      }, {
+    }, {
       id              = data.hcloud_location.nuremberg.id,
       name            = data.hcloud_location.nuremberg.name,
       datacenter_name = data.hcloud_datacenter.nuremberg.name,
@@ -61,12 +61,12 @@ module "test_cluster" {
   server_type         = "cax21"
   image_name          = "ubuntu-22.04"
   create_loadbalancer = false
-  loadbalancer_ip     = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
+  loadbalancer_ip = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
   vault_service_principal = {
     client_id : var.vault_client_id
     client_secret : var.vault_client_secret
   }
-  vault_allowed_namespaces      = ["wahlrecht", "timetable", "hcloud", "routing"]
+  vault_allowed_namespaces = ["wahlrecht", "timetable", "hcloud", "routing"]
   hcloud_token_enabled          = false
   hcloud_token                  = var.hcloud_token
   thanos_enabled                = true
@@ -93,7 +93,7 @@ module "monitoring_cluster" {
       name            = data.hcloud_location.falkenstein.name,
       datacenter_name = data.hcloud_datacenter.falkenstein.name,
       network_zone    = data.hcloud_location.falkenstein.network_zone
-      }, {
+    }, {
       id              = data.hcloud_location.nuremberg.id,
       name            = data.hcloud_location.nuremberg.name,
       datacenter_name = data.hcloud_datacenter.nuremberg.name,
@@ -112,12 +112,12 @@ module "monitoring_cluster" {
   server_type         = "cax21"
   image_name          = "ubuntu-22.04"
   create_loadbalancer = false
-  loadbalancer_ip     = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
+  loadbalancer_ip = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 3)
   vault_service_principal = {
     client_id : var.vault_client_id
     client_secret : var.vault_client_secret
   }
-  vault_allowed_namespaces      = ["hcloud"]
+  vault_allowed_namespaces = ["hcloud"]
   hcloud_token_enabled          = false
   hcloud_token                  = var.hcloud_token
   thanos_enabled                = true
@@ -126,4 +126,37 @@ module "monitoring_cluster" {
   aws_secret_key                = var.aws_secret_key
   argocd_keycloak_client_secret = var.argocd_monitoring_keycloak_client_secret
   argocd_domain                 = "argocd.k8s.monitoring.2martens.de"
+}
+
+module "test_swarm_cluster" {
+  source = "./modules/docker-network"
+
+  admin_ssh_key             = data.hcloud_ssh_key.macos
+  admin_user                = "2martensAdmin"
+  terraform_public_ssh_key  = var.terraform_public_ssh_key
+  terraform_private_ssh_key = var.terraform_private_ssh_key
+  basic_firewall_id         = hcloud_firewall.basic-firewall.id
+  domain                    = local.domain
+  locations = [
+    {
+      id              = data.hcloud_location.falkenstein.id,
+      name            = data.hcloud_location.falkenstein.name,
+      datacenter_name = data.hcloud_datacenter.falkenstein.name,
+      network_zone    = data.hcloud_location.falkenstein.network_zone
+    }, {
+      id              = data.hcloud_location.nuremberg.id,
+      name            = data.hcloud_location.nuremberg.name,
+      datacenter_name = data.hcloud_datacenter.nuremberg.name,
+      network_zone    = data.hcloud_location.nuremberg.network_zone
+    }
+  ]
+  network_id = hcloud_network.kubernetes-network.id
+  private_node_ips = [
+    cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 10),
+    cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 11),
+    cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 12)
+  ]
+  server_subnet_id = hcloud_network_subnet.k8s-network-subnet.id
+  stage_name       = local.test_cluster
+  number_nodes     = 2
 }
