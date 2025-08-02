@@ -70,7 +70,7 @@ resource "hcloud_server" "node" {
     "swarm" : "yes"
   }
 
-  user_data = templatefile("cloud-init-docker.yaml.tftpl", {
+  user_data = templatefile("${path.module}/templates/cloud-init-docker.yaml.tftpl", {
     admin_public_ssh_key : format("%s %s", var.admin_ssh_key.public_key, var.admin_ssh_key.name)
     admin_user : var.admin_user
     terraform_public_ssh_key : var.terraform_public_ssh_key
