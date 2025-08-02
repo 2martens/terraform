@@ -47,6 +47,11 @@ write_files:
     path: /run/tmpfiles.d/swarm-setup.sh
     encoding: base64
     defer: true
+  - owner: root:root
+    content: "0 3 * * 1 root certbot renew --quiet --deploy-hook \"docker service update --force nginx-deploy\"\n"
+    path: /etc/cron.d/certbot-renew
+    encoding: base64
+    defer: true
 %{ endif ~}
 runcmd:
   - install /run/tmpfiles.d/*.sh /usr/local/bin
