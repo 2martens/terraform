@@ -30,7 +30,7 @@ resource "hcloud_rdns" "ipv6_node" {
   count = var.number_nodes
 
   primary_ip_id = hcloud_primary_ip.ipv6_node_address[count.index].id
-  ip_address    = hcloud_server.node[count.index].ipv6_address
+  ip_address    = hcloud_primary_ip.ipv6_node_address[count.index].ip_address
   dns_ptr = format("%s-%d.%s", "node", count.index, local.docker_network_domain)
 }
 

@@ -17,6 +17,22 @@ resource "hcloud_load_balancer_network" "private" {
   ip               = var.loadbalancer_ip
 }
 
+resource "hcloud_rdns" "ipv4_load_balancer" {
+  count = var.number_nodes > 1 ? 1 : 0
+
+  load_balancer_id = hcloud_load_balancer.docker[count.index].id
+  ip_address       = hcloud_load_balancer.docker[count.index].ipv4
+  dns_ptr          = local.docker_network_domain
+}
+
+resource "hcloud_rdns" "ipv6_load_balancer" {
+  count = var.number_nodes > 1 ? 1 : 0
+
+  load_balancer_id = hcloud_load_balancer.docker[count.index].id
+  ip_address       = hcloud_load_balancer.docker[count.index].ipv6
+  dns_ptr          = local.docker_network_domain
+}
+
 resource "hcloud_load_balancer_target" "nodes" {
   count = var.number_nodes > 1 ? var.number_nodes : 0
 
