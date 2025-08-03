@@ -38,7 +38,6 @@ resource "hcloud_load_balancer_service" "http" {
   http {
     sticky_sessions = true
     cookie_name     = "selected_node_for_session"
-    cookie_ttl      = 3600
   }
 }
 
@@ -53,6 +52,5 @@ resource "hcloud_load_balancer_service" "https" {
   http {
     sticky_sessions = true
     cookie_name     = "selected_node_for_session"
-    cookie_ttl      = 3600
   }
 }
