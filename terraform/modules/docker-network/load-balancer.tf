@@ -7,6 +7,12 @@ resource "hcloud_load_balancer" "docker" {
   algorithm {
     type = "round_robin"
   }
+
+  labels = {
+    "docker" : "yes",
+    "swarm" : "yes",
+    "loadbalancer" : "yes"
+  }
 }
 
 resource "hcloud_load_balancer_network" "private" {
