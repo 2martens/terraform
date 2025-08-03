@@ -4,10 +4,10 @@ printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/
 systemctl enable fail2ban
 
 ufw allow OpenSSH
+%{if manager_node ~}
 ufw allow 80 comment HTTP
 ufw allow 443 comment HTTPS
 
-%{if main_node ~}
 ufw allow to ${node_ip} port 2377 proto tcp comment "Swarm join port and communication between manager nodes"
 %{endif ~}
 ufw allow to ${node_ip} port 7946 comment "overlay network node discovery"

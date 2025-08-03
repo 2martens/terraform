@@ -50,7 +50,7 @@ resource "hcloud_server" "worker" {
   ignore_remote_firewall_ids = false
   keep_disk                  = false
   placement_group_id         = data.hcloud_placement_group.default.id
-  firewall_ids               = [var.basic_firewall_id, var.k8s_firewall_id]
+  firewall_ids               = [var.basic_firewall_id, var.http_firewall_id, var.k8s_firewall_id]
   ssh_keys                   = [var.admin_ssh_key.id]
   shutdown_before_deletion   = true
 

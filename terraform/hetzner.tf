@@ -34,6 +34,20 @@ resource "hcloud_firewall" "basic-firewall" {
 
   rule {
     direction   = "in"
+    protocol    = "icmp"
+    description = "allow ICMP"
+    source_ips = [
+      "0.0.0.0/0",
+      "::/0",
+    ]
+  }
+}
+
+resource "hcloud_firewall" "http-firewall" {
+  name = "http-firewall"
+
+  rule {
+    direction   = "in"
     protocol    = "tcp"
     port        = "80"
     description = "allow HTTP"
@@ -48,16 +62,6 @@ resource "hcloud_firewall" "basic-firewall" {
     protocol    = "tcp"
     port        = "443"
     description = "allow HTTPS"
-    source_ips = [
-      "0.0.0.0/0",
-      "::/0",
-    ]
-  }
-
-  rule {
-    direction   = "in"
-    protocol    = "icmp"
-    description = "allow ICMP"
     source_ips = [
       "0.0.0.0/0",
       "::/0",

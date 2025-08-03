@@ -61,16 +61,17 @@ resource "hcloud_server" "node" {
   ignore_remote_firewall_ids = false
   keep_disk                  = false
   placement_group_id         = data.hcloud_placement_group.default.id
-  firewall_ids = [var.basic_firewall_id]
+  firewall_ids = [var.basic_firewall_id, var.http_firewall_id]
   ssh_keys = [var.admin_ssh_key.id]
   shutdown_before_deletion   = true
 
   labels = {
     "docker" : "yes",
-    "swarm" : "yes"
+    "swarm" : "yes",
+    "manager" : "yes"
   }
 
-  user_data = templatefile("${path.module}/templates/cloud-init-docker.yaml.tftpl", {
+  user_data = templatefile("${path.module}/templates/cloud-init-manager-node.yaml.tftpl", {
     admin_public_ssh_key : format("%s %s", var.admin_ssh_key.public_key, var.admin_ssh_key.name)
     admin_user : var.admin_user
     terraform_public_ssh_key : var.terraform_public_ssh_key
@@ -79,16 +80,18 @@ resource "hcloud_server" "node" {
     packages_setup : base64encode(file("${path.module}/templates/scripts/install-packages.sh"))
     firewall_setup : base64encode(templatefile("${path.module}/templates/scripts/firewall-setup.sh.tftpl", {
       node_ip : var.private_node_ips[count.index]
-      main_node : count.index == 0
+      manager_node : true
     }))
     ssh_setup : base64encode(templatefile("${path.module}/templates/scripts/ssh-setup.sh.tftpl", {
       admin_user : var.admin_user
+      manager_node : true
     }))
     sysctl_setup : base64encode(file("${path.module}/templates/scripts/sysctl-setup.sh"))
     swarm_setup : base64encode(templatefile("${path.module}/templates/scripts/swarm-setup.sh.tftpl", {
       main_node : count.index == 0
       main_node_private_ip : var.private_node_ips[0]
     }))
+    certbot_setup : base64encode(file("${path.module}/templates/scripts/certbot-setup.sh"))
   })
 
   network {

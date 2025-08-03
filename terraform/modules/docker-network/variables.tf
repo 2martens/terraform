@@ -12,12 +12,6 @@ variable "admin_user" {
   type        = string
 }
 
-variable "terraform_private_ssh_key" {
-  description = "Private SSH key to be used by Terraform to connect with remote machines"
-  type        = string
-  sensitive   = true
-}
-
 variable "terraform_public_ssh_key" {
   description = "Public SSH key for the private key used by Terraform to connect with remote machines"
   type        = string
@@ -53,13 +47,36 @@ variable "server_subnet_id" {
   type        = string
 }
 
+variable "loadbalancer_type" {
+  description = "Type of the loadbalancer used. By default lb11 is used."
+  type        = string
+  default     = "lb11"
+}
+
+variable "loadbalancer_ip" {
+  description = "The private IP of the loadbalancer. Variable contains valid IP but must be overridden if more than one manager node is created."
+  type        = string
+  default     = "0.0.0.0"
+}
+
 variable "private_node_ips" {
-  description = "One IP in the private network subnet for each Docker Swarm node created."
+  description = "One IP in the private network subnet for each Docker Swarm manager node created."
   type = list(string)
+}
+
+variable "private_worker_node_ips" {
+  description = "One IP in the private network subnet for each Docker Swarm worker node created."
+  type = list(string)
+  default = []
 }
 
 variable "basic_firewall_id" {
   description = "ID of the basic firewall for each server"
+  type        = number
+}
+
+variable "http_firewall_id" {
+  description = "ID of the http firewall for each server"
   type        = number
 }
 
@@ -70,7 +87,13 @@ variable "stage_name" {
 }
 
 variable "number_nodes" {
-  description = "Number of nodes in the docker swarm."
+  description = "Number of manager nodes in the docker swarm."
+  type        = number
+  default     = 3
+}
+
+variable "number_worker_nodes" {
+  description = "Number of worker nodes in the docker swarm."
   type        = number
   default     = 0
 }

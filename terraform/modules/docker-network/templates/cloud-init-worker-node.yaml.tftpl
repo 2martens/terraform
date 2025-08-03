@@ -13,10 +13,6 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     ssh_authorized_keys:
       - ${terraform_public_ssh_key}
-  - name: github
-    groups: users, docker
-    ssh_authorized_keys:
-      - ${github_public_ssh_key}
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
@@ -41,19 +37,9 @@ write_files:
     path: /run/tmpfiles.d/sysctl-setup.sh
     encoding: base64
     defer: true
-%{ if main_node ~}
-  - owner: root:root
-    content: "${swarm_setup}"
-    path: /run/tmpfiles.d/swarm-setup.sh
-    encoding: base64
-    defer: true
-%{ endif ~}
 runcmd:
   - install /run/tmpfiles.d/*.sh /usr/local/bin
   - /usr/local/bin/install-packages.sh
   - /usr/local/bin/firewall-setup.sh
   - /usr/local/bin/ssh-setup.sh
   - /usr/local/bin/sysctl-setup.sh
-%{ if main_node ~}
-  - /usr/local/bin/swarm-setup.sh
-%{ endif ~}

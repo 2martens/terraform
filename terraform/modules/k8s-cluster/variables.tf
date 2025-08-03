@@ -69,6 +69,11 @@ variable "basic_firewall_id" {
   type        = number
 }
 
+variable "http_firewall_id" {
+  description = "ID of the http firewall for each server"
+  type        = number
+}
+
 variable "k8s_firewall_id" {
   description = "ID of the K8s specific firewall"
   type        = number
