@@ -23,7 +23,7 @@ resource "hcloud_load_balancer_target" "nodes" {
   type             = "server"
   load_balancer_id = hcloud_load_balancer.docker[0].id
   server_id        = hcloud_server.node[count.index].id
-  use_private_ip   = true
+  use_private_ip   = false
 }
 
 resource "hcloud_load_balancer_service" "http" {
