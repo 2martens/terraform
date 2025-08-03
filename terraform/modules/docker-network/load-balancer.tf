@@ -30,26 +30,16 @@ resource "hcloud_load_balancer_service" "http" {
   count = var.number_nodes > 1 ? 1 : 0
 
   load_balancer_id = hcloud_load_balancer.docker[count.index].id
-  protocol         = "http"
+  protocol         = "tcp"
   listen_port      = 80
   destination_port = 80
-
-  http {
-    sticky_sessions = true
-    cookie_name     = "selected_node_for_session"
-  }
 }
 
 resource "hcloud_load_balancer_service" "https" {
   count = var.number_nodes > 1 ? 1 : 0
 
   load_balancer_id = hcloud_load_balancer.docker[count.index].id
-  protocol         = "https"
+  protocol         = "tcp"
   listen_port      = 443
   destination_port = 443
-
-  http {
-    sticky_sessions = true
-    cookie_name     = "selected_node_for_session"
-  }
 }
