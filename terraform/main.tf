@@ -162,5 +162,4 @@ module "test_swarm_cluster" {
   server_subnet_id = hcloud_network_subnet.k8s-network-subnet.id
   stage_name       = local.test_cluster
   number_nodes     = 3
-  loadbalancer_ip = cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 1)
 }

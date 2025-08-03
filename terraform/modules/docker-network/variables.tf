@@ -53,12 +53,6 @@ variable "loadbalancer_type" {
   default     = "lb11"
 }
 
-variable "loadbalancer_ip" {
-  description = "The private IP of the loadbalancer. Variable contains valid IP but must be overridden if more than one manager node is created."
-  type        = string
-  default     = "0.0.0.0"
-}
-
 variable "private_node_ips" {
   description = "One IP in the private network subnet for each Docker Swarm manager node created."
   type = list(string)

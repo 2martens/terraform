@@ -15,14 +15,6 @@ resource "hcloud_load_balancer" "docker" {
   }
 }
 
-resource "hcloud_load_balancer_network" "private" {
-  count = var.number_nodes > 1 ? 1 : 0
-
-  load_balancer_id = hcloud_load_balancer.docker[count.index].id
-  subnet_id        = var.server_subnet_id
-  ip               = var.loadbalancer_ip
-}
-
 resource "hcloud_rdns" "ipv4_load_balancer" {
   count = var.number_nodes > 1 ? 1 : 0
 
