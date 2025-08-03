@@ -2,7 +2,7 @@ resource "hcloud_primary_ip" "ipv4_worker_node_address" {
   count = var.number_worker_nodes
 
   name = format("%s_%s_%s_%s_%d", "docker", "worker", var.stage_name, "ipv4", count.index)
-  datacenter    = var.locations[count.index].datacenter_name
+  datacenter    = element(var.locations.*.datacenter_name, count.index)
   type          = "ipv4"
   assignee_type = "server"
   auto_delete   = false
@@ -20,7 +20,7 @@ resource "hcloud_primary_ip" "ipv6_worker_node_address" {
   count = var.number_worker_nodes
 
   name = format("%s_%s_%s_%s_%d", "docker", "worker", var.stage_name, "ipv6", count.index)
-  datacenter    = var.locations[count.index].datacenter_name
+  datacenter    = element(var.locations.*.datacenter_name, count.index)
   type          = "ipv6"
   assignee_type = "server"
   auto_delete   = false
@@ -49,7 +49,7 @@ resource "hcloud_server" "worker_node" {
   image                   = var.image_name
   allow_deprecated_images = false
   server_type             = var.server_type
-  location                = var.locations[count.index].name
+  location                = element(var.locations.*.name, count.index)
 
   public_net {
     ipv4_enabled = true

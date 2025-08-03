@@ -3,8 +3,8 @@ resource "hcloud_load_balancer" "docker" {
 
   load_balancer_type = var.loadbalancer_type
   name = format("%s_%s", "docker", var.stage_name)
-  location           = var.locations[count.index].name
-  network_zone       = var.locations[count.index].network_zone
+  location           = element(var.locations.*.name, count.index)
+  network_zone       = element(var.locations.*.network_zone, count.index)
   algorithm {
     type = "round_robin"
   }
