@@ -75,7 +75,9 @@ resource "hcloud_server" "worker_node" {
     admin_public_ssh_key : format("%s %s", var.admin_ssh_key.public_key, var.admin_ssh_key.name)
     admin_user : var.admin_user
     terraform_public_ssh_key : var.terraform_public_ssh_key
-    packages_setup : base64encode(file("${path.module}/templates/scripts/install-packages.sh"))
+    packages_setup : base64encode(templatefile("${path.module}/templates/scripts/install-packages.sh.tftpl", {
+      manager_node : false
+    }))
     firewall_setup : base64encode(templatefile("${path.module}/templates/scripts/firewall-setup.sh.tftpl", {
       node_ip : var.private_node_ips[count.index]
       manager_node : false

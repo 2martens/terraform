@@ -77,7 +77,9 @@ resource "hcloud_server" "node" {
     terraform_public_ssh_key : var.terraform_public_ssh_key
     github_public_ssh_key : var.github_public_ssh_key
     main_node : count.index == 0
-    packages_setup : base64encode(file("${path.module}/templates/scripts/install-packages.sh"))
+    packages_setup : base64encode(templatefile("${path.module}/templates/scripts/install-packages.sh.tftpl", {
+      manager_node : true
+    }))
     firewall_setup : base64encode(templatefile("${path.module}/templates/scripts/firewall-setup.sh.tftpl", {
       node_ip : var.private_node_ips[count.index]
       manager_node : true
