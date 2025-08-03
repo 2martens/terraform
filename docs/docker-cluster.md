@@ -27,3 +27,35 @@ Furthermore, all necessary ports for Docker swarm are opened on the private node
 The manager nodes will also receive a `github` user with the specified SSH key so that GitHub Actions can access the
 nodes to deploy applications within the swarm.
 
+To generate the certificates with LetsEncrypt, the certbot is installed on the first manager node.
+But you need to manually trigger the certificate request on the first manager node.
+
+First, however, the nginx needs to be deployed to the new swarm. Refer to this repository:
+https://github.com/2mnartens/cloud-configuration
+
+```bash
+sudo certbot certonly \
+  --webroot \
+  --webroot-path /var/www/certbot \
+  -d yourdomain.com 
+```
+
+This will create the certificates and place them in the directory `/etc/letsencrypt/live/yourdomain.com/` on 
+the first manager node.
+
+You should add a deploy-hook to the first manager node so that Nginx is restarted when the certificates are updated.
+This hook must be placed in the `/etc/letsencrypt/renewal-hooks/deploy` directory on the first manager node.
+It can look like this:
+
+```bash
+#!/bin/bash
+docker service update --force nginx_nginx-proxy
+```
+
+This assumes the configuration from the other repository.
+
+## Not yet solved
+
+The certificates are only available on the first manager node. All other Nginx containers will only run with
+self-signed certificates. This will lead to problems once the domain is targeting the load balancer and a request
+ends up on the "wrong" node.
