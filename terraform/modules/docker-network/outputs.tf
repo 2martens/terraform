@@ -21,3 +21,10 @@ output "worker_node_details" {
     }
   }
 }
+
+output "loadbalancer_details" {
+  value = {
+    ipv4 = hcloud_load_balancer.docker.ipv4
+    ipv6 = hcloud_load_balancer.docker.ipv6
+  }
+}
