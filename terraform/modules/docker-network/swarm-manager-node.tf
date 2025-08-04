@@ -98,7 +98,7 @@ resource "hcloud_server" "node" {
       certsync_private_ssh_key : var.certsync_private_ssh_key
     }))
     certsync_setup : base64encode(templatefile("${path.module}/templates/scripts/certsync-setup.sh.tftpl", {
-
+      manager_nodes: slice(var.private_node_ips, 1, var.number_nodes)
     }))
     certsync : base64encode(templatefile("${path.module}/templates/scripts/certsync.sh.tftpl", {
       manager_nodes: slice(var.private_node_ips, 1, var.number_nodes)

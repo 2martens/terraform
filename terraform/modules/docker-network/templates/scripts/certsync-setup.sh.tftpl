@@ -2,3 +2,6 @@
 
 ln /usr/local/bin/certsync.sh /etc/letsencrypt/renewal-hooks/deploy/certsync.sh
 chmod +x /etc/letsencrypt/renewal-hooks/deploy/certsync.sh
+%{for manager_node_ip in manager_nodes ~}
+su certsync -c ssh-keyscan -t ed25519 ${manager_node_ip} >> /home/certsync/.ssh/known_hosts
+%{endfor ~}
