@@ -17,6 +17,11 @@ users:
     groups: users, docker
     ssh_authorized_keys:
       - ${github_public_ssh_key}
+  - name: certsync
+    groups: users
+    sudo: ALL=(ALL) NOPASSWD:/usr/bin/rsync
+    ssh_authorized_keys:
+      - ${certsync_public_ssh_key}
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
@@ -52,6 +57,16 @@ write_files:
     path: /run/tmpfiles.d/swarm-setup.sh
     encoding: base64
     defer: true
+  - owner: root:root
+    content: "${certsync_setup}"
+    path: /run/tmpfiles.d/certsync-setup.sh
+    encoding: base64
+    defer: true
+  - owner: root:root
+    content: "${certsync}"
+    path: /run/tmpfiles.d/certsync.sh
+    encoding: base64
+    defer: true
 %{ endif ~}
 runcmd:
   - install /run/tmpfiles.d/*.sh /usr/local/bin
@@ -62,4 +77,5 @@ runcmd:
   - /usr/local/bin/sysctl-setup.sh
 %{ if main_node ~}
   - /usr/local/bin/swarm-setup.sh
+  - /usr/local/bin/certsync-setup.sh
 %{ endif ~}

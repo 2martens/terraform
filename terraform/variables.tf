@@ -54,6 +54,17 @@ variable "github_public_ssh_key" {
   type        = string
 }
 
+variable "certsync_public_ssh_key" {
+  description = "Public SSH key for the private key used by the main manager node to synchronize the certificates"
+  type        = string
+}
+
+variable "certsync_private_ssh_key" {
+  description = "Private SSH key for the private key used by the main manager node to synchronize the certificates"
+  type        = string
+  sensitive   = true
+}
+
 variable "vault_client_id" {
   description = "Client ID of the service principal used to access Hashicorp Cloud"
   type        = string

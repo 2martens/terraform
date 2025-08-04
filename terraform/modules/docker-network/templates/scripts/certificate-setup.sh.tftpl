@@ -1,4 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 mkdir -p /var/www/certbot
-ln -s /mnt/HC_Volume_${volume_id} /etc/letsencrypt
+mkdir -p /etc/letsencrypt/live
+chmod 700 /etc/letsencrypt/live
+
+echo ${certsync_private_ssh_key} > /home/certsync/.ssh/id_ed25519
+chmod 600 /home/certsync/.ssh/id_ed25519
+chown -R certsync:certsync /home/certsync/.ssh

@@ -8,7 +8,7 @@ sed -i -e '/^\(#\|\)AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/s
 sed -i -e '/^\(#\|\)AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
 sed -i -e '/^\(#\|\)AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
 %{if manager_node ~}
-sed -i '$a AllowUsers ${admin_user} terraform github' /etc/ssh/sshd_config
+sed -i '$a AllowUsers ${admin_user} terraform github certsync' /etc/ssh/sshd_config
 %{else ~}
 sed -i '$a AllowUsers ${admin_user} terraform' /etc/ssh/sshd_config
 %{endif ~}

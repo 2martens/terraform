@@ -42,26 +42,6 @@ resource "hcloud_server_network" "nginx_private" {
   ip        = var.private_node_ips[count.index]
 }
 
-resource "hcloud_volume" "certificates" {
-  name = format("%s_%s_%s", "docker", var.stage_name, "certificates")
-  location = element(var.locations.*.name, 0)
-  size = 10
-  labels = {
-    "docker" : "yes",
-    "swarm" : "yes",
-    "certificates" : "yes"
-  }
-  format = "ext4"
-}
-
-resource "hcloud_volume_attachment" "certificates" {
-  count = var.number_nodes
-
-  server_id = hcloud_server.node[count.index].id
-  volume_id = hcloud_volume.certificates.id
-  automount = true
-}
-
 resource "hcloud_server" "node" {
   count = var.number_nodes
 
@@ -96,6 +76,7 @@ resource "hcloud_server" "node" {
     admin_user : var.admin_user
     terraform_public_ssh_key : var.terraform_public_ssh_key
     github_public_ssh_key : var.github_public_ssh_key
+    certsync_public_ssh_key : var.certsync_public_ssh_key
     main_node : count.index == 0
     packages_setup : base64encode(templatefile("${path.module}/templates/scripts/install-packages.sh.tftpl", {
       main_node : count.index == 0
@@ -114,7 +95,13 @@ resource "hcloud_server" "node" {
       main_node_private_ip : var.private_node_ips[0]
     }))
     certificate_setup : base64encode(templatefile("${path.module}/templates/scripts/certificate-setup.sh.tftpl", {
-      volume_id : hcloud_volume.certificates.id
+      certsync_private_ssh_key : var.certsync_private_ssh_key
+    }))
+    certsync_setup : base64encode(templatefile("${path.module}/templates/scripts/certsync-setup.sh.tftpl", {
+
+    }))
+    certsync : base64encode(templatefile("${path.module}/templates/scripts/certsync.sh.tftpl", {
+      manager_nodes: slice(var.private_node_ips, 1, var.number_nodes)
     }))
   })
 

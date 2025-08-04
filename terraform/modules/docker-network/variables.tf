@@ -22,6 +22,17 @@ variable "github_public_ssh_key" {
   type        = string
 }
 
+variable "certsync_public_ssh_key" {
+  description = "Public SSH key for the private key used by the main manager node to synchronize the certificates"
+  type        = string
+}
+
+variable "certsync_private_ssh_key" {
+  description = "Public SSH key for the private key used by the main manager node to synchronize the certificates"
+  type        = string
+  sensitive   = true
+}
+
 variable "locations" {
   description = "Locations in which the resources should be created. Singular resources will always be created in the first. Must be all in the same network zone."
   type = list(object({

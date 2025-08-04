@@ -1,0 +1,7 @@
+#!/bin/sh
+
+%{for manager_node_ip in manager_nodes ~}
+rsync -azr -e "ssh -i /home/certsync/.ssh/id_ed25519" /etc/letsencrypt/live certsync@${manager_node_ip}:/home/certsync/
+ssh -i /home/certsync/.ssh/id_ed25519 certsync@${manager_node_ip} sudo rsync -azr /home/certsync/live /etc/letsencrypt/
+%{endfor ~}
+docker service update --force nginx_nginx-proxy
