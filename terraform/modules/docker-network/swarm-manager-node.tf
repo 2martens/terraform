@@ -113,7 +113,7 @@ resource "hcloud_server" "node" {
       main_node : count.index == 0
       main_node_private_ip : var.private_node_ips[0]
     }))
-    certificate_setup : base64encode(templatefile("${path.module}/templates/scripts/certificate-setup.sh", {
+    certificate_setup : base64encode(templatefile("${path.module}/templates/scripts/certificate-setup.sh.tftpl", {
       volume_id : hcloud_volume.certificates.id
     }))
   })
