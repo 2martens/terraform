@@ -19,7 +19,7 @@ users:
       - ${github_public_ssh_key}
   - name: certsync
     groups: users
-    sudo: ALL=(ALL) NOPASSWD:/usr/bin/rsync
+    sudo: ALL=(ALL) NOPASSWD:/usr/bin/rsync,/usr/bin/chown
     ssh_authorized_keys:
       - ${certsync_public_ssh_key}
 package_update: true

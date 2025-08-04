@@ -1,8 +1,10 @@
 #!/bin/sh
 
-rsync -avzr /etc/letsencrypt /home/certsync/letsencrypt
+rsync -azr /etc/letsencrypt /home/certsync/letsencrypt
+chown -R certsync:certsync /home/certsync/letsencrypt
 %{for manager_node_ip in manager_nodes ~}
-su -c "rsync -avzr /home/certsync/letsencrypt certsync@${manager_node_ip}:/home/certsync/" - certsync
-su -c "ssh certsync@${manager_node_ip} sudo rsync -avzr /home/certsync/letsencrypt /etc/letsencrypt" - certsync
+su -c "rsync -azr /home/certsync/letsencrypt certsync@${manager_node_ip}:/home/certsync/" - certsync
+su -c "ssh certsync@${manager_node_ip} sudo rsync -azr /home/certsync/letsencrypt/. /etc/letsencrypt"
+su -c "ssh certsync@${manager_node_ip} sudo chown -R root:root /etc/letsencrypt" - certsync
 %{endfor ~}
 docker service update --force nginx_nginx-proxy
