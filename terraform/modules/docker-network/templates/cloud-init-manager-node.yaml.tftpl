@@ -42,8 +42,8 @@ write_files:
     encoding: base64
     defer: true
   - owner: root:root
-    content: "${certbot_setup}"
-    path: /run/tmpfiles.d/certbot-setup.sh
+    content: "${certificate_setup}"
+    path: /run/tmpfiles.d/certificate-setup.sh
     encoding: base64
     defer: true
 %{ if main_node ~}
@@ -55,11 +55,11 @@ write_files:
 %{ endif ~}
 runcmd:
   - install /run/tmpfiles.d/*.sh /usr/local/bin
+  - /usr/local/bin/certificate-setup.sh
   - /usr/local/bin/install-packages.sh
   - /usr/local/bin/firewall-setup.sh
   - /usr/local/bin/ssh-setup.sh
   - /usr/local/bin/sysctl-setup.sh
-  - /usr/local/bin/certbot-setup.sh
 %{ if main_node ~}
   - /usr/local/bin/swarm-setup.sh
 %{ endif ~}
