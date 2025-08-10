@@ -63,6 +63,8 @@ resource "keycloak_openid_client" "account" {
   ]
   standard_flow_enabled               = true
   backchannel_logout_session_required = true
+  full_scope_allowed                  = false
+  use_refresh_tokens                  = false
 }
 
 resource "keycloak_role" "account_view_profile" {
