@@ -48,6 +48,29 @@ resource "keycloak_realm" "twomartens_realm" {
   }
 }
 
+resource "keycloak_openid_client" "account" {
+  realm_id    = keycloak_realm.twomartens_realm.id
+  client_id   = "account"
+  access_type = "PUBLIC"
+  name        = "$${client_account}"
+  root_url    = "$${authBaseUrl}"
+  base_url    = "/realms/twomartens/account/"
+  valid_redirect_uris = [
+    "/realms/twomartens/account/*"
+  ]
+  valid_post_logout_redirect_uris = [
+    "+"
+  ]
+  standard_flow_enabled               = true
+  backchannel_logout_session_required = true
+}
+
+resource "keycloak_role" "account_view_profile" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  client_id = keycloak_openid_client.account.id
+  name      = "view-profile"
+}
+
 resource "keycloak_oidc_identity_provider" "twomartens_github_identity_provider" {
   realm        = keycloak_realm.twomartens_realm.id
   alias        = "github"
@@ -145,11 +168,18 @@ resource "keycloak_openid_client" "twomartens_timetable_frontend" {
   full_scope_allowed    = false
 
   valid_redirect_uris = [
-    "http://localhost:8100/*"
+    "http://localhost:8100/*",
+    "https://timetable.2martens.de/*"
   ]
   web_origins = [
     "+"
   ]
+}
+
+resource "keycloak_generic_role_mapper" "timetable_frontend_view_profile" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+  role_id   = keycloak_role.account_view_profile.id
 }
 
 resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
