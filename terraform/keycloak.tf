@@ -160,14 +160,15 @@ resource "keycloak_openid_client" "twomartens_nextcloud" {
 }
 
 resource "keycloak_openid_client" "twomartens_timetable_frontend" {
-  realm_id              = keycloak_realm.twomartens_realm.id
-  name                  = "Timetable Frontend"
-  enabled               = true
-  access_type           = "PUBLIC"
-  client_id             = "tsw-timetable-frontend"
-  standard_flow_enabled = true
-  use_refresh_tokens    = false
-  full_scope_allowed    = false
+  realm_id                   = keycloak_realm.twomartens_realm.id
+  name                       = "Timetable Frontend"
+  enabled                    = true
+  access_type                = "PUBLIC"
+  client_id                  = "tsw-timetable-frontend"
+  standard_flow_enabled      = true
+  use_refresh_tokens         = false
+  full_scope_allowed         = false
+  pkce_code_challenge_method = "S256"
 
   valid_redirect_uris = [
     "http://localhost:8100/*",
