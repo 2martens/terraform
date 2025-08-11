@@ -186,14 +186,15 @@ resource "keycloak_generic_role_mapper" "timetable_frontend_view_profile" {
 }
 
 resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
-  realm_id              = keycloak_realm.twomartens_realm.id
-  name                  = "Wahlrecht Frontend"
-  enabled               = true
-  access_type           = "PUBLIC"
-  client_id             = "wahlrecht-frontend"
-  standard_flow_enabled = true
-  use_refresh_tokens    = false
-  full_scope_allowed    = false
+  realm_id                   = keycloak_realm.twomartens_realm.id
+  name                       = "Wahlrecht Frontend"
+  enabled                    = true
+  access_type                = "PUBLIC"
+  client_id                  = "wahlrecht-frontend"
+  standard_flow_enabled      = true
+  use_refresh_tokens         = false
+  full_scope_allowed         = false
+  pkce_code_challenge_method = "S256"
 
   valid_redirect_uris = [
     "http://localhost:4200/*",
