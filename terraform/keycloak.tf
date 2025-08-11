@@ -179,10 +179,34 @@ resource "keycloak_openid_client" "twomartens_timetable_frontend" {
   ]
 }
 
+resource "keycloak_role" "timetable_frontend_active_plan" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  name      = "ACTIVE_PLAN"
+  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+}
+
+resource "keycloak_role" "timetable_frontend_personal_plan" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  name      = "PERSONAL_PLAN"
+  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+}
+
 resource "keycloak_generic_role_mapper" "timetable_frontend_view_profile" {
   realm_id  = keycloak_realm.twomartens_realm.id
   client_id = keycloak_openid_client.twomartens_timetable_frontend.id
   role_id   = keycloak_role.account_view_profile.id
+}
+
+resource "keycloak_generic_role_mapper" "timetable_frontend_active_plan" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+  role_id   = keycloak_role.timetable_frontend_active_plan.id
+}
+
+resource "keycloak_generic_role_mapper" "timetable_frontend_personal_plan" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+  role_id   = keycloak_role.timetable_frontend_personal_plan.id
 }
 
 resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
@@ -203,18 +227,6 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
   web_origins = [
     "+"
   ]
-}
-
-resource "keycloak_role" "timetable_frontend_active_plan" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  name      = "ACTIVE_PLAN"
-  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
-}
-
-resource "keycloak_role" "timetable_frontend_personal_plan" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  name      = "PERSONAL_PLAN"
-  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
 }
 
 resource "keycloak_openid_client" "twomartens_wahlrecht_backend" {
