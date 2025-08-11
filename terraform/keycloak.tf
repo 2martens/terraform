@@ -205,6 +205,18 @@ resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
   ]
 }
 
+resource "keycloak_role" "timetable_frontend_active_plan" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  name      = "ACTIVE_PLAN"
+  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+}
+
+resource "keycloak_role" "timetable_frontend_personal_plan" {
+  realm_id  = keycloak_realm.twomartens_realm.id
+  name      = "PERSONAL_PLAN"
+  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+}
+
 resource "keycloak_openid_client" "twomartens_wahlrecht_backend" {
   realm_id              = keycloak_realm.twomartens_realm.id
   name                  = "Wahlrecht Backend"
