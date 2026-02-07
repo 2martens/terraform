@@ -22,3 +22,12 @@ module "nas_domain" {
   ipv4      = "31.19.63.181"
   ipv6      = "2a02:8108:c19:c400:9209:d0ff:fe70:7570"
 }
+
+module "cdn_domain" {
+  source             = "./modules/aws_cdn"
+  domain             = hcloud_zone.twomartens_de.name
+  subdomain          = "cdn"
+  cname_target       = "d1fvxyvcoii67h.cloudfront.net."
+  validation_key     = "_4741e2d9c8a605950eebfa048029e4ef"
+  validation_target = "_cf71e85bb40cc12717f2718e4590ad23.acm-validations.aws."
+}

@@ -6,6 +6,8 @@ resource "hcloud_zone_rrset" "a" {
   type = "A"
   ttl  = 3600
 
+  change_protection = true
+
   records = [
     { value = var.ipv4 }
   ]
@@ -18,6 +20,8 @@ resource "hcloud_zone_rrset" "aaaa" {
   name = var.subdomain != "" ? var.subdomain : "@"
   type = "AAAA"
   ttl  = 3600
+
+  change_protection = true
 
   records = [
     { value = var.ipv6 }
@@ -32,6 +36,8 @@ resource "hcloud_zone_rrset" "mx" {
   type = "MX"
   ttl  = 3600
 
+  change_protection = true
+
   records = [
     { value = format("%s %s.", var.mxPrio, var.hostName) }
   ]
@@ -45,8 +51,10 @@ resource "hcloud_zone_rrset" "txt" {
   type = "TXT"
   ttl  = 3600
 
+  change_protection = true
+
   records = [
-    for txtValue in var.txtValues:
+    for txtValue in var.txtValues :
     { value = provider::hcloud::txt_record(txtValue) }
   ]
 }
@@ -58,6 +66,8 @@ resource "hcloud_zone_rrset" "uberspace_domain_key" {
   name = var.subdomain != "" ? format("%s.%s", "uberspace._domainkey", var.subdomain) : "uberspace._domainkey"
   type = "TXT"
   ttl  = 3600
+
+  change_protection = true
 
   records = [
     { value = provider::hcloud::txt_record(var.uberspaceDomainKey) }
