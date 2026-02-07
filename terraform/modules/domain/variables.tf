@@ -1,9 +1,11 @@
 variable "ipv4" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "ipv6" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "domain" {
@@ -11,12 +13,18 @@ variable "domain" {
 }
 
 variable "subdomain" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "hasMXRecord" {
   type    = bool
   default = false
+}
+
+variable "hasIPRecords" {
+  type    = bool
+  default = true
 }
 
 variable "hostName" {
@@ -32,4 +40,9 @@ variable "mxPrio" {
 variable "txtValues" {
   type    = list(string)
   default = []
+}
+
+variable "uberspaceDomainKey" {
+  type    = string
+  default = ""
 }

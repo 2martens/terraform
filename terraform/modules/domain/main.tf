@@ -1,4 +1,6 @@
 resource "hcloud_zone_rrset" "a" {
+  count = var.hasIPRecords ? 1 : 0
+
   zone = var.domain
   name = var.subdomain != "" ? var.subdomain : "@"
   type = "A"
@@ -10,6 +12,8 @@ resource "hcloud_zone_rrset" "a" {
 }
 
 resource "hcloud_zone_rrset" "aaaa" {
+  count = var.hasIPRecords ? 1 : 0
+
   zone = var.domain
   name = var.subdomain != "" ? var.subdomain : "@"
   type = "AAAA"
@@ -44,5 +48,18 @@ resource "hcloud_zone_rrset" "txt" {
   records = [
     for txtValue in var.txtValues:
     { value = provider::hcloud::txt_record(txtValue) }
+  ]
+}
+
+resource "hcloud_zone_rrset" "uberspace_domain_key" {
+  count = var.uberspaceDomainKey != "" ? 1 : 0
+
+  zone = var.domain
+  name = var.subdomain != "" ? format("%s.%s", "uberspace._domainkey", var.subdomain) : "uberspace._domainkey"
+  type = "TXT"
+  ttl  = 3600
+
+  records = [
+    { value = provider::hcloud::txt_record(var.uberspaceDomainKey) }
   ]
 }
