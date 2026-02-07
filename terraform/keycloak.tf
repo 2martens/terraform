@@ -134,210 +134,210 @@ resource "keycloak_openid_client" "twomartens_gitea" {
   ]
 }
 
-resource "keycloak_openid_client" "twomartens_nextcloud" {
-  realm_id              = keycloak_realm.twomartens_realm.id
-  name                  = "cloud.2martens.de"
-  enabled               = true
-  access_type           = "CONFIDENTIAL"
-  client_id             = "nextcloud"
-  client_secret         = var.nextcloud_client_secret
-  standard_flow_enabled = true
-  use_refresh_tokens    = true
-  full_scope_allowed    = false
+# resource "keycloak_openid_client" "twomartens_nextcloud" {
+#   realm_id              = keycloak_realm.twomartens_realm.id
+#   name                  = "cloud.2martens.de"
+#   enabled               = true
+#   access_type           = "CONFIDENTIAL"
+#   client_id             = "nextcloud"
+#   client_secret         = var.nextcloud_client_secret
+#   standard_flow_enabled = true
+#   use_refresh_tokens    = true
+#   full_scope_allowed    = false
+#
+#
+#   consent_required = true
+#   base_url         = "https://cloud.2martens.de"
+#   valid_redirect_uris = [
+#     "https://cloud.2martens.de/index.php/apps/sociallogin/custom_oidc/keycloak"
+#   ]
+#   valid_post_logout_redirect_uris = [
+#     "https://cloud.2martens.de"
+#   ]
+#   web_origins = [
+#     "https://cloud.2martens.de/*"
+#   ]
+# }
 
+# resource "keycloak_openid_client" "twomartens_timetable_frontend" {
+#   realm_id                   = keycloak_realm.twomartens_realm.id
+#   name                       = "Timetable Frontend"
+#   enabled                    = true
+#   access_type                = "PUBLIC"
+#   client_id                  = "tsw-timetable-frontend"
+#   standard_flow_enabled      = true
+#   use_refresh_tokens         = false
+#   full_scope_allowed         = false
+#   pkce_code_challenge_method = "S256"
+#
+#   valid_redirect_uris = [
+#     "http://localhost:8100/*",
+#     "https://timetable.2martens.de/*"
+#   ]
+#   web_origins = [
+#     "+"
+#   ]
+# }
 
-  consent_required = true
-  base_url         = "https://cloud.2martens.de"
-  valid_redirect_uris = [
-    "https://cloud.2martens.de/index.php/apps/sociallogin/custom_oidc/keycloak"
-  ]
-  valid_post_logout_redirect_uris = [
-    "https://cloud.2martens.de"
-  ]
-  web_origins = [
-    "https://cloud.2martens.de/*"
-  ]
-}
+# resource "keycloak_role" "timetable_frontend_active_plan" {
+#   realm_id  = keycloak_realm.twomartens_realm.id
+#   name      = "ACTIVE_PLAN"
+#   client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+# }
+#
+# resource "keycloak_role" "timetable_frontend_personal_plan" {
+#   realm_id  = keycloak_realm.twomartens_realm.id
+#   name      = "PERSONAL_PLAN"
+#   client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+# }
+#
+# resource "keycloak_generic_role_mapper" "timetable_frontend_view_profile" {
+#   realm_id  = keycloak_realm.twomartens_realm.id
+#   client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+#   role_id   = keycloak_role.account_view_profile.id
+# }
+#
+# resource "keycloak_generic_role_mapper" "timetable_frontend_active_plan" {
+#   realm_id  = keycloak_realm.twomartens_realm.id
+#   client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+#   role_id   = keycloak_role.timetable_frontend_active_plan.id
+# }
+#
+# resource "keycloak_generic_role_mapper" "timetable_frontend_personal_plan" {
+#   realm_id  = keycloak_realm.twomartens_realm.id
+#   client_id = keycloak_openid_client.twomartens_timetable_frontend.id
+#   role_id   = keycloak_role.timetable_frontend_personal_plan.id
+# }
 
-resource "keycloak_openid_client" "twomartens_timetable_frontend" {
-  realm_id                   = keycloak_realm.twomartens_realm.id
-  name                       = "Timetable Frontend"
-  enabled                    = true
-  access_type                = "PUBLIC"
-  client_id                  = "tsw-timetable-frontend"
-  standard_flow_enabled      = true
-  use_refresh_tokens         = false
-  full_scope_allowed         = false
-  pkce_code_challenge_method = "S256"
-
-  valid_redirect_uris = [
-    "http://localhost:8100/*",
-    "https://timetable.2martens.de/*"
-  ]
-  web_origins = [
-    "+"
-  ]
-}
-
-resource "keycloak_role" "timetable_frontend_active_plan" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  name      = "ACTIVE_PLAN"
-  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
-}
-
-resource "keycloak_role" "timetable_frontend_personal_plan" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  name      = "PERSONAL_PLAN"
-  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
-}
-
-resource "keycloak_generic_role_mapper" "timetable_frontend_view_profile" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
-  role_id   = keycloak_role.account_view_profile.id
-}
-
-resource "keycloak_generic_role_mapper" "timetable_frontend_active_plan" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
-  role_id   = keycloak_role.timetable_frontend_active_plan.id
-}
-
-resource "keycloak_generic_role_mapper" "timetable_frontend_personal_plan" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  client_id = keycloak_openid_client.twomartens_timetable_frontend.id
-  role_id   = keycloak_role.timetable_frontend_personal_plan.id
-}
-
-resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
-  realm_id                   = keycloak_realm.twomartens_realm.id
-  name                       = "Wahlrecht Frontend"
-  enabled                    = true
-  access_type                = "PUBLIC"
-  client_id                  = "wahlrecht-frontend"
-  standard_flow_enabled      = true
-  use_refresh_tokens         = false
-  full_scope_allowed         = false
-  pkce_code_challenge_method = "S256"
-
-  valid_redirect_uris = [
-    "http://localhost:4200/*",
-    "https://wahlrecht.2martens.de/*"
-  ]
-  web_origins = [
-    "+"
-  ]
-}
-
-resource "keycloak_openid_client" "twomartens_wahlrecht_backend" {
-  realm_id              = keycloak_realm.twomartens_realm.id
-  name                  = "Wahlrecht Backend"
-  enabled               = true
-  access_type           = "CONFIDENTIAL"
-  client_id             = "wahlrecht"
-  standard_flow_enabled = true
-  use_refresh_tokens    = false
-  full_scope_allowed    = false
-
-  valid_redirect_uris = [
-    "http://localhost:12000/*",
-    "https://api.2martens.de/wahlrecht/*"
-  ]
-  web_origins = [
-    "+"
-  ]
-}
+# resource "keycloak_openid_client" "twomartens_wahlrecht_frontend" {
+#   realm_id                   = keycloak_realm.twomartens_realm.id
+#   name                       = "Wahlrecht Frontend"
+#   enabled                    = true
+#   access_type                = "PUBLIC"
+#   client_id                  = "wahlrecht-frontend"
+#   standard_flow_enabled      = true
+#   use_refresh_tokens         = false
+#   full_scope_allowed         = false
+#   pkce_code_challenge_method = "S256"
+#
+#   valid_redirect_uris = [
+#     "http://localhost:4200/*",
+#     "https://wahlrecht.2martens.de/*"
+#   ]
+#   web_origins = [
+#     "+"
+#   ]
+# }
+#
+# resource "keycloak_openid_client" "twomartens_wahlrecht_backend" {
+#   realm_id              = keycloak_realm.twomartens_realm.id
+#   name                  = "Wahlrecht Backend"
+#   enabled               = true
+#   access_type           = "CONFIDENTIAL"
+#   client_id             = "wahlrecht"
+#   standard_flow_enabled = true
+#   use_refresh_tokens    = false
+#   full_scope_allowed    = false
+#
+#   valid_redirect_uris = [
+#     "http://localhost:12000/*",
+#     "https://api.2martens.de/wahlrecht/*"
+#   ]
+#   web_origins = [
+#     "+"
+#   ]
+# }
 
 # from here ArgoCD
 
-resource "keycloak_group" "argocd_admins" {
-  realm_id = keycloak_realm.twomartens_realm.id
-  name     = "ArgoCDAdmins"
-}
-
-resource "keycloak_openid_client" "twomartens_argocd_test" {
-  realm_id              = keycloak_realm.twomartens_realm.id
-  name                  = "ArgoCD Test Cluster"
-  enabled               = true
-  access_type           = "CONFIDENTIAL"
-  client_id             = "argocd-test-oauth"
-  standard_flow_enabled = true
-  use_refresh_tokens    = false
-  full_scope_allowed    = false
-
-  valid_redirect_uris = [
-    "https://argocd.k8s.test.2martens.de/auth/callback"
-  ]
-  web_origins = [
-    "+"
-  ]
-}
-
-resource "keycloak_openid_client_optional_scopes" "argocd_test_optional_scopes" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  client_id = keycloak_openid_client.twomartens_argocd_test.id
-
-  optional_scopes = [
-    keycloak_openid_client_scope.groups_scope.name
-  ]
-}
-
-resource "keycloak_openid_client" "twomartens_argocd_monitoring" {
-  realm_id              = keycloak_realm.twomartens_realm.id
-  name                  = "ArgoCD Monitoring Cluster"
-  enabled               = true
-  access_type           = "CONFIDENTIAL"
-  client_id             = "argocd-monitoring-oauth"
-  standard_flow_enabled = true
-  use_refresh_tokens    = false
-  full_scope_allowed    = false
-
-  valid_redirect_uris = [
-    "https://argocd.k8s.monitoring.2martens.de/auth/callback"
-  ]
-  web_origins = [
-    "+"
-  ]
-}
-
-resource "keycloak_openid_client_optional_scopes" "argocd_monitoring_optional_scopes" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  client_id = keycloak_openid_client.twomartens_argocd_monitoring.id
-
-  optional_scopes = [
-    keycloak_openid_client_scope.groups_scope.name
-  ]
-}
-
-# from here Grafana
-
-resource "keycloak_openid_client" "twomartens_grafana_monitoring" {
-  realm_id                   = keycloak_realm.twomartens_realm.id
-  name                       = "Grafana Monitoring Cluster"
-  enabled                    = true
-  access_type                = "PUBLIC"
-  client_id                  = "grafana-oauth"
-  standard_flow_enabled      = true
-  use_refresh_tokens         = true
-  full_scope_allowed         = false
-  pkce_code_challenge_method = "S256"
-
-  valid_redirect_uris = [
-    "https://grafana.k8s.monitoring.2martens.de/login/generic_oauth"
-  ]
-  web_origins = [
-    "+"
-  ]
-}
-
-resource "keycloak_role" "grafana_admin" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  client_id = keycloak_openid_client.twomartens_grafana_monitoring.id
-  name      = "admin"
-}
-
-resource "keycloak_role" "grafana_editor" {
-  realm_id  = keycloak_realm.twomartens_realm.id
-  client_id = keycloak_openid_client.twomartens_grafana_monitoring.id
-  name      = "editor"
-}
+# resource "keycloak_group" "argocd_admins" {
+#   realm_id = keycloak_realm.twomartens_realm.id
+#   name     = "ArgoCDAdmins"
+# }
+#
+# resource "keycloak_openid_client" "twomartens_argocd_test" {
+#   realm_id              = keycloak_realm.twomartens_realm.id
+#   name                  = "ArgoCD Test Cluster"
+#   enabled               = true
+#   access_type           = "CONFIDENTIAL"
+#   client_id             = "argocd-test-oauth"
+#   standard_flow_enabled = true
+#   use_refresh_tokens    = false
+#   full_scope_allowed    = false
+#
+#   valid_redirect_uris = [
+#     "https://argocd.k8s.test.2martens.de/auth/callback"
+#   ]
+#   web_origins = [
+#     "+"
+#   ]
+# }
+#
+# resource "keycloak_openid_client_optional_scopes" "argocd_test_optional_scopes" {
+#   realm_id  = keycloak_realm.twomartens_realm.id
+#   client_id = keycloak_openid_client.twomartens_argocd_test.id
+#
+#   optional_scopes = [
+#     keycloak_openid_client_scope.groups_scope.name
+#   ]
+# }
+#
+# resource "keycloak_openid_client" "twomartens_argocd_monitoring" {
+#   realm_id              = keycloak_realm.twomartens_realm.id
+#   name                  = "ArgoCD Monitoring Cluster"
+#   enabled               = true
+#   access_type           = "CONFIDENTIAL"
+#   client_id             = "argocd-monitoring-oauth"
+#   standard_flow_enabled = true
+#   use_refresh_tokens    = false
+#   full_scope_allowed    = false
+#
+#   valid_redirect_uris = [
+#     "https://argocd.k8s.monitoring.2martens.de/auth/callback"
+#   ]
+#   web_origins = [
+#     "+"
+#   ]
+# }
+#
+# resource "keycloak_openid_client_optional_scopes" "argocd_monitoring_optional_scopes" {
+#   realm_id  = keycloak_realm.twomartens_realm.id
+#   client_id = keycloak_openid_client.twomartens_argocd_monitoring.id
+#
+#   optional_scopes = [
+#     keycloak_openid_client_scope.groups_scope.name
+#   ]
+# }
+#
+# # from here Grafana
+#
+# resource "keycloak_openid_client" "twomartens_grafana_monitoring" {
+#   realm_id                   = keycloak_realm.twomartens_realm.id
+#   name                       = "Grafana Monitoring Cluster"
+#   enabled                    = true
+#   access_type                = "PUBLIC"
+#   client_id                  = "grafana-oauth"
+#   standard_flow_enabled      = true
+#   use_refresh_tokens         = true
+#   full_scope_allowed         = false
+#   pkce_code_challenge_method = "S256"
+#
+#   valid_redirect_uris = [
+#     "https://grafana.k8s.monitoring.2martens.de/login/generic_oauth"
+#   ]
+#   web_origins = [
+#     "+"
+#   ]
+# }
+#
+# resource "keycloak_role" "grafana_admin" {
+#   realm_id  = keycloak_realm.twomartens_realm.id
+#   client_id = keycloak_openid_client.twomartens_grafana_monitoring.id
+#   name      = "admin"
+# }
+#
+# resource "keycloak_role" "grafana_editor" {
+#   realm_id  = keycloak_realm.twomartens_realm.id
+#   client_id = keycloak_openid_client.twomartens_grafana_monitoring.id
+#   name      = "editor"
+# }
