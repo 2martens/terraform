@@ -7,14 +7,14 @@
 #   })
 # }
 
-output "swarm_nodes" {
-  value = module.test_swarm_cluster.node_details
-}
-
-output "swarm_worker_nodes" {
-  value = module.test_swarm_cluster.worker_node_details
-}
-
-output "swarm_loadbalancer" {
-  value = module.test_swarm_cluster.loadbalancer_details
-}
+# output "swarm_nodes" {
+#   value = module.test_swarm_cluster.node_details
+# }
+#
+# output "swarm_worker_nodes" {
+#   value = module.test_swarm_cluster.worker_node_details
+# }
+#
+# output "swarm_loadbalancer" {
+#   value = module.test_swarm_cluster.loadbalancer_details
+# }
