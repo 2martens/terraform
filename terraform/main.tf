@@ -130,38 +130,38 @@ locals {
 #   argocd_domain                 = "argocd.k8s.monitoring.2martens.de"
 # }
 
-module "test_swarm_cluster" {
-  source = "./modules/docker-network"
-
-  admin_ssh_key            = data.hcloud_ssh_key.macos
-  admin_user               = "2martensAdmin"
-  terraform_public_ssh_key = var.terraform_public_ssh_key
-  github_public_ssh_key    = var.github_public_ssh_key
-  certsync_public_ssh_key  = var.certsync_public_ssh_key
-  certsync_private_ssh_key = var.certsync_private_ssh_key
-  basic_firewall_id        = hcloud_firewall.basic-firewall.id
-  http_firewall_id         = hcloud_firewall.http-firewall.id
-  domain                   = local.domain
-  locations = [
-    {
-      id              = data.hcloud_location.falkenstein.id,
-      name            = data.hcloud_location.falkenstein.name,
-      datacenter_name = data.hcloud_datacenter.falkenstein.name,
-      network_zone    = data.hcloud_location.falkenstein.network_zone
-      }, {
-      id              = data.hcloud_location.nuremberg.id,
-      name            = data.hcloud_location.nuremberg.name,
-      datacenter_name = data.hcloud_datacenter.nuremberg.name,
-      network_zone    = data.hcloud_location.nuremberg.network_zone
-    }
-  ]
-  network_id = hcloud_network.kubernetes-network.id
-  private_node_ips = [
-    cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 10),
-    cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 11),
-    cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 12)
-  ]
-  server_subnet_id = hcloud_network_subnet.k8s-network-subnet.id
-  stage_name       = local.test_cluster
-  number_nodes     = 3
-}
+# module "test_swarm_cluster" {
+#   source = "./modules/docker-network"
+#
+#   admin_ssh_key            = data.hcloud_ssh_key.macos
+#   admin_user               = "2martensAdmin"
+#   terraform_public_ssh_key = var.terraform_public_ssh_key
+#   github_public_ssh_key    = var.github_public_ssh_key
+#   certsync_public_ssh_key  = var.certsync_public_ssh_key
+#   certsync_private_ssh_key = var.certsync_private_ssh_key
+#   basic_firewall_id        = hcloud_firewall.basic-firewall.id
+#   http_firewall_id         = hcloud_firewall.http-firewall.id
+#   domain                   = local.domain
+#   locations = [
+#     {
+#       id              = data.hcloud_location.falkenstein.id,
+#       name            = data.hcloud_location.falkenstein.name,
+#       datacenter_name = data.hcloud_datacenter.falkenstein.name,
+#       network_zone    = data.hcloud_location.falkenstein.network_zone
+#       }, {
+#       id              = data.hcloud_location.nuremberg.id,
+#       name            = data.hcloud_location.nuremberg.name,
+#       datacenter_name = data.hcloud_datacenter.nuremberg.name,
+#       network_zone    = data.hcloud_location.nuremberg.network_zone
+#     }
+#   ]
+#   network_id = hcloud_network.kubernetes-network.id
+#   private_node_ips = [
+#     cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 10),
+#     cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 11),
+#     cidrhost(hcloud_network_subnet.k8s-network-subnet.ip_range, 12)
+#   ]
+#   server_subnet_id = hcloud_network_subnet.k8s-network-subnet.id
+#   stage_name       = local.test_cluster
+#   number_nodes     = 3
+# }
