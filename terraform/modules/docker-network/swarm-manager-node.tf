@@ -34,6 +34,32 @@ resource "hcloud_rdns" "ipv6_node" {
   dns_ptr = format("%s-%d.%s", "node", count.index, local.docker_network_domain)
 }
 
+resource "hcloud_zone_rrset" "a" {
+  count = var.number_nodes
+
+  zone = var.domain
+  name = format("%s-%d.%s", "node", count.index, local.docker_subdomain)
+  type = "A"
+  ttl  = 3600
+
+  records = [
+    { value = hcloud_primary_ip.ipv4_node_address[count.index].ip_address }
+  ]
+}
+
+resource "hcloud_zone_rrset" "aaaa" {
+  count = var.number_nodes
+
+  zone = var.domain
+  name = format("%s-%d.%s", "node", count.index, local.docker_subdomain)
+  type = "AAAA"
+  ttl  = 3600
+
+  records = [
+    { value = hcloud_primary_ip.ipv6_node_address[count.index].ip_address }
+  ]
+}
+
 resource "hcloud_server_network" "nginx_private" {
   count = var.number_nodes
 

@@ -4,4 +4,5 @@ data "hcloud_placement_group" "default" {
 
 locals {
   docker_network_domain = format("%s.%s.%s", "docker", var.stage_name, var.domain)
+  docker_subdomain = format("%s.%s", "docker", var.stage_name)
 }

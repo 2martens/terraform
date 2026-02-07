@@ -15,6 +15,32 @@ resource "hcloud_load_balancer" "docker" {
   }
 }
 
+resource "hcloud_zone_rrset" "a_load_balancer" {
+  count = var.number_nodes > 1 ? 1 : 0
+
+  zone = var.domain
+  name = local.docker_subdomain
+  type = "A"
+  ttl  = 3600
+
+  records = [
+    { value = hcloud_load_balancer.docker[count.index].ipv4 }
+  ]
+}
+
+resource "hcloud_zone_rrset" "aaaa_load_balancer" {
+  count = var.number_nodes > 1 ? 1 : 0
+
+  zone = var.domain
+  name = local.docker_subdomain
+  type = "AAAA"
+  ttl  = 3600
+
+  records = [
+    { value = hcloud_load_balancer.docker[count.index].ipv6 }
+  ]
+}
+
 resource "hcloud_rdns" "ipv4_load_balancer" {
   count = var.number_nodes > 1 ? 1 : 0
 

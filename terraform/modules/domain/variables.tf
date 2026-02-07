@@ -29,7 +29,7 @@ variable "mxPrio" {
   default = 0
 }
 
-variable "mxSpf" {
-  type    = string
-  default = ""
+variable "txtValues" {
+  type    = list(string)
+  default = []
 }
