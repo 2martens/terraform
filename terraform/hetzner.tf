@@ -6,18 +6,18 @@ data "hcloud_placement_group" "default" {
 
 // common resources
 
-resource "hcloud_network" "kubernetes-network" {
-  name              = "kubernetes"
-  ip_range          = "10.0.0.0/8"
-  delete_protection = true
-}
-
-resource "hcloud_network_subnet" "k8s-network-subnet" {
-  type         = "cloud"
-  network_id   = hcloud_network.kubernetes-network.id
-  network_zone = "eu-central"
-  ip_range     = "10.0.0.0/16"
-}
+# resource "hcloud_network" "kubernetes-network" {
+#   name              = "kubernetes"
+#   ip_range          = "10.0.0.0/8"
+#   delete_protection = true
+# }
+#
+# resource "hcloud_network_subnet" "k8s-network-subnet" {
+#   type         = "cloud"
+#   network_id   = hcloud_network.kubernetes-network.id
+#   network_zone = "eu-central"
+#   ip_range     = "10.0.0.0/16"
+# }
 
 resource "hcloud_firewall" "basic-firewall" {
   name = "basic-firewall"
