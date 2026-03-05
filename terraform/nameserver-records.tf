@@ -68,6 +68,17 @@ resource "hcloud_zone_rrset" "twomartens_de_proton_domainkey3" {
   ]
 }
 
+resource "hcloud_zone_rrset" "twomartens_de_dmarc" {
+  name = "_dmarc"
+  type = "TXT"
+  zone = hcloud_zone.twomartens_de.name
+  ttl  = 3600
+
+  records = [
+    { value = provider::hcloud::txt_record("v=DMARC1; p=quarantine") }
+  ]
+}
+
 module "cdn_domain" {
   source            = "./modules/aws_cdn"
   domain            = hcloud_zone.twomartens_de.name
