@@ -23,6 +23,17 @@ module "nas_domain" {
   ipv6      = "2a02:8108:c19:c400:9209:d0ff:fe70:7570"
 }
 
+module "at_proto_domain" {
+  source    = "./modules/domain"
+  domain    = hcloud_zone.twomartens_de.name
+  subdomain = "_atproto"
+  hasIPRecords = false
+  hasMXRecord = false
+  txtValues = [
+    "did=did:plc:dboupmredm5i3vktwci6nbip"
+  ]
+}
+
 module "cdn_domain" {
   source             = "./modules/aws_cdn"
   domain             = hcloud_zone.twomartens_de.name
