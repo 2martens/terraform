@@ -24,21 +24,55 @@ module "nas_domain" {
 }
 
 module "at_proto_domain" {
-  source    = "./modules/domain"
-  domain    = hcloud_zone.twomartens_de.name
-  subdomain = "_atproto"
+  source       = "./modules/domain"
+  domain       = hcloud_zone.twomartens_de.name
+  subdomain    = "_atproto"
   hasIPRecords = false
-  hasMXRecord = false
+  hasMXRecord  = false
   txtValues = [
     "did=did:plc:dboupmredm5i3vktwci6nbip"
   ]
 }
 
+resource "hcloud_zone_rrset" "twomartens_de_proton_domainkey" {
+  name = "protonmail._domainkey"
+  type = "CNAME"
+  zone = hcloud_zone.twomartens_de.name
+  ttl  = 3600
+
+  records = [
+    { value = "protonmail.domainkey.d7qwdnpxvruufupuqhrbyqevavmbiqof76ykxlmdzpmspplifzv5q.domains.proton.ch." }
+  ]
+}
+
+resource "hcloud_zone_rrset" "twomartens_de_proton_domainkey2" {
+  name = "protonmail2._domainkey"
+  type = "CNAME"
+  zone = hcloud_zone.twomartens_de.name
+  ttl  = 3600
+
+  records = [
+    { value = "protonmail2.domainkey.d7qwdnpxvruufupuqhrbyqevavmbiqof76ykxlmdzpmspplifzv5q.domains.proton.ch." }
+  ]
+}
+
+
+resource "hcloud_zone_rrset" "twomartens_de_proton_domainkey3" {
+  name = "protonmail3._domainkey"
+  type = "CNAME"
+  zone = hcloud_zone.twomartens_de.name
+  ttl  = 3600
+
+  records = [
+    { value = "protonmail3.domainkey.d7qwdnpxvruufupuqhrbyqevavmbiqof76ykxlmdzpmspplifzv5q.domains.proton.ch." }
+  ]
+}
+
 module "cdn_domain" {
-  source             = "./modules/aws_cdn"
-  domain             = hcloud_zone.twomartens_de.name
-  subdomain          = "cdn"
-  cname_target       = "d1fvxyvcoii67h.cloudfront.net."
-  validation_key     = "_4741e2d9c8a605950eebfa048029e4ef"
+  source            = "./modules/aws_cdn"
+  domain            = hcloud_zone.twomartens_de.name
+  subdomain         = "cdn"
+  cname_target      = "d1fvxyvcoii67h.cloudfront.net."
+  validation_key    = "_4741e2d9c8a605950eebfa048029e4ef"
   validation_target = "_cf71e85bb40cc12717f2718e4590ad23.acm-validations.aws."
 }
