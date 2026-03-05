@@ -60,7 +60,7 @@ module "personal_website_domain" {
   txtValues = [
     "openai-domain-verification=dv-EcR0SCNAnUYVquVZVgb21Wdt",
     "google-site-verification=nUFiHQFxBpBMdX96ELH3TcfyIfXf2ZlwMFYtXjVq5lo",
-    "v=spf1 include:spf.uberspace.de ~all",
+    "v=spf1 include:_spf.protonmail.ch include:spf.uberspace.de ~all",
     "protonmail-verification=7826a94332156f5f99864093635e7fe0af47487f"
   ]
   uberspaceDomainKey = "v=DKIM1;t=s;n=core;p=MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA3inJYRQRdWD0NQf9WRVcct8Z+GF74WYCK9Q9E/hl9qRSrqHLbm4AZ8gDWZDUQ7O0WbsQ4wcBa2SLB0znpW2UmVrp0iMhqGXVU5USWTHLgAPOVo9DKKbY5wCuugftQe99hvW1Z5BNhzvGUczknQHW/oZF/a7l1nwkYuAZ9YyzQY+sB8o3euuZ0QxaVde0UNDMGpjUO/Nd8MRZj1WBNNyy12ppKVskg7GzuVpulkskslM/mAWdTJ7HKZh1HHPjjGS2ttyDMGWU7/sxuenZ5Z46PvKWQ37djwEsXqXuqYrLI+QBoefolhisHNhHA9cwuUU3bq/+zXhLTN4bYZVPeV31mM6cguKJibPXg0HgYUImJ0A/sADYcd4q7ryZ/sAzCydPT4FDrx64apRPlaIhugSU1KCz+N+7UtCjrQaJLA8i/F4+krfZpfiYr5MJrI8jTAZFW9lzGL7NTVLe1yDf/9aJGc7R/TyI/c5uGFGUnu0C+AKC5KJCIf/I2hJ9ARRRzKe1RtmiTJMAxi8FqzRQoEQwfSDi+vGXtrUC4JCV2Zh7xgwmZV+lMiP5M6x3aOM7FI26WPx+7tdRlzWiYu7okS5ayAgu26EYoKjGuWWHGUuKSKNqjTy3oBunZv3LzdnhOAn4eOrE7+2qn8hiL8SLa9oGcUv1BI0KQmopIAY+BiaX6JkCAwEAAQ=="
