@@ -51,7 +51,7 @@ resource "hcloud_zone_rrset" "txt" {
   type = "TXT"
   ttl  = 3600
 
-  change_protection = true
+  change_protection = false
 
   records = [
     for txtValue in var.txtValues :
