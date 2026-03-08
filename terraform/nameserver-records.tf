@@ -79,6 +79,74 @@ resource "hcloud_zone_rrset" "twomartens_de_dmarc" {
   ]
 }
 
+resource "hcloud_zone_rrset" "alias_mx" {
+  zone = hcloud_zone.twomartens_de.name
+  name = "alias"
+  type = "MX"
+  ttl  = 3600
+
+  records = [
+    { value = format("%s %s.", 10, "mx1.alias.proton.me") },
+    { value = format("%s %s.", 20, "mx2.alias.proton.me") }
+  ]
+}
+
+resource "hcloud_zone_rrset" "alias_txt" {
+  zone = hcloud_zone.twomartens_de.name
+  name = "alias"
+  type = "TXT"
+  ttl  = 3600
+
+  records = [
+    { value = provider::hcloud::txt_record("pm-verification=xcouvgmuvrdhisbnndwobyxwusgeah") },
+    { value = provider::hcloud::txt_record("v=spf1 include:alias.proton.me ~all") },
+  ]
+}
+
+resource "hcloud_zone_rrset" "alias_dmarc" {
+  zone = hcloud_zone.twomartens_de.name
+  name = "_dmarc.alias"
+  type = "TXT"
+  ttl  = 3600
+
+  records = [
+    { value = provider::hcloud::txt_record("v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s") },
+  ]
+}
+
+resource "hcloud_zone_rrset" "alias_dkim1" {
+  zone = hcloud_zone.twomartens_de.name
+  name = "dkim._domainkey.alias"
+  type = "CNAME"
+  ttl  = 3600
+
+  records = [
+    { value = "dkim._domainkey.alias.proton.me." },
+  ]
+}
+
+resource "hcloud_zone_rrset" "alias_dkim2" {
+  zone = hcloud_zone.twomartens_de.name
+  name = "dkim02._domainkey.alias"
+  type = "CNAME"
+  ttl  = 3600
+
+  records = [
+    { value = "dkim02._domainkey.alias.proton.me." },
+  ]
+}
+
+resource "hcloud_zone_rrset" "alias_dkim3" {
+  zone = hcloud_zone.twomartens_de.name
+  name = "dkim03._domainkey.alias"
+  type = "CNAME"
+  ttl  = 3600
+
+  records = [
+    { value = "dkim03._domainkey.alias.proton.me." },
+  ]
+}
+
 module "cdn_domain" {
   source            = "./modules/aws_cdn"
   domain            = hcloud_zone.twomartens_de.name
