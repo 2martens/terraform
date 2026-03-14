@@ -65,7 +65,7 @@ module "personal_website_domain" {
     },
     {
     hostname : "howell.uberspace.de"
-    prio : 30
+    prio : 0
   }]
   txtValues = [
     "openai-domain-verification=dv-EcR0SCNAnUYVquVZVgb21Wdt",
