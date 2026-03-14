@@ -48,8 +48,8 @@ resource "inwx_domain" "twomartens_eu" {
     // references to terraform managed contact "example_person"
     registrant = inwx_domain_contact.admin.id
     admin      = inwx_domain_contact.admin.id
-    tech       = 1
-    billing    = 1
+    tech       = 0
+    billing    = 0
   }
   extra_data = {
     "EU-COUNTRY-OF-CITIZENSHIP" : "DE"
