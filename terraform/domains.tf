@@ -47,8 +47,8 @@ resource "inwx_domain" "twomartens_eu" {
   contacts {
     // references to terraform managed contact "example_person"
     registrant = inwx_domain_contact.admin.id
-    admin      = inwx_domain_contact.admin.id
-    tech       = 0
+    admin      = 0
+    tech       = 1
     billing    = 0
   }
   extra_data = {
