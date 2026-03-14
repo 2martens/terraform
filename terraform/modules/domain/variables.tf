@@ -17,24 +17,17 @@ variable "subdomain" {
   default = ""
 }
 
-variable "hasMXRecord" {
-  type    = bool
-  default = false
-}
-
 variable "hasIPRecords" {
   type    = bool
   default = true
 }
 
-variable "hostName" {
-  type    = string
-  default = ""
-}
-
-variable "mxPrio" {
-  type    = number
-  default = 0
+variable "mxRecords" {
+  type    = list(object({
+    hostname: string,
+    prio: number
+  }))
+  default = []
 }
 
 variable "txtValues" {

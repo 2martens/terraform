@@ -1,13 +1,14 @@
 // Identity management
 module "keycloak_domain" {
-  source             = "./modules/domain"
-  domain             = hcloud_zone.twomartens_de.name
-  subdomain          = "id"
-  ipv4               = "95.143.172.184"
-  ipv6               = "2001:1a50:11:0:98b3:92ff:fe3e:bba1"
-  hasMXRecord        = true
-  hostName           = "monoceres.uberspace.de"
-  mxPrio             = 0
+  source    = "./modules/domain"
+  domain    = hcloud_zone.twomartens_de.name
+  subdomain = "id"
+  ipv4      = "95.143.172.184"
+  ipv6      = "2001:1a50:11:0:98b3:92ff:fe3e:bba1"
+  mxRecords = [{
+    hostname : "monoceres.uberspace.de"
+    prio : 0
+  }]
   txtValues          = ["v=spf1 include:spf.uberspace.de ~all"]
   uberspaceDomainKey = "v=DKIM1;t=s;n=core;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqs3bFL8W77z7VJHCFbsJ3o68Y1uBbVsbIS1y35CMfRv6wp7si7aIG2ZeKqzdh2dTMsvtvSMaYVq1gT/EtRmTbU/BYC21ff8sqcVqn/ll5nNsk5jKWXTYAlTQp4LBQN7icw94ZNGr5/SDYcnv2nsBYFf2GUviObWXGHX4RaBFNj9NVUNWNin/HicvW+LsbfYq37QtlhjmUn9K96VCwKcTV1mx+Ek0osErYefcOVNawqWIlVRQDLkHZhk1StLsOpRqV+qEjhzTk4n4ZiNtLJG1D9CpHl24d5DKsQDyVFdEfqHimFTSNgiitlkuXg+i+NMiRA9G3gNJtvw8uvfN8f+stQIDAQAB"
 }
@@ -49,14 +50,15 @@ module "statping_domain" {
 
 // Personal Website
 module "personal_website_domain" {
-  source      = "./modules/domain"
-  domain      = hcloud_zone.twomartens_de.name
-  subdomain   = ""
-  ipv4        = "185.26.156.65"
-  ipv6        = "2a00:d0c0:200:0:b9:1a:9c:40"
-  hasMXRecord = true
-  hostName    = "howell.uberspace.de"
-  mxPrio      = 0
+  source    = "./modules/domain"
+  domain    = hcloud_zone.twomartens_de.name
+  subdomain = ""
+  ipv4      = "185.26.156.65"
+  ipv6      = "2a00:d0c0:200:0:b9:1a:9c:40"
+  mxRecords = [{
+    hostname : "howell.uberspace.de"
+    prio : 0
+  }]
   txtValues = [
     "openai-domain-verification=dv-EcR0SCNAnUYVquVZVgb21Wdt",
     "google-site-verification=nUFiHQFxBpBMdX96ELH3TcfyIfXf2ZlwMFYtXjVq5lo",
@@ -86,9 +88,10 @@ module "appreview_domain" {
   subdomain = "appreview"
 
   hasIPRecords = false
-  hasMXRecord  = true
-  hostName     = "wolf.uberspace.de"
-  mxPrio       = 0
+  mxRecords = [{
+    hostname : "wolf.uberspace.de"
+    prio : 0
+  }]
   txtValues = [
     "v=spf1 include:spf.uberspace.de ~all"
   ]

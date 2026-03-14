@@ -28,7 +28,6 @@ module "at_proto_domain" {
   domain       = hcloud_zone.twomartens_de.name
   subdomain    = "_atproto"
   hasIPRecords = false
-  hasMXRecord  = false
   txtValues = [
     "did=did:plc:dboupmredm5i3vktwci6nbip"
   ]

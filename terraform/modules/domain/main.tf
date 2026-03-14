@@ -29,17 +29,16 @@ resource "hcloud_zone_rrset" "aaaa" {
 }
 
 resource "hcloud_zone_rrset" "mx" {
-  count = var.hasMXRecord ? 1 : 0
+  count = length(var.mxRecords) > 0 ? 1: 0
 
   zone = var.domain
   name = var.subdomain != "" ? var.subdomain : "@"
   type = "MX"
   ttl  = 3600
 
-  change_protection = true
-
   records = [
-    { value = format("%s %s.", var.mxPrio, var.hostName) }
+    for record in var.mxRecords:
+    { value = format("%s %s.", record.prio, record.hostname) }
   ]
 }
 
