@@ -74,7 +74,7 @@ resource "hcloud_zone_rrset" "twomartens_de_dmarc" {
   ttl  = 3600
 
   records = [
-    { value = provider::hcloud::txt_record("v=DMARC1; p=quarantine") }
+    { value = provider::hcloud::txt_record("v=DMARC1; p=quarantine; rua=mailto:dmarc@alias.2martens.de") }
   ]
 }
 
@@ -109,7 +109,7 @@ resource "hcloud_zone_rrset" "alias_dmarc" {
   ttl  = 3600
 
   records = [
-    { value = provider::hcloud::txt_record("v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s") },
+    { value = provider::hcloud::txt_record("v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s; rua=mailto:dmarc@alias.2martens.de") },
   ]
 }
 
