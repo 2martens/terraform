@@ -64,10 +64,10 @@ module "personal_website_domain" {
       hostname: "mailsec.protonmail.ch"
       prio: 20
     },
-    # {
-    # hostname : "howell.uberspace.de"
-    # prio : 0
-    # }
+    {
+    hostname : "howell.uberspace.de"
+    prio : 30
+    }
   ]
   txtValues = [
     "openai-domain-verification=dv-EcR0SCNAnUYVquVZVgb21Wdt",
