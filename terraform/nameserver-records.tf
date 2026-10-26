@@ -146,7 +146,7 @@ resource "hcloud_zone_rrset" "alias_dkim3" {
   ]
 }
 
-resource "hcloud_zone_rrset" "caa_amazon" {
+resource "hcloud_zone_rrset" "caa_twomartens_de" {
   zone = hcloud_zone.twomartens_de.name
   name = "@"
   type = "CAA"
@@ -154,6 +154,7 @@ resource "hcloud_zone_rrset" "caa_amazon" {
 
   records = [
     { value = "0 issue amazon.com" },
+    { value = "0 issue letsencrypt.org" },
   ]
 }
 
