@@ -57,16 +57,16 @@ module "personal_website_domain" {
   ipv6      = "2a00:d0c0:200:0:b9:1a:9c:40"
   mxRecords = [
     {
-      hostname: "mail.protonmail.ch"
-      prio: 10
+      hostname : "mail.protonmail.ch"
+      prio : 10
     },
     {
-      hostname: "mailsec.protonmail.ch"
-      prio: 20
+      hostname : "mailsec.protonmail.ch"
+      prio : 20
     },
     {
-    hostname : "howell.uberspace.de"
-    prio : 30
+      hostname : "howell.uberspace.de"
+      prio : 30
     }
   ]
   txtValues = [

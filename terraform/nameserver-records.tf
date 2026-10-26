@@ -146,6 +146,17 @@ resource "hcloud_zone_rrset" "alias_dkim3" {
   ]
 }
 
+resource "hcloud_zone_rrset" "caa_amazon" {
+  zone = hcloud_zone.twomartens_de.name
+  name = "@"
+  type = "CAA"
+  ttl  = 3600
+
+  records = [
+    { value = "0 issue amazon.com" },
+  ]
+}
+
 module "cdn_domain" {
   source            = "./modules/aws_cdn"
   domain            = hcloud_zone.twomartens_de.name
