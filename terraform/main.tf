@@ -6,14 +6,6 @@ data "hcloud_location" "nuremberg" {
   name = "nbg1"
 }
 
-data "hcloud_datacenter" "falkenstein" {
-  name = "fsn1-dc14"
-}
-
-data "hcloud_datacenter" "nuremberg" {
-  name = "nbg1-dc3"
-}
-
 data "hcloud_ssh_key" "macos" {
   name = "2martens@Jims-Air.fritz.box"
 }
